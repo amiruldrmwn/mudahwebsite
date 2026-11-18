@@ -192,6 +192,10 @@ const sections = [
 
 // Kept in script: vue-tsc misreads "//" inside a static template attribute.
 const mapsPlaceholder = 'https://maps.app.goo.gl/...';
+const googlePlaceholder =
+    '<meta name="google-site-verification" content="..." />';
+const embedPlaceholder =
+    '<iframe src="https://www.google.com/maps/embed?pb=..."></iframe>';
 // "Tulis dengan AI": tagline, description and footer from a short story. Not saved until Simpan.
 const copyOpen = ref(false);
 const copyStory = ref('');
@@ -630,7 +634,7 @@ function submit(): void {
                             id="maps_embed"
                             v-model="form.maps_embed"
                             rows="2"
-                            placeholder='<iframe src="https://www.google.com/maps/embed?pb=..."></iframe>'
+                            :placeholder="embedPlaceholder"
                         />
                         <p class="text-xs text-muted-foreground">
                             Agar titik peta tepat: buka lokasi di Google Maps →
@@ -657,7 +661,7 @@ function submit(): void {
                     <Input
                         id="google_verification"
                         v-model="form.google_verification"
-                        placeholder='<meta name="google-site-verification" content="..." />'
+                        :placeholder="googlePlaceholder"
                     />
                     <p class="text-xs text-muted-foreground">
                         Pilih metode "Tag HTML" di Search Console, salin
