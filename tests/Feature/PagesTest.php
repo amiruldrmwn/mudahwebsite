@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Mail\NewContactMessage;
 use App\Models\Message;
 use App\Models\Page;
 use App\Models\User;
@@ -10,6 +11,7 @@ use App\Sections\SectionTypes;
 use App\Support\Site;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -53,6 +55,16 @@ class PagesTest extends TestCase
         ])->assertRedirect('/kontak')->assertSessionHas('contact_sent');
 
         $this->assertSame('Minta penawaran.', Message::sole()->body);
+    }
+
+    public function test_contact_form_emails_the_owner_with_reply_to_the_visitor()
+    {
+        Mail::fake();
+        app(Site::class)->put(['contact_email' => 'owner@maju.test']);
+
+        $this->post(route('contact.send'), ['name' => 'Andi', 'email' => 'andi@example.com', 'body' => 'Minta penawaran.']);
+
+        Mail::assertSent(NewContactMessage::class, fn (NewContactMessage $mail) => $mail->hasTo('owner@maju.test') && $mail->hasReplyTo('andi@example.com'));
     }
 
     public function test_contact_form_drops_bots()

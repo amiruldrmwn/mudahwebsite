@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewContactMessage;
 use App\Models\Message;
 use App\Models\Page;
 use App\Models\SiteVisit;
+use App\Models\User;
 use App\Sections\DefaultContent;
 use App\Sections\SectionTypes;
 use App\Support\Site;
@@ -12,7 +14,9 @@ use App\Support\Themes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Throwable;
 
 /**
  * The public website: pages, the contact form and the sitemap.
@@ -156,9 +160,31 @@ class SiteController extends Controller
             'body' => ['required', 'string', 'max:3000'],
         ], [], ['name' => 'nama', 'body' => 'pesan']);
 
-        Message::query()->create([...$data, 'ip' => $request->ip()]);
+        $message = Message::query()->create([...$data, 'ip' => $request->ip()]);
+
+        $this->notifyOwner($message);
 
         return back()->with('contact_sent', true);
+    }
+
+    /**
+     * Email the owner about a new message: to the site's contact email, else the admin's.
+     * A mail failure never stops the visitor's message from being kept.
+     */
+    private function notifyOwner(Message $message): void
+    {
+        $site = app(Site::class);
+        $to = $site->get('contact_email') ?: User::query()->value('email');
+
+        if (! is_string($to) || $to === '') {
+            return;
+        }
+
+        try {
+            Mail::to($to)->send(new NewContactMessage($message, (string) $site->get('site_name')));
+        } catch (Throwable $e) {
+            report($e);
+        }
     }
 
     public function sitemap(): Response
