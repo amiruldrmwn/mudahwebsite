@@ -76,6 +76,14 @@
                 <rect width="48" height="48" rx="12" style="fill: var(--brand)"/>
                 <path d="M18 11l-9 5 3 7 4-2v16h16V21l4 2 3-7-9-5c-1 3-3 4-6 4s-5-1-6-4z" style="fill: var(--on-brand)"/>
             </svg>
+        @elseif ($theme === 'mobil')
+            {{-- Car front in a shield. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="10" style="fill: var(--brand)"/>
+                <path d="M12 30v-5l4-8h16l4 8v5zM16 25h16l-2.5-5h-11z" style="fill: var(--on-brand)" fill-rule="evenodd"/>
+                <rect x="12" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
+                <rect x="31" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
+            </svg>
         @elseif ($theme === 'tambang')
             {{-- Mountain with a pickaxe peak. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">

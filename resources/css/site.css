@@ -2276,3 +2276,97 @@
 .theme-kaos .sec-alt {
     background: var(--surface-alt);
 }
+
+/* ---------- Mobil: dealer red and charcoal, condensed caps, phone dock ---------- */
+.theme-mobil {
+    --font-body: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.5rem;
+    --surface: #ffffff;
+    --surface-alt: #f3f4f6;
+    --line: #e5e7eb;
+    --ink: #141416;
+    --muted: #5b5f66;
+}
+
+.theme-mobil h1,
+.theme-mobil h2,
+.theme-mobil h3,
+.theme-mobil .sec-title {
+    font-weight: 800;
+}
+
+.theme-mobil .sec-title {
+    @apply text-4xl uppercase sm:text-5xl;
+}
+
+.theme-mobil .mobil-topbar {
+    background: #141416;
+    color: rgb(255 255 255 / 0.75);
+}
+
+.theme-mobil .mobil-badge {
+    display: inline-block;
+    background: var(--brand);
+    color: var(--on-brand);
+    @apply px-3 py-1 text-xs font-bold tracking-[0.2em] uppercase;
+}
+
+.theme-mobil .mobil-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brand);
+    color: var(--on-brand);
+    border-radius: 999px;
+    @apply size-5 text-xs font-bold;
+}
+
+.theme-mobil .mobil-stripe {
+    background: linear-gradient(
+        115deg,
+        transparent 0 35%,
+        var(--brand) 35% 45%,
+        transparent 45% 55%,
+        rgb(255 255 255 / 0.06) 55%
+    );
+}
+
+.theme-mobil .mobil-dock {
+    background: #141416;
+    color: #fff;
+}
+
+.theme-mobil .nav-link {
+    color: var(--ink);
+}
+
+.theme-mobil .btn {
+    border-radius: 0.375rem;
+    @apply font-bold tracking-wide uppercase;
+}
+
+.theme-mobil .catalog-card .price,
+.theme-mobil .price {
+    color: var(--brand);
+    font-family: var(--font-head);
+    font-weight: 800;
+}
+
+.theme-mobil .step-num,
+.theme-mobil .svc-num {
+    background: var(--brand);
+    color: var(--on-brand);
+    font-family: var(--font-head);
+}
+
+.theme-mobil .kpr-result {
+    background: #141416 !important;
+}
+
+/* The phone dock covers the floating WhatsApp button, which it already includes. */
+@media (max-width: 1023px) {
+    .theme-mobil a[aria-label='Chat WhatsApp'] {
+        display: none;
+    }
+}

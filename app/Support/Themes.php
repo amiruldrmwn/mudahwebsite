@@ -166,6 +166,13 @@ class Themes
                 'preset' => 'kaos',
                 'color' => '#e4572e',
             ],
+            'mobil' => [
+                'label' => 'Sales Mobil & Dealer',
+                'description' => 'Sigap dan meyakinkan: foto mobil besar, huruf tegas kapital, pricelist, simulasi kredit, service, dan tombol cepat di HP. Cocok untuk dealer mobil, sales mobil, showroom, dan mobil bekas.',
+                'fonts' => 'barlow-condensed:600,700,800|barlow:400,500,600,700',
+                'preset' => 'mobil',
+                'color' => '#c8102e',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',

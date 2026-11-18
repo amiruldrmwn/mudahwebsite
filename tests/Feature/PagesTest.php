@@ -294,6 +294,7 @@ class PagesTest extends TestCase
             'villa' => ['Pool Villa', ['kamar', 'fasilitas', 'kontak']],
             'hijab' => ['<em>kesederhanaan</em>', ['koleksi', 'lookbook', 'tentang', 'kontak']],
             'kaos' => ['<em>custom</em>', ['produk', 'custom', 'tentang', 'kontak']],
+            'mobil' => ['Mobil impian, cicilan ringan', ['pricelist', 'kredit', 'service', 'kontak']],
         ];
 
         foreach ($expect as $theme => [$text, $slugs]) {

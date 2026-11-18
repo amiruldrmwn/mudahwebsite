@@ -3,6 +3,7 @@
     $dp = min(90, max(0, (int) $d['down_payment'] ?: 20));
     $rate = (float) str_replace(',', '.', $d['rate'] ?: '7.5');
     $years = min(30, max(1, (int) $d['years'] ?: 15));
+    $car = ($theme ?? null) === 'mobil';
 @endphp
 <section id="{{ $sectionId }}" class="sec sec-alt">
     <div class="site-container">
@@ -14,7 +15,7 @@
         @endif
         <div class="kpr card mx-auto grid max-w-4xl gap-8 p-6! sm:p-8! md:grid-cols-2" data-kpr>
             <div class="grid gap-4">
-                <label class="grid gap-1.5 text-sm font-medium">Harga properti (Rp)
+                <label class="grid gap-1.5 text-sm font-medium">{{ $car ? 'Harga mobil (Rp)' : 'Harga properti (Rp)' }}
                     <input type="text" inputmode="numeric" class="field" data-kpr-price value="{{ number_format($price, 0, ',', '.') }}">
                 </label>
                 <label class="grid gap-1.5 text-sm font-medium">Uang muka: <span data-kpr-dp-label>{{ $dp }}%</span>
@@ -34,7 +35,7 @@
                     <div class="rounded-xl bg-white/10 p-3"><div class="opacity-75">Uang muka</div><div class="font-bold" data-kpr-dp-amount>-</div></div>
                     <div class="rounded-xl bg-white/10 p-3"><div class="opacity-75">Pokok pinjaman</div><div class="font-bold" data-kpr-loan>-</div></div>
                 </div>
-                @if ($site->whatsappUrl())<a href="{{ $site->whatsappUrl('Halo, saya ingin konsultasi KPR') }}" target="_blank" rel="noopener" class="btn btn-light mt-6">Konsultasi KPR</a>@endif
+                @if ($site->whatsappUrl())<a href="{{ $site->whatsappUrl($car ? 'Halo, saya ingin mengajukan kredit mobil' : 'Halo, saya ingin konsultasi KPR') }}" target="_blank" rel="noopener" class="btn btn-light mt-6">{{ $car ? 'Ajukan Kredit' : 'Konsultasi KPR' }}</a>@endif
             </div>
             @if ($d['note'])<p class="muted text-xs md:col-span-2">{{ $d['note'] }}</p>@endif
         </div>
