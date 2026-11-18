@@ -131,6 +131,38 @@ class SectionTypes
                     'note' => ['type' => 'text', 'label' => 'Catatan kecil di bawah', 'max' => 200],
                 ],
             ],
+            'catalog' => [
+                'label' => 'Katalog (Unit / Kamar / Tipe)',
+                'description' => 'Kartu unit yang disewakan atau dijual: mobil, motor, tipe rumah, atau kamar villa, dengan spesifikasi, harga, dan tombol tanya via WhatsApp.',
+                'fields' => [
+                    'title' => ['type' => 'text', 'label' => 'Judul', 'max' => 150],
+                    'subtitle' => ['type' => 'textarea', 'label' => 'Subjudul', 'max' => 400],
+                    'items' => ['type' => 'items', 'label' => 'Unit', 'max_items' => 24, 'fields' => [
+                        'image' => ['type' => 'image', 'label' => 'Foto'],
+                        'name' => ['type' => 'text', 'label' => 'Nama (mis. Toyota Avanza, Tipe 45)', 'max' => 100, 'required' => true],
+                        'category' => ['type' => 'text', 'label' => 'Kategori (mis. MPV, Matic, Cluster A)', 'max' => 40],
+                        'badge' => ['type' => 'text', 'label' => 'Label (mis. Terlaris, Sisa 3 unit)', 'max' => 30],
+                        'specs' => ['type' => 'textarea', 'label' => 'Spesifikasi (satu per baris)', 'max' => 400],
+                        'price' => ['type' => 'text', 'label' => 'Harga (mis. Rp350.000)', 'max' => 40],
+                        'unit' => ['type' => 'text', 'label' => 'Satuan harga (mis. /hari, /malam)', 'max' => 20],
+                        'url' => ['type' => 'url', 'label' => 'Link detail (opsional, kosongkan untuk WhatsApp)', 'max' => 255],
+                    ]],
+                    'button_label' => ['type' => 'text', 'label' => 'Teks tombol di kartu', 'max' => 30, 'default' => ''],
+                ],
+            ],
+            'mortgage' => [
+                'label' => 'Kalkulator Cicilan (KPR)',
+                'description' => 'Simulasi cicilan bulanan: pengunjung mengisi harga, uang muka, bunga, dan tenor.',
+                'fields' => [
+                    'title' => ['type' => 'text', 'label' => 'Judul', 'max' => 150],
+                    'subtitle' => ['type' => 'textarea', 'label' => 'Subjudul', 'max' => 400],
+                    'price' => ['type' => 'text', 'label' => 'Harga awal (angka, mis. 850000000)', 'max' => 15],
+                    'down_payment' => ['type' => 'text', 'label' => 'Uang muka awal (%)', 'max' => 3],
+                    'rate' => ['type' => 'text', 'label' => 'Bunga per tahun (%)', 'max' => 5],
+                    'years' => ['type' => 'text', 'label' => 'Tenor awal (tahun)', 'max' => 2],
+                    'note' => ['type' => 'text', 'label' => 'Catatan', 'max' => 200],
+                ],
+            ],
             'posts' => [
                 'label' => 'Berita / Kabar Terbaru',
                 'description' => 'Kartu berita, kegiatan, pengumuman, atau prestasi dengan foto, kategori, dan tanggal.',

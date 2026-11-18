@@ -19,7 +19,7 @@ class DefaultContent
     /** The sample logo a site shows until the owner uploads theirs. */
     public const LOGO = 'demo/logo.svg';
 
-    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang'];
+    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa'];
 
     /** Template groups whose sample logo is an emblem image instead of the drawn mark (LOGO). */
     private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png', 'sma' => 'demo/logo-osis.png'];
@@ -100,6 +100,13 @@ class DefaultContent
             'kopi' => CoffeeShopContent::pages($company),
             'barber' => BarbershopContent::pages($company),
             'tambang' => MiningContent::pages($company),
+            'rental' => CarRentalContent::pages($company),
+            'motor' => MotorRentalContent::pages($company),
+            'properti' => PropertyContent::pages($company),
+            'resto' => RestaurantContent::pages($company),
+            'gigi' => DentalContent::pages($company),
+            'kecantikan' => BeautyClinicContent::pages($company),
+            'villa' => VillaContent::pages($company),
             default => self::pages($company),
         };
     }

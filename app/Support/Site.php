@@ -47,6 +47,13 @@ class Site
         'color_kopi' => null,
         'color_barber' => null,
         'color_tambang' => null,
+        'color_rental' => null,
+        'color_motor' => null,
+        'color_properti' => null,
+        'color_resto' => null,
+        'color_gigi' => null,
+        'color_kecantikan' => null,
+        'color_villa' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

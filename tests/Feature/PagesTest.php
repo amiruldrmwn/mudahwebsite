@@ -279,6 +279,41 @@ class PagesTest extends TestCase
         $this->get('/keberlanjutan')->assertDontSee('-mt-14', false);
     }
 
+    public function test_seven_business_templates_render_all_their_pages()
+    {
+        $this->actingAs(User::factory()->create());
+        app(Site::class)->put(['whatsapp' => '0812 3456 789']);
+
+        $expect = [
+            'rental' => ['Toyota Avanza / Xenia', ['armada', 'layanan', 'kontak']],
+            'motor' => ['Yamaha NMAX', ['motor', 'syarat', 'kontak']],
+            'properti' => ['Tipe Melati 45/90', ['tipe-rumah', 'fasilitas', 'kontak']],
+            'resto' => ['Ayam Bakar Madu', ['menu', 'tentang', 'kontak']],
+            'gigi' => ['Senyum sehat, percaya diri setiap hari', ['layanan', 'jadwal', 'kontak']],
+            'kecantikan' => ['<em>cantik</em>', ['treatment', 'tentang', 'kontak']],
+            'villa' => ['Pool Villa', ['kamar', 'fasilitas', 'kontak']],
+        ];
+
+        foreach ($expect as $theme => [$text, $slugs]) {
+            $this->put(route('themes.update'), ['theme' => $theme]);
+            $this->get('/')->assertOk()->assertSee("theme-{$theme}", false)->assertSee($text, false);
+            foreach ($slugs as $slug) {
+                $this->get("/{$slug}")->assertOk();
+            }
+        }
+    }
+
+    public function test_catalog_cards_ask_on_whatsapp_and_the_kpr_calculator_renders()
+    {
+        $this->actingAs(User::factory()->create());
+        app(Site::class)->put(['whatsapp' => '0812 3456 789']);
+
+        $this->put(route('themes.update'), ['theme' => 'properti']);
+        $this->get('/tipe-rumah')->assertOk()
+            ->assertSee('https://wa.me/628123456789?text='.rawurlencode('Halo, saya mau tanya Tipe Melati 45/90 (Rp675 juta)'), false)
+            ->assertSee('data-kpr', false)->assertSee('675.000.000', false);
+    }
+
     public function test_price_list_order_buttons_open_whatsapp()
     {
         DefaultContent::install('Toko Uji', replace: true, preset: 'kue');

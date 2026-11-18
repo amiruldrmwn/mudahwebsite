@@ -15,6 +15,54 @@
                 <path d="M24 20v-5" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round"/>
                 <circle cx="24" cy="12.5" r="2" style="fill: #f59e0b"/>
             </svg>
+        @elseif ($theme === 'rental')
+            {{-- Car. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="12" style="fill: var(--brand)"/>
+                <path d="M10 29l3-8c.5-1.4 1.8-2.3 3.3-2.3h15.4c1.5 0 2.8.9 3.3 2.3l3 8v5H10z" fill="none" style="stroke: #fbbf24" stroke-width="2.4" stroke-linejoin="round"/>
+                <circle cx="16.5" cy="33" r="2.6" fill="#fbbf24"/><circle cx="31.5" cy="33" r="2.6" fill="#fbbf24"/>
+            </svg>
+        @elseif ($theme === 'motor')
+            {{-- Scooter. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect x="1.5" y="1.5" width="45" height="45" rx="12" style="fill: var(--brand)" stroke="#111" stroke-width="3"/>
+                <circle cx="15" cy="32" r="4" fill="none" stroke="#111" stroke-width="3"/><circle cx="33" cy="32" r="4" fill="none" stroke="#111" stroke-width="3"/>
+                <path d="M15 32h12l4-12h4M27 32l-3-8h-8" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'properti')
+            {{-- House. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="10" style="fill: var(--brand)"/>
+                <path d="M11 23L24 12l13 11" fill="none" style="stroke: #c9a227" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15 21v15h18V21M21 36v-8h6v8" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'resto')
+            {{-- Bowl and chopsticks. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <circle cx="24" cy="24" r="24" style="fill: var(--brand)"/>
+                <path d="M11 25h26a13 13 0 0 1-26 0z" style="fill: var(--on-brand)"/>
+                <path d="M27 21l9-9M31 22l7-7" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M17 20c0-2 2-2 2-4M22 20c0-2 2-2 2-4" fill="none" style="stroke: var(--on-brand)" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'gigi')
+            {{-- Tooth. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="16" style="fill: var(--brand)"/>
+                <path d="M17 12c-4 0-6 3-6 7 0 3 1.5 5 2.5 8s1 9 3.5 9c2.3 0 2.4-6 4-8.5.6-1 1.4-1 2-1s1.4 0 2 1c1.6 2.5 1.7 8.5 4 8.5 2.5 0 2.5-6 3.5-9s2.5-5 2.5-8c0-4-2-7-6-7-3 0-4 1.5-6 1.5S20 12 17 12z" style="fill: var(--on-brand)"/>
+            </svg>
+        @elseif ($theme === 'kecantikan')
+            {{-- Sparkle in an arch. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <path d="M6 46V22a18 18 0 0 1 36 0v24z" style="fill: var(--brand)"/>
+                <path d="M24 16c1 6 3 8 9 9-6 1-8 3-9 9-1-6-3-8-9-9 6-1 8-3 9-9z" style="fill: var(--on-brand)"/>
+            </svg>
+        @elseif ($theme === 'villa')
+            {{-- Sun over a palm roof. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="24" style="fill: var(--brand)"/>
+                <circle cx="24" cy="20" r="6" fill="#f6d9a8"/>
+                <path d="M9 33l15-9 15 9M14 30v8M34 30v8" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
         @elseif ($theme === 'tambang')
             {{-- Mountain with a pickaxe peak. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
