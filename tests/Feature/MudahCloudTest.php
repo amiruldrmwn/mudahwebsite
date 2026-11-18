@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Support\Site;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -23,7 +24,7 @@ class MudahCloudTest extends TestCase
         User::factory()->create();
         // The CSRF check the tests normally skip, on as in production.
         $this->app->instance('env', 'production');
-        $this->app->forgetInstance(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
+        $this->app->forgetInstance(ValidateCsrfToken::class);
 
         $this->mc('POST', 'login')->assertOk();
         $this->post('/kirim-pesan', ['name' => 'x'])->assertStatus(419);
