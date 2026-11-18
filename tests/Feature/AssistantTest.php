@@ -5,8 +5,10 @@ namespace Tests\Feature;
 use App\Models\Page;
 use App\Models\User;
 use App\Sections\DefaultContent;
+use App\Support\Site;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
@@ -22,7 +24,7 @@ class AssistantTest extends TestCase
         parent::setUp();
         DefaultContent::install('PT Uji');
         $this->page = Page::where('slug', 'tentang')->firstOrFail();
-        config(['compro.ai' => ['base_url' => 'https://ai.test/v1', 'api_key' => 'sk-test', 'model' => 'test-model']]);
+        app(Site::class)->put(['ai_base_url' => 'https://ai.test/v1', 'ai_api_key' => Crypt::encryptString('sk-test'), 'ai_model' => 'test-model']);
         $this->actingAs(User::factory()->create());
     }
 
@@ -86,7 +88,7 @@ class AssistantTest extends TestCase
     public function test_gateway_errors_are_explained()
     {
         Http::fake(['ai.test/*' => Http::response(['error' => 'insufficient'], 402)]);
-        $this->ask()->assertStatus(422)->assertJsonPath('message', fn ($m) => str_contains($m, 'Kredit AI Anda habis'));
+        $this->ask()->assertStatus(422)->assertJsonPath('message', fn ($m) => str_contains($m, 'kredit AI habis'));
 
         Http::fake(['ai.test/*' => Http::response(['choices' => [['message' => ['content' => 'bukan json']]]])]);
         $this->ask()->assertStatus(422);
@@ -94,10 +96,10 @@ class AssistantTest extends TestCase
 
     public function test_assistant_needs_the_gateway()
     {
-        config(['compro.ai.api_key' => null]);
+        app(Site::class)->put(['ai_api_key' => '']);
         Http::fake();
 
-        $this->ask()->assertStatus(422)->assertJsonPath('message', 'Asisten AI belum tersambung ke AI Gateway.');
+        $this->ask()->assertStatus(422)->assertJsonPath('message', 'Asisten AI belum aktif. Isi alamat API dan API key di Pengaturan Situs.');
         Http::assertNothingSent();
         $this->get(route('pages.edit', $this->page))->assertInertia(fn ($p) => $p->where('aiEnabled', false));
     }

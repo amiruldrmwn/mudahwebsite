@@ -164,10 +164,10 @@ const tiles = computed(() => [
         value: props.stats.ai ? 'Aktif' : 'Belum aktif',
         hint: props.stats.ai
             ? 'Minta AI menulis isi halaman'
-            : 'Hubungi MudahCloud',
+            : 'Atur di Pengaturan Situs',
         icon: Sparkles,
         tile: 'bg-amber-500/15 text-amber-600 dark:text-amber-300',
-        href: homeEdit.value,
+        href: props.stats.ai ? homeEdit.value : `${editSite.url()}#ai`,
     },
 ]);
 </script>

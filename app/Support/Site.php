@@ -3,7 +3,9 @@
 namespace App\Support;
 
 use App\Models\Setting;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
@@ -35,6 +37,10 @@ class Site
         'maps_embed' => '',
         // Google Search Console ownership code, printed as a meta tag.
         'google_verification' => '',
+        // AI assistant (OpenAI-compatible API). The key is stored encrypted.
+        'ai_base_url' => '',
+        'ai_api_key' => '',
+        'ai_model' => '',
         // Set once the owner picks a template, for the dashboard's getting-started steps.
         'theme_chosen' => false,
         'social_instagram' => '',
@@ -190,6 +196,25 @@ class Site
         $value = preg_replace('/[^A-Za-z0-9_-]/', '', $value) ?? '';
 
         return $value === '' ? null : $value;
+    }
+
+    /**
+     * The AI API key in plain text, or null when none is saved or it can't be decrypted
+     * (for example after APP_KEY changed).
+     */
+    public function aiApiKey(): ?string
+    {
+        $stored = (string) $this->get('ai_api_key');
+
+        if ($stored === '') {
+            return null;
+        }
+
+        try {
+            return Crypt::decryptString($stored);
+        } catch (DecryptException) {
+            return null;
+        }
     }
 
     public function whatsappUrl(?string $text = null): ?string

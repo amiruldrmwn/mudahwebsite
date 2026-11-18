@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Ai\AiClient;
 use App\Models\User;
 use App\Sections\DefaultContent;
 use App\Support\Site;
@@ -89,5 +90,25 @@ class SiteSettingsTest extends TestCase
 
         $site->put(['favicon' => 'site/ikon.png']);
         $this->get('/')->assertSee('<link rel="icon" href="'.url('storage/site/ikon.png').'">', false);
+    }
+
+    public function test_ai_key_is_saved_encrypted_and_never_sent_back()
+    {
+        $this->actingAs(User::factory()->create());
+
+        $this->post(route('site.update'), $this->valid(['ai_base_url' => 'https://ai.test/v1', 'ai_api_key' => 'sk-secret', 'ai_model' => 'gpt-test']))->assertRedirect();
+
+        $site = app(Site::class);
+        $this->assertNotSame('sk-secret', $site->get('ai_api_key'));
+        $this->assertSame('sk-secret', $site->aiApiKey());
+        $this->assertTrue(app(AiClient::class)->enabled());
+
+        // A blank field keeps the key; the settings page only says one is saved.
+        $this->post(route('site.update'), $this->valid(['ai_base_url' => 'https://ai.test/v1']))->assertRedirect();
+        $this->assertSame('sk-secret', app(Site::class)->aiApiKey());
+        $this->get(route('site.edit'))->assertDontSee('sk-secret')->assertInertia(fn ($page) => $page->where('settings.ai_key_set', true)->missing('settings.ai_api_key'));
+
+        $this->post(route('site.update'), $this->valid(['remove_ai_key' => true]))->assertRedirect();
+        $this->assertNull(app(Site::class)->aiApiKey());
     }
 }

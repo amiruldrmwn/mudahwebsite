@@ -18,11 +18,4 @@ return [
     // owner picks templates in the admin.
     'theme' => env('SITE_THEME'),
 
-    // MudahCloud AI Gateway (OpenAI compatible).
-    'ai' => [
-        'base_url' => env('AI_BASE_URL'),
-        'api_key' => env('AI_API_KEY'),
-        'model' => env('AI_MODEL', 'deepseek-v4-flash'),
-    ],
-
 ];

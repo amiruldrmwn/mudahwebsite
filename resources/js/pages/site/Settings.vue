@@ -8,6 +8,7 @@ import {
     PanelBottom,
     Search,
     Share2,
+    Sparkles,
 } from '@lucide/vue';
 import { computed } from 'vue';
 import ImageUpload from '@/components/ImageUpload.vue';
@@ -42,6 +43,9 @@ type Settings = {
     show_map: string;
     maps_embed: string;
     google_verification: string;
+    ai_base_url: string;
+    ai_model: string;
+    ai_key_set: boolean;
     social_instagram: string;
     social_facebook: string;
     social_linkedin: string;
@@ -61,7 +65,12 @@ const props = defineProps<{ settings: Settings; sitemapUrl: string }>();
 
 const s = props.settings;
 
-type SettingsForm = Omit<Settings, 'logo_url' | 'favicon_url'> & {
+type SettingsForm = Omit<
+    Settings,
+    'logo_url' | 'favicon_url' | 'ai_key_set'
+> & {
+    ai_api_key: string;
+    remove_ai_key: boolean;
     logo: File | null;
     remove_logo: boolean;
     favicon: File | null;
@@ -86,6 +95,10 @@ const form = useForm<SettingsForm>({
     show_map: s.show_map ?? 'yes',
     maps_embed: s.maps_embed ?? '',
     google_verification: s.google_verification ?? '',
+    ai_base_url: s.ai_base_url ?? '',
+    ai_api_key: '',
+    remove_ai_key: false,
+    ai_model: s.ai_model ?? '',
     social_instagram: s.social_instagram ?? '',
     social_facebook: s.social_facebook ?? '',
     social_linkedin: s.social_linkedin ?? '',
@@ -157,18 +170,21 @@ const sections = [
     { id: 'warna', label: 'Warna', icon: Palette },
     { id: 'kontak', label: 'Kontak & Lokasi', icon: MapPin },
     { id: 'google', label: 'Google', icon: Search },
+    { id: 'ai', label: 'Asisten AI', icon: Sparkles },
     { id: 'sosial', label: 'Sosial Media', icon: Share2 },
     { id: 'footer', label: 'Footer', icon: PanelBottom },
 ] as const;
 
 // Kept in script: vue-tsc misreads "//" inside a static template attribute.
 const mapsPlaceholder = 'https://maps.app.goo.gl/...';
+const aiUrlPlaceholder = 'https://api.openai.com/v1';
 
 function submit(): void {
     form.post(update.url(), {
         forceFormData: true,
         preserveScroll: true,
-        onSuccess: () => form.reset('logo', 'favicon'),
+        onSuccess: () =>
+            form.reset('logo', 'favicon', 'ai_api_key', 'remove_ai_key'),
     });
 }
 </script>
@@ -491,6 +507,84 @@ function submit(): void {
                         tag-nya, lalu tempel di sini.
                     </p>
                     <InputError :message="form.errors.google_verification" />
+                </CardContent>
+            </Card>
+
+            <Card id="ai" class="scroll-mt-6">
+                <CardHeader>
+                    <CardTitle class="flex items-center gap-2"
+                        >Asisten AI
+                        <span
+                            class="rounded-full px-2 py-0.5 text-[11px] font-medium"
+                            :class="
+                                s.ai_key_set && s.ai_base_url
+                                    ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                                    : 'bg-muted text-muted-foreground'
+                            "
+                            >{{
+                                s.ai_key_set && s.ai_base_url
+                                    ? 'Aktif'
+                                    : 'Belum aktif'
+                            }}</span
+                        ></CardTitle
+                    >
+                    <CardDescription>
+                        Asisten AI membantu menulis isi halaman. Bisa memakai
+                        layanan yang kompatibel dengan OpenAI, misalnya OpenAI,
+                        DeepSeek, atau AI Gateway MudahCloud.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent class="grid gap-5 sm:grid-cols-2">
+                    <div class="grid gap-2 sm:col-span-2">
+                        <Label for="ai_base_url">Alamat API (base URL)</Label>
+                        <Input
+                            id="ai_base_url"
+                            v-model="form.ai_base_url"
+                            :placeholder="aiUrlPlaceholder"
+                        />
+                        <InputError :message="form.errors.ai_base_url" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="ai_api_key">API key</Label>
+                        <Input
+                            id="ai_api_key"
+                            v-model="form.ai_api_key"
+                            type="password"
+                            autocomplete="off"
+                            :disabled="form.remove_ai_key"
+                            :placeholder="
+                                s.ai_key_set
+                                    ? 'Tersimpan. Isi untuk mengganti'
+                                    : 'sk-...'
+                            "
+                        />
+                        <Label
+                            v-if="s.ai_key_set"
+                            class="flex items-center gap-2 text-xs font-normal text-muted-foreground"
+                        >
+                            <input
+                                v-model="form.remove_ai_key"
+                                type="checkbox"
+                                class="size-3.5"
+                            />
+                            Hapus API key yang tersimpan
+                        </Label>
+                        <InputError :message="form.errors.ai_api_key" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="ai_model">Model</Label>
+                        <Input
+                            id="ai_model"
+                            v-model="form.ai_model"
+                            placeholder="deepseek-v4-flash"
+                        />
+                        <InputError :message="form.errors.ai_model" />
+                    </div>
+                    <p class="text-xs text-muted-foreground sm:col-span-2">
+                        API key disimpan terenkripsi dan tidak pernah
+                        ditampilkan lagi. Biaya pemakaian AI mengikuti akun
+                        penyedia AI Anda.
+                    </p>
                 </CardContent>
             </Card>
 

@@ -14,6 +14,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { Textarea } from '@/components/ui/textarea';
 import { post } from '@/lib/http';
 import { assistant } from '@/routes/pages';
+import { edit as editSite } from '@/routes/site';
 import type { Section } from '@/types/sections';
 
 type Turn = {
@@ -32,6 +33,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{ apply: [sections: Section[]] }>();
+const siteSettingsUrl = `${editSite.url()}#ai`;
 const open = defineModel<boolean>('open', { required: true });
 
 const turns = ref<Turn[]>([]);
@@ -136,8 +138,12 @@ function onKeydown(event: KeyboardEvent): void {
                 v-if="!enabled"
                 class="m-4 rounded-lg border border-dashed p-4 text-sm text-muted-foreground"
             >
-                Asisten AI belum tersambung ke AI Gateway MudahCloud. Hubungi
-                MudahCloud untuk mengaktifkannya.
+                Asisten AI belum aktif. Isi alamat API dan API key di
+                <a
+                    :href="siteSettingsUrl"
+                    class="font-medium text-primary underline"
+                    >Pengaturan Situs → Asisten AI</a
+                >.
             </div>
 
             <template v-else>
