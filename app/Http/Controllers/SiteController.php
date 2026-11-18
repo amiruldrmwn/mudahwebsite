@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Page;
+use App\Models\SiteVisit;
 use App\Sections\DefaultContent;
 use App\Sections\SectionTypes;
 use App\Support\Site;
@@ -44,7 +45,36 @@ class SiteController extends Controller
             return response($this->keepPreviewLinks(view('site.page', ['page' => $page, 'theme' => $theme])->render(), 'preview_theme', $theme));
         }
 
+        $this->countVisit();
+
         return view('site.page', ['page' => $page, 'theme' => Themes::current($site)]);
+    }
+
+    /**
+     * A click on a WhatsApp button, sent by the page as a beacon.
+     */
+    public function whatsappClick(): Response
+    {
+        if (! $this->isBot()) {
+            SiteVisit::bump('whatsapp_clicks');
+        }
+
+        return response()->noContent();
+    }
+
+    /**
+     * Count a page view, leaving out the site's own admins and search engine bots.
+     */
+    private function countVisit(): void
+    {
+        if (! auth()->check() && ! $this->isBot()) {
+            SiteVisit::bump('views');
+        }
+    }
+
+    private function isBot(): bool
+    {
+        return (bool) preg_match('/bot|crawl|spider|slurp|preview|monitor|curl|wget|python|headless/i', (string) request()->userAgent());
     }
 
     /**

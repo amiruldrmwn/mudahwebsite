@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\SiteController;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 // Admin panel (login lives at /admin/login, from Fortify).
@@ -43,5 +44,6 @@ require __DIR__.'/settings.php';
 Route::get('sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
 Route::get('robots.txt', [SiteController::class, 'robots']);
 Route::post('kirim-pesan', [SiteController::class, 'contact'])->middleware('throttle:5,10')->name('contact.send');
+Route::post('klik-wa', [SiteController::class, 'whatsappClick'])->middleware('throttle:30,1')->withoutMiddleware(ValidateCsrfToken::class)->name('stats.whatsapp');
 Route::get('/', [SiteController::class, 'show'])->name('home');
 Route::get('{slug}', [SiteController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('page');

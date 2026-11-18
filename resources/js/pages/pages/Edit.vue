@@ -56,6 +56,14 @@ type PageForm = {
 const props = defineProps<{
     page: PageForm & { id: number; url: string; is_home: boolean };
     sectionTypes: Record<string, SectionTypeDef>;
+    sectionPresets: {
+        key: string;
+        type: string;
+        label: string;
+        page: string;
+        image: string;
+        data: SectionData;
+    }[];
     storageUrl: string;
     aiEnabled: boolean;
 }>();
@@ -78,6 +86,9 @@ const form = useForm<PageForm>({
 
 const open = ref<Set<string>>(new Set());
 const picker = ref(false);
+const pickerTab = ref<'presets' | 'blank'>(
+    props.sectionPresets.length ? 'presets' : 'blank',
+);
 const showSettings = ref(false);
 const assistantOpen = ref(false);
 const previewOpen = ref(false);
@@ -131,6 +142,17 @@ function toggle(id: string): void {
     }
 
     open.value = next;
+}
+
+function addPreset(preset: { type: string; data: SectionData }): void {
+    const section = {
+        id: newId(),
+        type: preset.type,
+        data: JSON.parse(JSON.stringify(preset.data)) as SectionData,
+    };
+    form.sections = [...form.sections, section];
+    open.value = new Set([...open.value, section.id]);
+    picker.value = false;
 }
 
 function addSection(type: string): void {
@@ -475,10 +497,81 @@ function submit(): void {
             <DialogHeader>
                 <DialogTitle>Tambah section</DialogTitle>
                 <DialogDescription>
-                    Pilih jenis blok yang ingin ditambahkan ke halaman.
+                    Pakai contoh yang sudah terisi dari template Anda, atau
+                    mulai dari blok kosong.
                 </DialogDescription>
             </DialogHeader>
-            <div class="grid gap-3 sm:grid-cols-2">
+            <div
+                v-if="sectionPresets.length"
+                class="inline-flex w-fit rounded-full bg-muted p-1 text-sm"
+                role="tablist"
+            >
+                <button
+                    type="button"
+                    role="tab"
+                    :aria-selected="pickerTab === 'presets'"
+                    class="rounded-full px-4 py-1.5 font-medium transition"
+                    :class="
+                        pickerTab === 'presets'
+                            ? 'bg-background shadow-sm'
+                            : 'text-muted-foreground'
+                    "
+                    @click="pickerTab = 'presets'"
+                >
+                    Contoh siap pakai
+                </button>
+                <button
+                    type="button"
+                    role="tab"
+                    :aria-selected="pickerTab === 'blank'"
+                    class="rounded-full px-4 py-1.5 font-medium transition"
+                    :class="
+                        pickerTab === 'blank'
+                            ? 'bg-background shadow-sm'
+                            : 'text-muted-foreground'
+                    "
+                    @click="pickerTab = 'blank'"
+                >
+                    Blok kosong
+                </button>
+            </div>
+            <div
+                v-if="pickerTab === 'presets' && sectionPresets.length"
+                class="grid gap-3 sm:grid-cols-2"
+            >
+                <button
+                    v-for="preset in sectionPresets"
+                    :key="preset.key"
+                    type="button"
+                    class="flex gap-3 rounded-lg border p-3 text-left transition hover:border-primary hover:bg-muted/50"
+                    @click="addPreset(preset)"
+                >
+                    <img
+                        v-if="preset.image"
+                        :src="`${storageUrl}/${preset.image}`"
+                        alt=""
+                        class="size-16 shrink-0 rounded-md object-cover"
+                        loading="lazy"
+                    />
+                    <span
+                        v-else
+                        class="flex size-16 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-semibold text-primary"
+                        >{{
+                            sectionTypes[preset.type]?.label.split(' ')[0]
+                        }}</span
+                    >
+                    <span class="min-w-0">
+                        <span class="line-clamp-2 font-medium">{{
+                            preset.label
+                        }}</span>
+                        <span class="mt-1 block text-xs text-muted-foreground"
+                            >{{ sectionTypes[preset.type]?.label }} · dari
+                            {{ preset.page }}</span
+                        >
+                    </span>
+                </button>
+            </div>
+            <div v-else class="grid gap-3 sm:grid-cols-2">
                 <button
                     v-for="(type, key) in sectionTypes"
                     :key="key"

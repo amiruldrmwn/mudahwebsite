@@ -20,6 +20,7 @@ class SiteSettingsController extends Controller
                 'logo_url' => $site->url('logo'),
                 'favicon_url' => $site->url('favicon'),
             ],
+            'sitemapUrl' => route('sitemap'),
         ]);
     }
 

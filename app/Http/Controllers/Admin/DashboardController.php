@@ -6,6 +6,7 @@ use App\Ai\AiClient;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Page;
+use App\Models\SiteVisit;
 use App\Sections\DefaultContent;
 use App\Support\Site;
 use App\Support\Themes;
@@ -20,7 +21,24 @@ class DashboardController extends Controller
         $pages = Page::query()->get(['id', 'title', 'is_home', 'published', 'updated_at']);
         $home = $pages->firstWhere('is_home', true) ?? $pages->first();
 
+        $days = SiteVisit::lastDays(30);
+        $week = $days->slice(-7);
+        $realLogo = filled($site->get('logo')) && ! DefaultContent::isSampleLogo($site->get('logo'));
+
         return Inertia::render('Dashboard', [
+            'visits' => [
+                'days' => $days->slice(-14)->values(),
+                'views7' => $week->sum('views'),
+                'clicks7' => $week->sum('clicks'),
+                'views30' => $days->sum('views'),
+                'clicks30' => $days->sum('clicks'),
+            ],
+            // Three first steps shown prominently until they are all done.
+            'setup' => [
+                ['key' => 'logo', 'title' => 'Upload logo', 'text' => 'Logo tampil di atas website dan sebagai ikon tab browser.', 'done' => $realLogo, 'href' => route('site.edit')],
+                ['key' => 'contact', 'title' => 'Isi WhatsApp & alamat', 'text' => 'Semua tombol pesan dan peta lokasi memakai data ini.', 'done' => filled($site->get('whatsapp')) && filled($site->get('address')), 'href' => route('site.edit')],
+                ['key' => 'theme', 'title' => 'Pilih template & warna', 'text' => 'Tentukan tampilan yang paling cocok untuk usaha Anda.', 'done' => (bool) $site->get('theme_chosen'), 'href' => route('themes.index')],
+            ],
             'siteName' => $site->get('site_name'),
             'siteUrl' => url('/'),
             'stats' => [

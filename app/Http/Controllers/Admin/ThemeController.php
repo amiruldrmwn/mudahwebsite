@@ -50,7 +50,7 @@ class ThemeController extends Controller
         $to = $theme['preset'];
         $reset = (bool) ($data['reset'] ?? false);
 
-        $site->put(['color_'.$from => $site->get('primary_color'), 'theme' => $data['theme']]);
+        $site->put(['color_'.$from => $site->get('primary_color'), 'theme' => $data['theme'], 'theme_chosen' => true]);
 
         $installed = DefaultContent::install((string) $site->get('site_name'), $reset, $to);
 

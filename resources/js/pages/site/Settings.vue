@@ -22,12 +22,16 @@ type Settings = {
     description: string;
     primary_color: string;
     logo_url: string | null;
+    show_name: string;
     favicon_url: string | null;
     contact_email: string;
     contact_phone: string;
     whatsapp: string;
     address: string;
     maps_url: string;
+    show_map: string;
+    maps_embed: string;
+    google_verification: string;
     social_instagram: string;
     social_facebook: string;
     social_linkedin: string;
@@ -43,7 +47,7 @@ defineOptions({
     },
 });
 
-const props = defineProps<{ settings: Settings }>();
+const props = defineProps<{ settings: Settings; sitemapUrl: string }>();
 
 const s = props.settings;
 
@@ -61,6 +65,7 @@ const form = useForm<SettingsForm>({
     primary_color: s.primary_color ?? '#2563eb',
     logo: null,
     remove_logo: false,
+    show_name: s.show_name ?? 'yes',
     favicon: null,
     remove_favicon: false,
     contact_email: s.contact_email ?? '',
@@ -68,6 +73,9 @@ const form = useForm<SettingsForm>({
     whatsapp: s.whatsapp ?? '',
     address: s.address ?? '',
     maps_url: s.maps_url ?? '',
+    show_map: s.show_map ?? 'yes',
+    maps_embed: s.maps_embed ?? '',
+    google_verification: s.google_verification ?? '',
     social_instagram: s.social_instagram ?? '',
     social_facebook: s.social_facebook ?? '',
     social_linkedin: s.social_linkedin ?? '',
@@ -187,6 +195,19 @@ function submit(): void {
                             hint="PNG, JPG, WEBP, atau SVG. Maks 2 MB."
                         />
                         <InputError :message="form.errors.logo" />
+                        <Label class="mt-1 flex items-center gap-2 font-normal">
+                            <input
+                                v-model="form.show_name"
+                                type="checkbox"
+                                true-value="yes"
+                                false-value="no"
+                                class="size-4 accent-[var(--primary)]"
+                            />
+                            Tampilkan nama website di samping logo
+                        </Label>
+                        <p class="text-xs text-muted-foreground">
+                            Matikan jika logo Anda sudah memuat nama usaha.
+                        </p>
                     </div>
                     <div class="grid gap-2">
                         <Label>Favicon</Label>
@@ -275,6 +296,64 @@ function submit(): void {
                     />
                     <InputError :message="form.errors.address" />
                 </div>
+                <div class="grid gap-2 sm:col-span-2">
+                    <Label class="flex items-center gap-2">
+                        <input
+                            v-model="form.show_map"
+                            type="checkbox"
+                            true-value="yes"
+                            false-value="no"
+                            class="size-4 accent-[var(--primary)]"
+                        />
+                        Tampilkan peta di bagian Kontak
+                    </Label>
+                    <p class="text-xs text-muted-foreground">
+                        Tanpa kode di bawah, peta dicari otomatis dari alamat.
+                    </p>
+                </div>
+                <div
+                    v-if="form.show_map === 'yes'"
+                    class="grid gap-2 sm:col-span-2"
+                >
+                    <Label for="maps_embed">Kode sematan peta (opsional)</Label>
+                    <Textarea
+                        id="maps_embed"
+                        v-model="form.maps_embed"
+                        rows="2"
+                        placeholder='<iframe src="https://www.google.com/maps/embed?pb=..."></iframe>'
+                    />
+                    <p class="text-xs text-muted-foreground">
+                        Agar titik peta tepat: buka lokasi di Google Maps →
+                        Bagikan → Sematkan peta → Salin HTML, lalu tempel di
+                        sini.
+                    </p>
+                    <InputError :message="form.errors.maps_embed" />
+                </div>
+            </CardContent>
+        </Card>
+
+        <Card>
+            <CardHeader>
+                <CardTitle>Google</CardTitle>
+                <CardDescription>
+                    Hubungkan website ke Google Search Console agar mudah
+                    ditemukan di pencarian. Peta situs: {{ sitemapUrl }}
+                </CardDescription>
+            </CardHeader>
+            <CardContent class="grid gap-2">
+                <Label for="google_verification"
+                    >Kode verifikasi Google Search Console</Label
+                >
+                <Input
+                    id="google_verification"
+                    v-model="form.google_verification"
+                    placeholder='<meta name="google-site-verification" content="..." />'
+                />
+                <p class="text-xs text-muted-foreground">
+                    Pilih metode "Tag HTML" di Search Console, salin tag-nya,
+                    lalu tempel di sini.
+                </p>
+                <InputError :message="form.errors.google_verification" />
             </CardContent>
         </Card>
 

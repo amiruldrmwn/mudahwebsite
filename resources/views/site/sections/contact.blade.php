@@ -37,5 +37,10 @@
                 </form>
             </div>
         @endif
+        @if ($map = $site->mapEmbedUrl())
+            <div class="lg:col-span-5">
+                <iframe src="{{ $map }}" title="Peta lokasi" class="site-map h-80 w-full border-0" style="border-radius: var(--radius)" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            </div>
+        @endif
     </div>
 </section>

@@ -32,6 +32,7 @@
                     e.preventDefault();
                     const f = new FormData(form);
                     const text = `Halo, saya mau sewa motor ${f.get('type')} dari ${f.get('from')} sampai ${f.get('to')}` + (f.get('place') ? `, diantar ke ${f.get('place')}` : '') + '. Apakah tersedia?';
+                    if (navigator.sendBeacon) navigator.sendBeacon(@json(route('stats.whatsapp')));
                     window.open(form.dataset.wa + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
                 });
             })();

@@ -22,12 +22,21 @@ class Site
         'description' => '',
         'primary_color' => '#2563eb',
         'logo' => null,
+        // Show the site name next to the logo in the header and footer ('no' = logo only).
+        'show_name' => 'yes',
         'favicon' => null,
         'contact_email' => '',
         'contact_phone' => '',
         'whatsapp' => '',
         'address' => '',
         'maps_url' => '',
+        // Embedded map on the contact section: Google's "embed a map" code, else the address.
+        'show_map' => 'yes',
+        'maps_embed' => '',
+        // Google Search Console ownership code, printed as a meta tag.
+        'google_verification' => '',
+        // Set once the owner picks a template, for the dashboard's getting-started steps.
+        'theme_chosen' => false,
         'social_instagram' => '',
         'social_facebook' => '',
         'social_linkedin' => '',
@@ -139,6 +148,41 @@ class Site
     /**
      * wa.me link for the WhatsApp number, or null.
      */
+    /**
+     * The map shown on contact sections: the src of Google's embed code when given, else a
+     * map searched from the address. Null when the map is off or there is nothing to show.
+     */
+    public function mapEmbedUrl(): ?string
+    {
+        if ($this->get('show_map') === 'no') {
+            return null;
+        }
+
+        if (preg_match('#https://www\.google\.com/maps/embed\?[^"\'\s<>]+#', (string) $this->get('maps_embed'), $m)) {
+            return html_entity_decode($m[0]);
+        }
+
+        $address = trim((string) $this->get('address'));
+
+        return $address === '' ? null : 'https://maps.google.com/maps?q='.rawurlencode($address).'&z=15&output=embed';
+    }
+
+    /**
+     * The Search Console code, from either the bare code or the whole meta tag.
+     */
+    public function googleVerification(): ?string
+    {
+        $value = (string) $this->get('google_verification');
+
+        if (preg_match('/content=["\']([^"\']+)["\']/', $value, $m)) {
+            $value = $m[1];
+        }
+
+        $value = preg_replace('/[^A-Za-z0-9_-]/', '', $value) ?? '';
+
+        return $value === '' ? null : $value;
+    }
+
     public function whatsappUrl(?string $text = null): ?string
     {
         $number = preg_replace('/\D/', '', (string) $this->get('whatsapp'));

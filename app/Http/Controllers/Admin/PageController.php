@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Ai\AiClient;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Sections\DefaultContent;
 use App\Sections\SectionTypes;
+use App\Support\Site;
+use App\Support\Themes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -16,7 +19,7 @@ use Inertia\Response;
 class PageController extends Controller
 {
     /** Addresses taken by the app itself. */
-    public const RESERVED_SLUGS = ['admin', 'login', 'logout', 'kirim-pesan', 'sitemap', 'robots', 'storage', 'build', 'brand', 'up', 'user', 'two-factor-challenge'];
+    public const RESERVED_SLUGS = ['admin', 'login', 'logout', 'kirim-pesan', 'klik-wa', 'sitemap', 'robots', 'storage', 'build', 'brand', 'up', 'user', 'two-factor-challenge'];
 
     public function index(): Response
     {
@@ -67,9 +70,73 @@ class PageController extends Controller
                 'sections' => $page->sections,
             ],
             'sectionTypes' => SectionTypes::all(),
+            'sectionPresets' => $this->sectionPresets(),
             'storageUrl' => rtrim(asset('storage'), '/'),
             'aiEnabled' => app(AiClient::class)->enabled(),
         ]);
+    }
+
+    /**
+     * Ready-made sections from the current template's sample pages, offered when adding a
+     * section so the owner starts from filled-in content instead of a blank block.
+     *
+     * @return list<array{key: string, type: string, label: string, page: string, image: string, data: array<string, mixed>}>
+     */
+    private function sectionPresets(): array
+    {
+        DefaultContent::ensurePhotos();
+        $types = SectionTypes::all();
+        $presets = [];
+
+        foreach (DefaultContent::pagesFor(Themes::currentPreset(), (string) app(Site::class)->get('site_name')) as $samplePage) {
+            foreach ($samplePage['sections'] as $section) {
+                $clean = SectionTypes::clean($section);
+
+                if ($clean === null) {
+                    continue;
+                }
+
+                $data = $clean['data'];
+                $key = md5($clean['type'].json_encode($data));
+
+                if (isset($presets[$key])) {
+                    continue;
+                }
+
+                $presets[$key] = [
+                    'key' => $key,
+                    'type' => $clean['type'],
+                    'label' => is_string($data['title'] ?? null) && $data['title'] !== '' ? $data['title'] : (string) $types[$clean['type']]['label'],
+                    'page' => (string) $samplePage['title'],
+                    'image' => self::presetImage($data),
+                    'data' => $data,
+                ];
+            }
+        }
+
+        return array_values($presets);
+    }
+
+    /**
+     * A thumbnail for a ready-made section: its own image, else the first item's photo.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    private static function presetImage(array $data): string
+    {
+        if (is_string($data['image'] ?? null) && $data['image'] !== '') {
+            return $data['image'];
+        }
+
+        foreach (is_array($data['items'] ?? null) ? $data['items'] : [] as $item) {
+            foreach (['image', 'photo'] as $field) {
+                if (is_array($item) && is_string($item[$field] ?? null) && $item[$field] !== '') {
+                    return $item[$field];
+                }
+            }
+        }
+
+        return '';
     }
 
     public function update(Request $request, Page $page): RedirectResponse

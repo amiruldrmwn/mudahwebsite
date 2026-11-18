@@ -2,6 +2,10 @@
 import { Head, Link } from '@inertiajs/vue3';
 import {
     ArrowRight,
+    BarChart3,
+    Check,
+    MessageCircle,
+    X,
     Circle,
     CircleCheck,
     ExternalLink,
@@ -12,7 +16,7 @@ import {
     Plus,
     Sparkles,
 } from '@lucide/vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { dashboard } from '@/routes';
 import { index as messagesIndex } from '@/routes/messages';
 import { edit as editPage, index as pagesIndex } from '@/routes/pages';
@@ -53,7 +57,49 @@ const props = defineProps<{
         time: string | null;
     }[];
     checklist: { label: string; done: boolean }[];
+    visits: {
+        days: { date: string; label: string; views: number; clicks: number }[];
+        views7: number;
+        clicks7: number;
+        views30: number;
+        clicks30: number;
+    };
+    setup: {
+        key: string;
+        title: string;
+        text: string;
+        done: boolean;
+        href: string;
+    }[];
 }>();
+
+// Getting-started steps: shown until all three are done, or until the owner hides them.
+const setupDone = computed(() => props.setup.filter((s) => s.done).length);
+const setupHidden = ref(false);
+
+try {
+    setupHidden.value = localStorage.getItem('mw.setup-hidden') === '1';
+} catch {
+    // Storage may be blocked; the steps simply stay visible.
+}
+
+function hideSetup() {
+    setupHidden.value = true;
+
+    try {
+        localStorage.setItem('mw.setup-hidden', '1');
+    } catch {
+        // Ignore: hidden for this visit only.
+    }
+}
+
+const showSetup = computed(
+    () => !setupHidden.value && setupDone.value < props.setup.length,
+);
+
+const maxViews = computed(() =>
+    Math.max(1, ...props.visits.days.map((d) => d.views)),
+);
 
 const greeting = computed(() => {
     const hour = new Date().getHours();
@@ -186,6 +232,63 @@ const tiles = computed(() => [
             </div>
         </section>
 
+        <!-- Getting started -->
+        <section
+            v-if="showSetup"
+            class="rounded-2xl border border-primary/25 bg-primary/5 p-5 md:p-6"
+        >
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-semibold">
+                        Mulai di sini: 3 langkah agar website siap tayang
+                    </h2>
+                    <p class="text-sm text-muted-foreground">
+                        {{ setupDone }} dari {{ setup.length }} selesai
+                    </p>
+                </div>
+                <button
+                    type="button"
+                    class="rounded-full p-1.5 text-muted-foreground hover:bg-muted"
+                    aria-label="Sembunyikan panduan"
+                    @click="hideSetup"
+                >
+                    <X class="size-4" />
+                </button>
+            </div>
+            <ol class="mt-4 grid gap-3 md:grid-cols-3">
+                <li v-for="(step, i) in setup" :key="step.key">
+                    <Link
+                        :href="step.href"
+                        class="flex h-full gap-3 rounded-xl border bg-card p-4 transition hover:border-primary/40 hover:shadow-md"
+                        :class="step.done ? 'opacity-70' : ''"
+                    >
+                        <span
+                            class="flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold"
+                            :class="
+                                step.done
+                                    ? 'bg-emerald-500 text-white'
+                                    : 'bg-primary text-primary-foreground'
+                            "
+                        >
+                            <Check v-if="step.done" class="size-4" />
+                            <template v-else>{{ i + 1 }}</template>
+                        </span>
+                        <span class="min-w-0">
+                            <span
+                                class="block font-medium"
+                                :class="step.done ? 'line-through' : ''"
+                                >{{ step.title }}</span
+                            >
+                            <span
+                                class="mt-0.5 block text-sm text-muted-foreground"
+                                >{{ step.text }}</span
+                            >
+                        </span>
+                    </Link>
+                </li>
+            </ol>
+        </section>
+
         <!-- Stats -->
         <div
             class="grid grid-cols-[repeat(2,minmax(0,1fr))] gap-3 lg:grid-cols-4"
@@ -264,6 +367,71 @@ const tiles = computed(() => [
                             tabindex="-1"
                         />
                     </div>
+                </section>
+
+                <section class="rounded-2xl border bg-card p-5">
+                    <div
+                        class="mb-4 flex flex-wrap items-center justify-between gap-3"
+                    >
+                        <h2 class="flex items-center gap-2 font-semibold">
+                            <BarChart3 class="size-4 text-primary" />Pengunjung
+                            14 hari terakhir
+                        </h2>
+                        <div class="flex gap-4 text-sm">
+                            <span
+                                ><span class="font-semibold">{{
+                                    visits.views7
+                                }}</span>
+                                <span class="text-muted-foreground">
+                                    kunjungan / 7 hari</span
+                                ></span
+                            >
+                            <span class="inline-flex items-center gap-1"
+                                ><MessageCircle
+                                    class="size-4 text-emerald-500"
+                                /><span class="font-semibold">{{
+                                    visits.clicks7
+                                }}</span>
+                                <span class="text-muted-foreground">
+                                    klik WhatsApp</span
+                                ></span
+                            >
+                        </div>
+                    </div>
+                    <div
+                        class="flex h-40 items-end gap-1.5"
+                        role="img"
+                        :aria-label="`Grafik kunjungan: ${visits.views30} kunjungan dalam 30 hari`"
+                    >
+                        <div
+                            v-for="d in visits.days"
+                            :key="d.date"
+                            class="group relative flex h-full flex-1 flex-col justify-end"
+                        >
+                            <div
+                                class="w-full rounded-t-md bg-primary/80 transition group-hover:bg-primary"
+                                :style="{
+                                    height: `${Math.max(2, (d.views / maxViews) * 100)}%`,
+                                }"
+                            />
+                            <span
+                                class="pointer-events-none absolute -top-8 left-1/2 z-10 hidden -translate-x-1/2 rounded-md bg-foreground px-2 py-1 text-[11px] whitespace-nowrap text-background group-hover:block"
+                                >{{ d.label }}: {{ d.views }} kunjungan,
+                                {{ d.clicks }} klik WA</span
+                            >
+                        </div>
+                    </div>
+                    <div
+                        class="mt-2 flex justify-between text-[11px] text-muted-foreground"
+                    >
+                        <span>{{ visits.days[0]?.label }}</span>
+                        <span>Hari ini</span>
+                    </div>
+                    <p class="mt-3 text-xs text-muted-foreground">
+                        30 hari: {{ visits.views30 }} kunjungan,
+                        {{ visits.clicks30 }} klik WhatsApp. Kunjungan admin
+                        tidak dihitung.
+                    </p>
                 </section>
 
                 <section class="rounded-2xl border bg-card p-5">
