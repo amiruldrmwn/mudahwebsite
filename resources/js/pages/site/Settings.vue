@@ -63,20 +63,19 @@ defineOptions({
     },
 });
 
-type AiModel = {
-    id: string;
-    provider: string;
-    context: number | null;
+type AiTier = {
+    key: string;
+    label: string;
+    description: string;
+    model: string;
     input: number | null;
     output: number | null;
-    reasoning: boolean;
-    vision: boolean;
 };
 
 const props = defineProps<{
     settings: Settings;
     sitemapUrl: string;
-    aiModels: AiModel[];
+    aiTiers: AiTier[];
     aiDefaultModel: string;
 }>();
 
@@ -229,35 +228,13 @@ async function writeCopy(): Promise<void> {
     }
 }
 
-// AI model picker: search, provider filter, and the chosen model's details.
-const aiQuery = ref('');
-const aiProvider = ref('all');
-const aiProviders = computed(() => [
-    ...new Set(props.aiModels.map((m) => m.provider)),
-]);
-const aiFiltered = computed(() => {
-    const q = aiQuery.value.trim().toLowerCase();
-
-    return props.aiModels.filter(
-        (m) =>
-            (aiProvider.value === 'all' || m.provider === aiProvider.value) &&
-            (!q || m.id.toLowerCase().includes(q)),
-    );
-});
+// AI model: three simple choices; a model saved before there were choices stays shown.
 const aiSelectedId = computed(() => form.ai_model || props.aiDefaultModel);
-const aiSelected = computed(
-    () => props.aiModels.find((m) => m.id === aiSelectedId.value) ?? null,
+const aiCustom = computed(() =>
+    props.aiTiers.some((t) => t.model === aiSelectedId.value)
+        ? null
+        : aiSelectedId.value,
 );
-
-function formatContext(n: number | null): string {
-    if (n === null) {
-        return '-';
-    }
-
-    return n >= 1_000_000
-        ? `${+(n / 1_000_000).toFixed(1)} juta token`
-        : `${Math.round(n / 1000)} ribu token`;
-}
 
 function formatUsd(v: number | null): string {
     if (v === null) {
@@ -267,11 +244,15 @@ function formatUsd(v: number | null): string {
     return v < 0.01 ? `$${+v.toPrecision(2)}` : `$${v.toFixed(2)}`;
 }
 
-/** A rough guide for owners who don't know the models. */
-function costLabel(m: AiModel): string {
-    const out = m.output ?? 0;
+/** A rough cost of one request to the assistant: about 8 thousand tokens in and 1 thousand out. */
+function perRequest(t: AiTier): string | null {
+    if (t.input === null || t.output === null) {
+        return null;
+    }
 
-    return out <= 2 ? 'Hemat' : out <= 10 ? 'Menengah' : 'Premium';
+    const usd = (t.input * 8000 + t.output * 1000) / 1_000_000;
+
+    return `$${usd < 0.01 ? usd.toFixed(3) : usd.toFixed(2)}`;
 }
 
 function submit(): void {
@@ -728,211 +709,81 @@ function submit(): void {
                     </div>
 
                     <div class="grid gap-3">
+                        <Label>Model AI</Label>
                         <div
-                            class="flex flex-wrap items-end justify-between gap-2"
+                            class="grid gap-3 sm:grid-cols-3"
+                            role="radiogroup"
+                            aria-label="Model AI"
                         >
-                            <Label>Model AI</Label>
-                            <span class="text-xs text-muted-foreground"
-                                >Harga dalam USD per 1 juta token</span
+                            <button
+                                v-for="t in aiTiers"
+                                :key="t.key"
+                                type="button"
+                                role="radio"
+                                :aria-checked="t.model === aiSelectedId"
+                                class="flex min-w-0 flex-col gap-2 rounded-xl border p-4 text-left transition hover:border-primary/50"
+                                :class="
+                                    t.model === aiSelectedId
+                                        ? 'border-primary bg-primary/5 ring-1 ring-primary'
+                                        : ''
+                                "
+                                @click="form.ai_model = t.model"
                             >
-                        </div>
-
-                        <p
-                            v-if="aiModels.length === 0"
-                            class="rounded-xl border border-dashed p-4 text-sm text-muted-foreground"
-                        >
-                            Daftar model MudahCloud AI sedang tidak bisa dimuat.
-                            Model bawaan ({{ aiDefaultModel }}) tetap dipakai.
-                            Muat ulang halaman ini nanti.
-                        </p>
-
-                        <template v-else>
-                            <!-- Chosen model -->
-                            <div
-                                v-if="aiSelected"
-                                class="grid gap-3 rounded-xl border border-primary/30 bg-primary/5 p-4 sm:grid-cols-[1fr_auto]"
-                            >
-                                <div class="min-w-0">
-                                    <div
-                                        class="flex flex-wrap items-center gap-2"
-                                    >
-                                        <span
-                                            class="font-mono text-sm font-semibold"
-                                            >{{ aiSelected.id }}</span
-                                        >
-                                        <span
-                                            class="rounded-full bg-background px-2 py-0.5 text-[11px] capitalize"
-                                            >{{ aiSelected.provider }}</span
-                                        >
-                                        <span
-                                            v-if="
-                                                aiSelected.id === aiDefaultModel
-                                            "
-                                            class="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] text-primary"
-                                            >Disarankan</span
-                                        >
-                                    </div>
-                                    <dl
-                                        class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-xs sm:grid-cols-4"
-                                    >
-                                        <div>
-                                            <dt class="text-muted-foreground">
-                                                Panjang konteks
-                                            </dt>
-                                            <dd class="font-medium">
-                                                {{
-                                                    formatContext(
-                                                        aiSelected.context,
-                                                    )
-                                                }}
-                                            </dd>
-                                        </div>
-                                        <div>
-                                            <dt class="text-muted-foreground">
-                                                Input
-                                            </dt>
-                                            <dd class="font-medium">
-                                                {{
-                                                    formatUsd(aiSelected.input)
-                                                }}
-                                            </dd>
-                                        </div>
-                                        <div>
-                                            <dt class="text-muted-foreground">
-                                                Output
-                                            </dt>
-                                            <dd class="font-medium">
-                                                {{
-                                                    formatUsd(aiSelected.output)
-                                                }}
-                                            </dd>
-                                        </div>
-                                        <div>
-                                            <dt class="text-muted-foreground">
-                                                Kemampuan
-                                            </dt>
-                                            <dd class="font-medium">
-                                                {{
-                                                    [
-                                                        aiSelected.reasoning
-                                                            ? 'Penalaran'
-                                                            : null,
-                                                        aiSelected.vision
-                                                            ? 'Baca gambar'
-                                                            : null,
-                                                    ]
-                                                        .filter(Boolean)
-                                                        .join(', ') || 'Teks'
-                                                }}
-                                            </dd>
-                                        </div>
-                                    </dl>
-                                </div>
                                 <span
-                                    class="self-start rounded-full bg-background px-3 py-1 text-xs font-medium"
-                                    >{{ costLabel(aiSelected) }}</span
+                                    class="flex items-center justify-between gap-2"
                                 >
-                            </div>
-
-                            <!-- Picker -->
-                            <div class="flex flex-col gap-2 sm:flex-row">
-                                <Input
-                                    v-model="aiQuery"
-                                    type="search"
-                                    placeholder="Cari model, mis. deepseek, gpt, claude"
-                                    aria-label="Cari model AI"
-                                />
-                                <select
-                                    v-model="aiProvider"
-                                    class="h-9 rounded-md border bg-background px-3 text-sm capitalize sm:w-48"
-                                    aria-label="Penyedia model"
-                                >
-                                    <option value="all">Semua penyedia</option>
-                                    <option
-                                        v-for="p in aiProviders"
-                                        :key="p"
-                                        :value="p"
-                                    >
-                                        {{ p }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div
-                                class="max-h-80 divide-y overflow-y-auto rounded-xl border"
-                                role="radiogroup"
-                                aria-label="Model AI"
-                            >
-                                <button
-                                    v-for="m in aiFiltered"
-                                    :key="m.id"
-                                    type="button"
-                                    role="radio"
-                                    :aria-checked="m.id === aiSelectedId"
-                                    class="flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm transition hover:bg-muted/60"
-                                    :class="
-                                        m.id === aiSelectedId
-                                            ? 'bg-primary/5'
-                                            : ''
-                                    "
-                                    @click="form.ai_model = m.id"
-                                >
+                                    <span class="font-semibold">{{
+                                        t.label
+                                    }}</span>
                                     <span
                                         class="flex size-4 shrink-0 items-center justify-center rounded-full border"
                                         :class="
-                                            m.id === aiSelectedId
+                                            t.model === aiSelectedId
                                                 ? 'border-primary bg-primary text-primary-foreground'
                                                 : ''
                                         "
                                         ><Check
-                                            v-if="m.id === aiSelectedId"
+                                            v-if="t.model === aiSelectedId"
                                             class="size-3"
                                     /></span>
-                                    <span class="min-w-0 flex-1">
-                                        <span
-                                            class="block truncate font-mono text-[13px]"
-                                            >{{ m.id }}</span
-                                        >
-                                        <span
-                                            class="block text-xs text-muted-foreground capitalize"
-                                            >{{ m.provider }} ·
-                                            {{ formatContext(m.context)
-                                            }}{{
-                                                m.reasoning
-                                                    ? ' · penalaran'
-                                                    : ''
-                                            }}{{
-                                                m.vision ? ' · gambar' : ''
-                                            }}</span
-                                        >
+                                </span>
+                                <span class="text-xs text-muted-foreground">{{
+                                    t.description
+                                }}</span>
+                                <span class="mt-auto border-t pt-2 text-xs">
+                                    <span v-if="perRequest(t)" class="block">
+                                        ±
+                                        <span class="font-semibold">{{
+                                            perRequest(t)
+                                        }}</span>
+                                        per perintah
                                     </span>
                                     <span
-                                        class="shrink-0 text-right text-xs text-muted-foreground"
-                                        ><span
-                                            class="font-medium text-foreground"
-                                            >{{ formatUsd(m.input) }}</span
-                                        >
-                                        in ·
-                                        <span
-                                            class="font-medium text-foreground"
-                                            >{{ formatUsd(m.output) }}</span
-                                        >
-                                        out</span
+                                        v-if="t.input !== null"
+                                        class="block text-muted-foreground"
+                                        >{{ formatUsd(t.input) }} masuk ·
+                                        {{ formatUsd(t.output) }} keluar per 1
+                                        juta token</span
                                     >
-                                </button>
-                                <p
-                                    v-if="aiFiltered.length === 0"
-                                    class="p-6 text-center text-sm text-muted-foreground"
-                                >
-                                    Tidak ada model yang cocok.
-                                </p>
-                            </div>
-                            <p class="text-xs text-muted-foreground">
-                                Tips: model "Hemat" seperti
-                                {{ aiDefaultModel }} sudah cukup untuk menulis
-                                isi website. Pilih model "Premium" bila ingin
-                                tulisan yang lebih halus.
-                            </p>
-                        </template>
+                                    <span
+                                        class="mt-1 block font-mono text-[11px] break-all text-muted-foreground"
+                                        >Model: {{ t.model }}</span
+                                    >
+                                </span>
+                            </button>
+                        </div>
+                        <p
+                            v-if="aiCustom"
+                            class="rounded-xl border border-dashed p-3 text-xs text-muted-foreground"
+                        >
+                            Saat ini memakai model
+                            <span class="font-mono">{{ aiCustom }}</span
+                            >. Pilih salah satu di atas untuk menggantinya.
+                        </p>
+                        <p class="text-xs text-muted-foreground">
+                            Biaya dipotong dari saldo AI MudahCloud. Standar
+                            sudah cukup untuk kebanyakan website.
+                        </p>
                         <InputError :message="form.errors.ai_model" />
                     </div>
                 </CardContent>

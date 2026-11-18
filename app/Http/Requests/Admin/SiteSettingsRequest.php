@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Ai\AiCatalog;
+use App\Support\Site;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -40,10 +41,11 @@ class SiteSettingsRequest extends FormRequest
             'google_verification' => ['nullable', 'string', 'max:255'],
             'ai_api_key' => ['nullable', 'string', 'max:500'],
             'ai_model' => ['nullable', 'string', 'max:100', function (string $attribute, mixed $value, \Closure $fail) {
-                $catalog = app(AiCatalog::class);
+                // One of the three choices, or the model already saved (picked before there were choices).
+                $allowed = [...array_column(AiCatalog::TIERS, 'model'), (string) app(Site::class)->get('ai_model')];
 
-                if (is_string($value) && $catalog->models() !== [] && ! $catalog->has($value)) {
-                    $fail('Pilih model dari daftar MudahCloud AI.');
+                if (is_string($value) && $value !== '' && ! in_array($value, $allowed, true)) {
+                    $fail('Pilih salah satu model AI yang tersedia.');
                 }
             }],
             'remove_ai_key' => ['boolean'],

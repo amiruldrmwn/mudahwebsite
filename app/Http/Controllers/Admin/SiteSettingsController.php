@@ -26,7 +26,8 @@ class SiteSettingsController extends Controller
                 'favicon_url' => $site->url('favicon'),
             ],
             'sitemapUrl' => route('sitemap'),
-            'aiModels' => app(AiCatalog::class)->models(),
+            // Three simple choices instead of the whole gateway list.
+            'aiTiers' => app(AiCatalog::class)->tiers(),
             'aiDefaultModel' => AiClient::DEFAULT_MODEL,
         ]);
     }

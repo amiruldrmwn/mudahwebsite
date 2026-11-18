@@ -32,6 +32,39 @@ class AiCatalog
         return $this->normalize($raw);
     }
 
+    /**
+     * The three choices the settings page offers, simple enough for owners who don't know AI
+     * models: each names the model it runs on and its price (null when the gateway lacks it).
+     */
+    public const TIERS = [
+        'standar' => ['label' => 'Standar', 'model' => AiClient::DEFAULT_MODEL, 'description' => 'Hemat dan cukup untuk menulis serta mengubah isi website sehari-hari.'],
+        'medium' => ['label' => 'Medium', 'model' => 'gemini/gemini-3.8-flash', 'description' => 'Tulisan lebih rapi dan cepat, bisa membaca gambar yang Anda kirim.'],
+        'pro' => ['label' => 'Pro', 'model' => 'claude-sonnet-5-5', 'description' => 'Paling cerdas: tulisan paling halus dan perubahan halaman yang rumit.'],
+    ];
+
+    /**
+     * @return list<array{key: string, label: string, description: string, model: string, input: float|null, output: float|null}>
+     */
+    public function tiers(): array
+    {
+        $models = collect($this->models())->keyBy('id');
+
+        $tiers = [];
+
+        foreach (self::TIERS as $key => $t) {
+            $tiers[] = [
+                'key' => $key,
+                'label' => $t['label'],
+                'description' => $t['description'],
+                'model' => $t['model'],
+                'input' => $models[$t['model']]['input'] ?? null,
+                'output' => $models[$t['model']]['output'] ?? null,
+            ];
+        }
+
+        return $tiers;
+    }
+
     public function has(string $id): bool
     {
         return in_array($id, array_column($this->models(), 'id'), true);

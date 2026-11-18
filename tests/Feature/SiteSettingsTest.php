@@ -96,15 +96,16 @@ class SiteSettingsTest extends TestCase
     public function test_ai_key_is_saved_encrypted_and_never_sent_back()
     {
         Http::fake(['ai.mudahcloud.com/v1/models' => Http::response(['data' => [
+            ['id' => 'deepseek-v4-flash', 'owned_by' => 'deepseek', 'mode' => 'chat', 'context_length' => 1000000, 'pricing' => ['prompt' => '0.00000036', 'completion' => '0.00000144']],
             ['id' => 'gpt-test', 'owned_by' => 'openai', 'mode' => 'chat', 'context_length' => 128000, 'pricing' => ['prompt' => '0.000001', 'completion' => '0.000002'], 'supports_reasoning' => false, 'supports_vision' => true],
             ['id' => 'embed-x', 'owned_by' => 'openai', 'mode' => 'embedding'],
         ]])]);
         $this->actingAs(User::factory()->create());
 
-        // Only models from the MudahCloud AI list are accepted.
-        $this->post(route('site.update'), $this->valid(['ai_model' => 'made-up-model']))->assertSessionHasErrors('ai_model');
+        // Only the three choices (Standar, Medium, Pro) are accepted.
+        $this->post(route('site.update'), $this->valid(['ai_model' => 'gpt-test']))->assertSessionHasErrors('ai_model');
 
-        $this->post(route('site.update'), $this->valid(['ai_api_key' => 'sk-secret', 'ai_model' => 'gpt-test']))->assertRedirect();
+        $this->post(route('site.update'), $this->valid(['ai_api_key' => 'sk-secret', 'ai_model' => 'claude-sonnet-5-5']))->assertRedirect();
 
         $site = app(Site::class);
         $this->assertNotSame('sk-secret', $site->get('ai_api_key'));
@@ -115,7 +116,8 @@ class SiteSettingsTest extends TestCase
         $this->post(route('site.update'), $this->valid())->assertRedirect();
         $this->assertSame('sk-secret', app(Site::class)->aiApiKey());
         $this->get(route('site.edit'))->assertDontSee('sk-secret')->assertInertia(fn ($page) => $page->where('settings.ai_key_set', true)->missing('settings.ai_api_key')
-            ->has('aiModels', 1)->where('aiModels.0.input', 1)->where('aiModels.0.output', 2));
+            ->missing('aiModels')->has('aiTiers', 3)->where('aiTiers.0.model', 'deepseek-v4-flash')
+            ->where('aiTiers.0.input', 0.36)->where('aiTiers.0.output', 1.44)->where('aiTiers.2.input', null));
 
         $this->post(route('site.update'), $this->valid(['remove_ai_key' => true]))->assertRedirect();
         $this->assertNull(app(Site::class)->aiApiKey());
