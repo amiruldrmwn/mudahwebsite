@@ -57,6 +57,7 @@ class Site
         'color_hijab' => null,
         'color_kaos' => null,
         'color_mobil' => null,
+        'color_biolink' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

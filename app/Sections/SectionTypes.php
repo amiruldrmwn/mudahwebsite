@@ -75,6 +75,20 @@ class SectionTypes
                     ]],
                 ],
             ],
+            'links' => [
+                'label' => 'Daftar Link (Bio Link)',
+                'description' => 'Tombol link bertumpuk ala link in bio: toko, kelas, katalog, sosial media, atau formulir.',
+                'fields' => [
+                    'title' => ['type' => 'text', 'label' => 'Judul', 'max' => 150],
+                    'items' => ['type' => 'items', 'label' => 'Link', 'max_items' => 20, 'fields' => [
+                        'title' => ['type' => 'text', 'label' => 'Judul link', 'max' => 80, 'required' => true],
+                        'text' => ['type' => 'text', 'label' => 'Keterangan singkat', 'max' => 140],
+                        'url' => ['type' => 'url', 'label' => 'Alamat link (https://..., /halaman, mailto:, tel:)', 'max' => 255],
+                        'badge' => ['type' => 'text', 'label' => 'Label (mis. Baru, Gratis)', 'max' => 20],
+                        'image' => ['type' => 'image', 'label' => 'Ikon / gambar kecil (opsional)'],
+                    ]],
+                ],
+            ],
             'pricelist' => [
                 'label' => 'Daftar Harga / Menu',
                 'description' => 'Produk, menu, atau perawatan beserta harganya. Dengan foto tampil sebagai kartu produk, tanpa foto sebagai daftar harga.',

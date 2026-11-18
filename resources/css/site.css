@@ -2370,3 +2370,178 @@
         display: none;
     }
 }
+
+/* ---------- Bio Link: one centred card, stacked links, creator profile ---------- */
+.theme-biolink {
+    --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #ffffff;
+    --line: #ececf0;
+    --ink: #17171c;
+    --muted: #6b6b76;
+    background: #f1f1f4 !important;
+}
+
+.theme-biolink main {
+    max-width: 42rem;
+    margin: 1.25rem auto 2rem;
+    background: #fff;
+    border-radius: 1.75rem;
+    box-shadow:
+        0 1px 2px rgb(0 0 0 / 0.04),
+        0 12px 40px rgb(0 0 0 / 0.06);
+    overflow: hidden;
+}
+
+@media (max-width: 690px) {
+    .theme-biolink main {
+        margin: 1rem 0.75rem 1.5rem;
+    }
+}
+
+.theme-biolink h1,
+.theme-biolink h2,
+.theme-biolink h3,
+.theme-biolink .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.theme-biolink main .sec {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    background: transparent !important;
+}
+
+.theme-biolink main .site-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.theme-biolink main .sec-head {
+    margin-bottom: 1.25rem;
+    text-align: left;
+}
+
+.theme-biolink main .sec-title {
+    @apply text-xl;
+}
+
+.theme-biolink main .sec-title::after {
+    display: none;
+}
+
+.theme-biolink main .sec-sub {
+    @apply text-sm;
+    margin-left: 0;
+}
+
+/* Everything stacks inside the narrow card, whatever the screen width. */
+.theme-biolink main .grid:not(.grid-cols-3) {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.theme-biolink main .pricelist .grid,
+.theme-biolink main .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.theme-biolink main .pricelist .product-card .p-5 {
+    padding: 0.875rem;
+}
+
+.theme-biolink main .pricelist .product-card h3 {
+    @apply text-sm;
+}
+
+.theme-biolink main .pricelist .product-card img {
+    aspect-ratio: 4 / 3;
+}
+
+.theme-biolink main .links-sec .max-w-xl {
+    max-width: none;
+}
+
+.theme-biolink .card {
+    background: #fff;
+    border-color: var(--line);
+    box-shadow: none;
+}
+
+.theme-biolink .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-biolink .btn-outline {
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.theme-biolink .bio-social {
+    border-color: var(--line);
+}
+
+.theme-biolink .bio-header .nav-link[aria-current='page'] {
+    background: var(--ink);
+    color: #fff;
+}
+
+/* Testimonials scroll sideways like a carousel. */
+.theme-biolink main .sec-alt .grid:has(> figure) {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+}
+
+.theme-biolink main .sec-alt .grid:has(> figure) > * {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+}
+
+.theme-biolink main .sec-alt .card > svg {
+    display: none;
+}
+
+.theme-biolink main .sec-alt .card blockquote {
+    @apply text-base;
+}
+
+.theme-biolink main .sec-alt .card blockquote::before {
+    content: '★★★★★';
+    display: block;
+    color: #f5a524;
+    @apply mb-2 text-sm;
+}
+
+.theme-biolink main .sec .px-6.py-14 {
+    padding: 2rem 1.5rem;
+    border-radius: 1.25rem !important;
+}
+
+/* Posts become a compact list: thumbnail on the left. */
+.theme-biolink main .post-card {
+    flex-direction: row;
+    align-items: center;
+}
+
+.theme-biolink main .post-card > .overflow-hidden {
+    flex: 0 0 7.5rem;
+    align-self: stretch;
+}
+
+.theme-biolink main .post-card > .overflow-hidden img {
+    height: 100%;
+    aspect-ratio: auto;
+}
+
+.theme-biolink main .post-card > .p-6 {
+    padding: 1rem;
+}
+
+.theme-biolink main .post-card h3 {
+    @apply text-base;
+}

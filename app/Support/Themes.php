@@ -173,6 +173,13 @@ class Themes
                 'preset' => 'mobil',
                 'color' => '#c8102e',
             ],
+            'biolink' => [
+                'label' => 'Bio Link',
+                'description' => 'Satu kartu ringkas ala link in bio: foto profil, angka pencapaian, tombol link bertumpuk, produk unggulan, dan ulasan. Cocok untuk kreator, influencer, freelancer, dan personal brand.',
+                'fonts' => 'plus-jakarta-sans:400,500,600,700,800',
+                'preset' => 'biolink',
+                'color' => '#6d28d9',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',

@@ -295,6 +295,7 @@ class PagesTest extends TestCase
             'hijab' => ['<em>kesederhanaan</em>', ['koleksi', 'lookbook', 'tentang', 'kontak']],
             'kaos' => ['<em>custom</em>', ['produk', 'custom', 'tentang', 'kontak']],
             'mobil' => ['Mobil impian, cicilan ringan', ['pricelist', 'kredit', 'service', 'kontak']],
+            'biolink' => ['link-row', ['kelas', 'kontak']],
         ];
 
         foreach ($expect as $theme => [$text, $slugs]) {

@@ -84,6 +84,12 @@
                 <rect x="12" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
                 <rect x="31" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
             </svg>
+        @elseif ($theme === 'biolink')
+            {{-- Chain link. --}}
+            <svg viewBox="0 0 48 48" class="size-9 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M21 27l6-6M19 23l-3 3a4.2 4.2 0 0 0 6 6l3-3M29 25l3-3a4.2 4.2 0 0 0-6-6l-3 3" fill="none" style="stroke: var(--on-brand)" stroke-width="3" stroke-linecap="round"/>
+            </svg>
         @elseif ($theme === 'tambang')
             {{-- Mountain with a pickaxe peak. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
