@@ -217,6 +217,20 @@ class PagesTest extends TestCase
         }
     }
 
+    public function test_ac_service_template_has_its_pages_and_emergency_bar()
+    {
+        $this->actingAs(User::factory()->create());
+        app(Site::class)->put(['whatsapp' => '0812 3456 789']);
+
+        $this->put(route('themes.update'), ['theme' => 'ac']);
+
+        $this->get('/')->assertOk()->assertSee('theme-ac', false)->assertSee('AC mati mendadak?')
+            ->assertSee('Ruangan sejuk lagi, tanpa tunggu lama.')->assertSee('Rp75.000')->assertSee('Panggil Teknisi');
+        foreach (['layanan', 'harga', 'tentang', 'kontak'] as $slug) {
+            $this->get("/{$slug}")->assertOk();
+        }
+    }
+
     public function test_price_list_order_buttons_open_whatsapp()
     {
         DefaultContent::install('Toko Uji', replace: true, preset: 'kue');

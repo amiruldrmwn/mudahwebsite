@@ -68,6 +68,13 @@ class Themes
                 'preset' => 'umroh',
                 'color' => '#1f2b4d',
             ],
+            'ac' => [
+                'label' => 'Jasa AC & Servis',
+                'description' => 'Segar dan sigap: gradasi biru es, info darurat di atas, tabel harga jelas, alur pesan, dan area layanan. Cocok untuk jasa AC, servis elektronik, plumbing, dan teknisi panggilan.',
+                'fonts' => 'sora:400,500,600,700',
+                'preset' => 'ac',
+                'color' => '#0369a1',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',

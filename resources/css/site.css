@@ -925,3 +925,130 @@
 .theme-umroh .sec-alt {
     background: var(--surface-alt);
 }
+
+/* ---------- Jasa AC & Servis: icy blue gradient, airflow lines, orange alert ---------- */
+.theme-ac {
+    --font-body: 'Sora', ui-sans-serif, system-ui, sans-serif;
+    --alert: #f97316;
+    --radius: 1.25rem;
+    --surface-alt: #f0f7fc;
+    --line: #dbe7f0;
+    --ink: #0b2233;
+    --muted: #4b6475;
+}
+
+.theme-ac .ac-hero {
+    background:
+        radial-gradient(
+            ellipse at 85% 10%,
+            color-mix(in oklab, var(--brand) 60%, #7dd3fc) 0%,
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            var(--brand) 0%,
+            color-mix(in oklab, var(--brand) 45%, #082f49) 100%
+        );
+}
+
+.theme-ac .ac-alert {
+    background: var(--alert);
+    color: #fff;
+}
+
+.theme-ac .ac-pulse {
+    animation: ac-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes ac-pulse {
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.theme-ac .sec-title {
+    @apply font-bold;
+    letter-spacing: -0.03em;
+}
+
+.theme-ac h1 {
+    letter-spacing: -0.03em;
+}
+
+.theme-ac .nav-link {
+    color: var(--ink);
+}
+
+.theme-ac .btn {
+    @apply font-semibold;
+    border-radius: 0.875rem;
+}
+
+.theme-ac .btn-light {
+    color: var(--brand);
+}
+
+.theme-ac .btn-alert {
+    background: var(--alert);
+    color: #fff;
+}
+
+.theme-ac .btn-alert:hover {
+    background: color-mix(in oklab, var(--alert) 85%, black);
+}
+
+.theme-ac .eyebrow {
+    @apply rounded-full px-3 py-1 text-xs;
+    background: var(--brand-soft);
+}
+
+.theme-ac .card {
+    border-color: var(--line);
+    box-shadow: 0 14px 30px -24px rgb(11 34 51 / 0.45);
+}
+
+.theme-ac .card-media {
+    position: relative;
+}
+
+.theme-ac .svc-num {
+    border-radius: 0.875rem !important;
+    background: var(--brand) !important;
+    color: var(--on-brand) !important;
+}
+
+.theme-ac .step-num {
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--on-brand);
+    box-shadow: 0 0 0 6px var(--brand-soft);
+}
+
+.theme-ac .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 1.75rem;
+    left: 4.5rem;
+    right: 0.5rem;
+    border-top: 2px dotted color-mix(in oklab, var(--brand) 40%, transparent);
+}
+
+.theme-ac .price-list {
+    @apply max-w-4xl rounded-2xl border bg-white px-6;
+    border-color: var(--line);
+}
+
+.theme-ac .price {
+    color: var(--brand);
+    @apply font-bold;
+}
+
+.theme-ac .price-info {
+    @apply rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+
+.theme-ac .team-photo {
+    border-radius: 1.25rem;
+}

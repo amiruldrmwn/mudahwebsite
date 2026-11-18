@@ -19,7 +19,7 @@ class DefaultContent
     /** The sample logo a site shows until the owner uploads theirs. */
     public const LOGO = 'demo/logo.svg';
 
-    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh'];
+    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac'];
 
     /** Template groups whose sample logo is an emblem image instead of the drawn mark (LOGO). */
     private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png', 'sma' => 'demo/logo-osis.png'];
@@ -95,6 +95,7 @@ class DefaultContent
             'sekolah' => SchoolContent::pages($company),
             'sma' => HighSchoolContent::pages($company),
             'umroh' => UmrohContent::pages($company),
+            'ac' => AcServiceContent::pages($company),
             default => self::pages($company),
         };
     }

@@ -15,6 +15,15 @@
                 <path d="M24 20v-5" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round"/>
                 <circle cx="24" cy="12.5" r="2" style="fill: #f59e0b"/>
             </svg>
+        @elseif ($theme === 'ac')
+            {{-- Snowflake. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <g style="stroke: var(--on-brand)" stroke-width="2.6" stroke-linecap="round" fill="none">
+                    <path d="M24 11v26M12.7 17.5l22.6 13M12.7 30.5l22.6-13"/>
+                    <path d="M20 13l4 3 4-3M20 35l4-3 4 3M13 22.5l4.5-1.5-1-4.6M35 25.5l-4.5 1.5 1 4.6M13 25.5l4.5 1.5-1 4.6M35 22.5l-4.5-1.5 1-4.6"/>
+                </g>
+            </svg>
         @elseif ($theme === 'umroh')
             {{-- Crescent and Kaaba, in navy and gold. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
