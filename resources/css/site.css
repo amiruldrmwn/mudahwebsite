@@ -702,3 +702,114 @@
     color: var(--ink);
     font-size: 1rem;
 }
+
+/* ---------- SMP & SMA: monochrome, editorial serif, dark programme band ---------- */
+.theme-sma {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Instrument Serif', ui-serif, Georgia, serif;
+    --radius: 1rem;
+    --surface-alt: #f6f6f5;
+    --line: #e7e5e4;
+    --ink: #18181b;
+    --muted: #57534e;
+}
+
+.theme-sma h1,
+.theme-sma h2,
+.theme-sma .sec-title {
+    @apply font-normal;
+    letter-spacing: -0.02em;
+}
+
+.theme-sma .sec-title {
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-sma h3 {
+    font-family: var(--font-body);
+    letter-spacing: -0.01em;
+}
+
+.theme-sma .hero-title em {
+    color: var(--muted);
+}
+
+.theme-sma .sec-head {
+    @apply text-left;
+    margin-left: 0;
+}
+
+.theme-sma .eyebrow,
+.theme-sma .sma-label {
+    @apply text-xs font-medium tracking-[0.15em] uppercase;
+    color: var(--muted);
+}
+
+.theme-sma .nav-link {
+    color: var(--muted);
+}
+
+.theme-sma .nav-link:hover,
+.theme-sma .nav-link[aria-current='page'] {
+    color: var(--ink);
+}
+
+.theme-sma .btn {
+    @apply font-medium;
+    border-radius: 999px;
+}
+
+.theme-sma .btn-soft {
+    background: #f4f4f5;
+    color: var(--ink);
+}
+
+.theme-sma .btn-soft:hover {
+    background: #e7e5e4;
+}
+
+.theme-sma .btn-outline {
+    box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.theme-sma .sma-dark {
+    background: #0b0b0c;
+    color: #fff;
+}
+
+.theme-sma .sma-dark .sec-sub {
+    color: rgb(255 255 255 / 0.6);
+}
+
+.theme-sma .card {
+    border-color: var(--line);
+}
+
+.theme-sma .svc-num {
+    border-radius: 999px !important;
+}
+
+.theme-sma .step-num {
+    border-radius: 999px;
+    background: #f4f4f5;
+    color: var(--ink);
+}
+
+.theme-sma .team-photo {
+    border-radius: 1rem;
+    filter: grayscale(0.15);
+}
+
+.theme-sma .post-badge {
+    background: #f4f4f5 !important;
+    color: var(--ink) !important;
+}
+
+.theme-sma .price {
+    color: var(--ink);
+    font-size: 1rem;
+}
+
+.theme-sma .price-list {
+    @apply max-w-none;
+}

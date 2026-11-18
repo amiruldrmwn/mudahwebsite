@@ -19,10 +19,10 @@ class DefaultContent
     /** The sample logo a site shows until the owner uploads theirs. */
     public const LOGO = 'demo/logo.svg';
 
-    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah'];
+    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma'];
 
     /** Template groups whose sample logo is an emblem image instead of the drawn mark (LOGO). */
-    private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png'];
+    private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png', 'sma' => 'demo/logo-osis.png'];
 
     public static function sampleLogo(string $preset): string
     {
@@ -93,6 +93,7 @@ class DefaultContent
             'spa' => SpaContent::pages($company),
             'kue' => CakeContent::pages($company),
             'sekolah' => SchoolContent::pages($company),
+            'sma' => HighSchoolContent::pages($company),
             default => self::pages($company),
         };
     }

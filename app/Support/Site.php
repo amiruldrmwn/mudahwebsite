@@ -40,6 +40,7 @@ class Site
         'color_spa' => null,
         'color_kue' => null,
         'color_sekolah' => null,
+        'color_sma' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

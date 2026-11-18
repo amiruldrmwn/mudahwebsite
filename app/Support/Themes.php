@@ -61,6 +61,13 @@ class Themes
                 'preset' => 'sekolah',
                 'color' => '#b3261e',
             ],
+            'sma' => [
+                'label' => 'SMP & SMA',
+                'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',
+                'fonts' => 'instrument-serif:400,400i|inter:400,500,600',
+                'preset' => 'sma',
+                'color' => '#18181b',
+            ],
         ];
     }
 

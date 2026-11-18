@@ -188,6 +188,20 @@ class PagesTest extends TestCase
         $this->assertSame('site/logo-saya.png', $site->get('logo'));
     }
 
+    public function test_high_school_template_has_its_pages_and_logo()
+    {
+        $this->actingAs(User::factory()->create());
+
+        $this->put(route('themes.update'), ['theme' => 'sma']);
+        $this->assertSame('demo/logo-osis.png', app(Site::class)->get('logo'));
+
+        $this->get('/')->assertOk()->assertSee('theme-sma', false)->assertSee('<em>siap</em>', false)
+            ->assertSee('Daftar PPDB')->assertSee('sma-dark', false)->assertSee('Siswa kami raih medali emas');
+        foreach (['profil', 'program', 'fasilitas', 'berita', 'ppdb', 'kontak'] as $slug) {
+            $this->get("/{$slug}")->assertOk();
+        }
+    }
+
     public function test_price_list_order_buttons_open_whatsapp()
     {
         DefaultContent::install('Toko Uji', replace: true, preset: 'kue');

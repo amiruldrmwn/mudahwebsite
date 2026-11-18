@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
+import { Form, Head, usePage } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
 import { Button } from '@/components/ui/button';
@@ -12,18 +12,20 @@ import PasskeyVerify from '@/components/PasskeyVerify.vue';
 
 defineOptions({
     layout: {
-        title: 'Admin Website',
-        description: 'Masuk ke panel admin website Anda',
+        title: 'Masuk ke Admin',
+        description: 'Kelola halaman, template, dan pesan website Anda.',
     },
 });
 
 defineProps<{
     status?: string;
 }>();
+
+const siteName = String(usePage().props.name ?? '');
 </script>
 
 <template>
-    <Head title="Log in" />
+    <Head :title="`${siteName} Login`" />
 
     <div
         v-if="status"
@@ -32,7 +34,11 @@ defineProps<{
         {{ status }}
     </div>
 
-    <PasskeyVerify />
+    <PasskeyVerify
+        label="Masuk dengan passkey"
+        loading-label="Memeriksa passkey..."
+        separator="atau masuk dengan email"
+    />
 
     <Form
         v-bind="store.form()"
@@ -42,7 +48,7 @@ defineProps<{
     >
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label for="email">Email</Label>
                 <Input
                     id="email"
                     type="email"
@@ -51,20 +57,20 @@ defineProps<{
                     v-focus
                     :tabindex="1"
                     autocomplete="email"
-                    placeholder="email@example.com"
+                    placeholder="nama@perusahaan.com"
                 />
                 <InputError :message="errors.email" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="password">Password</Label>
+                <Label for="password">Kata sandi</Label>
                 <PasswordInput
                     id="password"
                     name="password"
                     required
                     :tabindex="2"
                     autocomplete="current-password"
-                    placeholder="Password"
+                    placeholder="Kata sandi"
                 />
                 <InputError :message="errors.password" />
             </div>
@@ -72,19 +78,19 @@ defineProps<{
             <div class="flex items-center justify-between">
                 <Label for="remember" class="flex items-center space-x-3">
                     <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>Remember me</span>
+                    <span>Ingat saya</span>
                 </Label>
             </div>
 
             <Button
                 type="submit"
-                class="mt-4 w-full"
+                class="mt-2 w-full bg-[#2766f5] text-white hover:bg-[#1f55d6]"
                 :tabindex="4"
                 :disabled="processing"
                 data-test="login-button"
             >
                 <Spinner v-if="processing" />
-                Log in
+                Masuk
             </Button>
         </div>
     </Form>
