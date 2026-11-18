@@ -55,5 +55,11 @@ ENV APP_ENV=production \
 VOLUME /data
 EXPOSE 8080
 
+# The base image checks Caddy's admin endpoint (:2019), which `frankenphp php-server` turns off, so
+# Swarm (Easypanel) would mark every container unhealthy and stop it. Laravel's /up instead; the
+# first start runs migrations and installs the content, hence the start period.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 \
+    CMD curl -fsS http://127.0.0.1:8080/up >/dev/null || exit 1
+
 ENTRYPOINT ["compro-entrypoint"]
 CMD ["supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
