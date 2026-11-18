@@ -91,6 +91,46 @@
                 <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
                 <path d="M21 27l6-6M19 23l-3 3a4.2 4.2 0 0 0 6 6l3-3M29 25l3-3a4.2 4.2 0 0 0-6-6l-3 3" fill="none" style="stroke: var(--on-brand)" stroke-width="3" stroke-linecap="round"/>
             </svg>
+        @elseif ($theme === 'laundry')
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M14 12h20v24a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2z" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/><circle cx="24" cy="26" r="6" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/><circle cx="18.5" cy="16" r="1.4" style="fill: var(--on-brand)"/>
+            </svg>
+        @elseif ($theme === 'catering')
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M11 30h26M13 30a11 11 0 0 1 22 0" fill="none" style="stroke: var(--on-brand)" stroke-width="2.6" stroke-linecap="round"/><circle cx="24" cy="16" r="2" style="fill: var(--on-brand)"/><path d="M10 34h28" style="stroke: var(--on-brand)" stroke-width="2.6" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'bengkel')
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M30 12a7 7 0 0 0-8 9L12 31a3 3 0 0 0 4 4l10-10a7 7 0 0 0 9-8l-4 4-4-1-1-4z" style="fill: var(--on-brand)"/>
+            </svg>
+        @elseif ($theme === 'foto')
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <rect x="10" y="16" width="28" height="19" rx="4" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/><circle cx="24" cy="25.5" r="5" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/><path d="M18 16l2-4h8l2 4" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'wedding')
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <circle cx="20" cy="27" r="7" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/><circle cx="28" cy="27" r="7" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/><path d="M21 14l3-3 3 3-3 3z" style="fill: var(--on-brand)"/>
+            </svg>
+        @elseif ($theme === 'bimbel')
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M8 20l16-8 16 8-16 8z" style="fill: var(--on-brand)"/><path d="M15 24v7c0 2 4 4 9 4s9-2 9-4v-7" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/>
+            </svg>
+        @elseif ($theme === 'apotek')
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <rect x="20" y="11" width="8" height="26" rx="2" style="fill: var(--on-brand)"/><rect x="11" y="20" width="26" height="8" rx="2" style="fill: var(--on-brand)"/>
+            </svg>
+        @elseif ($theme === 'petshop')
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <ellipse cx="24" cy="30" rx="7" ry="6" style="fill: var(--on-brand)"/><circle cx="15" cy="22" r="3" style="fill: var(--on-brand)"/><circle cx="20" cy="15" r="3" style="fill: var(--on-brand)"/><circle cx="28" cy="15" r="3" style="fill: var(--on-brand)"/><circle cx="33" cy="22" r="3" style="fill: var(--on-brand)"/>
+            </svg>
         @elseif ($theme === 'tambang')
             {{-- Mountain with a pickaxe peak. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">

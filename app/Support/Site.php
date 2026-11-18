@@ -67,6 +67,14 @@ class Site
         'color_kaos' => null,
         'color_mobil' => null,
         'color_biolink' => null,
+        'color_laundry' => null,
+        'color_catering' => null,
+        'color_bengkel' => null,
+        'color_foto' => null,
+        'color_wedding' => null,
+        'color_bimbel' => null,
+        'color_apotek' => null,
+        'color_petshop' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

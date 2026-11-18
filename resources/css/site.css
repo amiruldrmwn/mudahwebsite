@@ -2565,3 +2565,543 @@
 .theme-motor .sec-alt {
     background: var(--surface-alt);
 }
+
+/* ---------- Shared bits for the newer templates' page headers ---------- */
+.page-eyebrow {
+    @apply text-xs font-semibold tracking-[0.25em] uppercase;
+    color: var(--brand);
+}
+
+.page-sub {
+    color: var(--muted);
+}
+
+.theme-bengkel .page-sub {
+    color: rgb(255 255 255 / 0.7);
+}
+
+/* ---------- Laundry: sky blue, bubbles, rounded ---------- */
+.theme-laundry {
+    --font-body: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.5rem;
+    --surface: #ffffff;
+    --surface-alt: #eff8ff;
+    --line: #dbeefc;
+    --ink: #0c2a3e;
+    --muted: #4f6676;
+}
+
+.theme-laundry h1,
+.theme-laundry h2,
+.theme-laundry .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.theme-laundry .laundry-hero,
+.theme-laundry .laundry-head {
+    background:
+        radial-gradient(
+            50rem 25rem at 85% 10%,
+            color-mix(in oklab, var(--brand) 16%, white),
+            transparent 70%
+        ),
+        var(--surface-alt);
+}
+
+.theme-laundry .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-laundry .laundry-chip {
+    display: inline-block;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--brand);
+    box-shadow: 0 4px 14px -6px rgb(2 132 199 / 0.4);
+    @apply px-4 py-1.5 text-sm font-bold;
+}
+
+.theme-laundry .laundry-blob {
+    border-radius: 42% 58% 55% 45% / 45% 40% 60% 55%;
+}
+
+.theme-laundry .laundry-bubble {
+    border-radius: 999px;
+    background: radial-gradient(
+        circle at 30% 30%,
+        #fff,
+        color-mix(in oklab, var(--brand) 30%, white)
+    );
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.8);
+    opacity: 0.9;
+}
+
+.theme-laundry .btn {
+    border-radius: 999px;
+    @apply font-bold;
+}
+
+.theme-laundry .nav-link {
+    color: var(--ink);
+}
+
+.theme-laundry .card {
+    border-color: var(--line);
+}
+
+.theme-laundry .step-num,
+.theme-laundry .svc-num {
+    border-radius: 999px;
+}
+
+/* ---------- Catering: warm brown and cream, serif ---------- */
+.theme-catering {
+    --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Fraunces', ui-serif, Georgia, serif;
+    --radius: 0.75rem;
+    --surface: #fffaf2;
+    --surface-alt: #f8eddc;
+    --line: #ecdcc3;
+    --ink: #3b2416;
+    --muted: #6f5847;
+}
+
+.theme-catering h1,
+.theme-catering h2,
+.theme-catering .sec-title {
+    font-weight: 600;
+}
+
+.theme-catering .sec-title {
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-catering .hero-title em {
+    color: #f6c177;
+}
+
+.theme-catering .catering-eyebrow {
+    @apply text-sm font-medium tracking-[0.3em] uppercase;
+    color: #f6c177;
+}
+
+.theme-catering .catering-head {
+    background: var(--surface-alt);
+}
+
+.theme-catering .nav-link {
+    color: var(--ink);
+}
+
+.theme-catering .btn {
+    border-radius: 999px;
+}
+
+.theme-catering .card {
+    background: #fff;
+    border-color: var(--line);
+}
+
+.theme-catering .price {
+    font-family: var(--font-head);
+}
+
+/* ---------- Bengkel: dark garage, yellow hazard accents ---------- */
+.theme-bengkel {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Oswald', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.25rem;
+    --surface: #f5f5f4;
+    --surface-alt: #e9e8e5;
+    --line: #d6d3d1;
+    --ink: #111214;
+    --muted: #57534e;
+}
+
+.theme-bengkel h1,
+.theme-bengkel h2,
+.theme-bengkel h3,
+.theme-bengkel .sec-title {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+.theme-bengkel .sec-title {
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-bengkel .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-bengkel .bengkel-tag {
+    display: inline-block;
+    background: var(--brand);
+    color: var(--on-brand);
+    @apply px-3 py-1 text-xs font-bold tracking-[0.2em] uppercase;
+}
+
+.theme-bengkel .bengkel-stripes {
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--brand) 0 18px,
+        #111214 18px 36px
+    );
+}
+
+@media (min-width: 1024px) {
+    .theme-bengkel .bengkel-cut {
+        clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+.theme-bengkel header .nav-link {
+    color: rgb(255 255 255 / 0.85);
+}
+
+.theme-bengkel header .nav-link[aria-current='page'] {
+    color: var(--brand);
+}
+
+.theme-bengkel .bengkel-head {
+    background: #111214;
+    color: #fff;
+    border-bottom: 6px solid var(--brand);
+}
+
+.theme-bengkel .btn {
+    border-radius: 0.25rem;
+    @apply font-bold tracking-wide uppercase;
+}
+
+.theme-bengkel .card {
+    background: #fff;
+    border-color: var(--line);
+}
+
+.theme-bengkel .step-num,
+.theme-bengkel .svc-num {
+    border-radius: 0.25rem;
+    font-family: var(--font-head);
+}
+
+/* ---------- Fotografer: black and white, big serif ---------- */
+.theme-foto {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'DM Serif Display', ui-serif, Georgia, serif;
+    --radius: 0;
+    --surface: #ffffff;
+    --surface-alt: #f4f4f2;
+    --line: #e5e5e3;
+    --ink: #0a0a0a;
+    --muted: #5c5c5c;
+}
+
+.theme-foto h1,
+.theme-foto h2,
+.theme-foto h3,
+.theme-foto .sec-title {
+    font-weight: 400;
+}
+
+.theme-foto .sec-title {
+    @apply text-4xl sm:text-6xl;
+}
+
+.theme-foto .hero-title em {
+    font-style: italic;
+}
+
+.theme-foto .foto-head {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+}
+
+.theme-foto .page-eyebrow {
+    color: var(--muted);
+}
+
+.theme-foto .nav-link {
+    color: var(--ink);
+}
+
+.theme-foto .btn {
+    border-radius: 0;
+    @apply px-7 text-xs tracking-[0.2em] uppercase;
+}
+
+.theme-foto .btn-outline {
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+.theme-foto .card {
+    border-color: var(--line);
+    box-shadow: none;
+}
+
+/* ---------- Wedding: blush, gold, script ---------- */
+.theme-wedding {
+    --font-body: 'Lora', ui-serif, Georgia, serif;
+    --font-head: 'Lora', ui-serif, Georgia, serif;
+    --radius: 0.5rem;
+    --surface: #fffbf8;
+    --surface-alt: #f8ede7;
+    --line: #eedcd2;
+    --ink: #3d2c26;
+    --muted: #7a655c;
+}
+
+.theme-wedding h1,
+.theme-wedding h2,
+.theme-wedding .sec-title {
+    font-weight: 400;
+}
+
+.theme-wedding .sec-title {
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-wedding .wedding-script {
+    display: block;
+    font-family: 'Pinyon Script', cursive;
+    color: var(--brand);
+}
+
+.theme-wedding .hero-title em {
+    color: var(--brand);
+}
+
+.theme-wedding .wedding-frame {
+    border: 1px solid color-mix(in oklab, var(--brand) 50%, white);
+    border-radius: 999px 999px 0.5rem 0.5rem;
+}
+
+.theme-wedding .wedding-head {
+    background: var(--surface-alt);
+}
+
+.theme-wedding .nav-link {
+    color: var(--ink);
+}
+
+.theme-wedding .btn {
+    border-radius: 999px;
+    @apply tracking-wide;
+}
+
+.theme-wedding .btn-outline {
+    color: var(--brand);
+    box-shadow: inset 0 0 0 1px var(--brand);
+}
+
+.theme-wedding .card {
+    background: #fff;
+    border-color: var(--line);
+}
+
+.theme-wedding .step-num,
+.theme-wedding .svc-num {
+    border-radius: 999px;
+}
+
+/* ---------- Bimbel: bright, playful, rounded ---------- */
+.theme-bimbel {
+    --font-body: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Baloo 2', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.25rem;
+    --surface: #ffffff;
+    --surface-alt: #f5f3ff;
+    --line: #e6e1fb;
+    --ink: #1e1b4b;
+    --muted: #57537a;
+}
+
+.theme-bimbel h1,
+.theme-bimbel h2,
+.theme-bimbel h3,
+.theme-bimbel .sec-title {
+    font-weight: 800;
+}
+
+.theme-bimbel .sec-title {
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-bimbel .bimbel-hero,
+.theme-bimbel .bimbel-head {
+    background: linear-gradient(135deg, var(--surface-alt), #fff7ed);
+}
+
+.theme-bimbel .hero-title em {
+    font-style: normal;
+    background: linear-gradient(transparent 62%, #facc15 62%);
+}
+
+.theme-bimbel .bimbel-chip {
+    display: inline-block;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 6px 16px -8px rgb(79 70 229 / 0.5);
+    @apply px-4 py-1.5 text-sm font-bold;
+}
+
+.theme-bimbel .nav-link {
+    color: var(--ink);
+}
+
+.theme-bimbel .btn {
+    border-radius: 999px;
+    @apply font-bold;
+}
+
+.theme-bimbel .card {
+    border-color: var(--line);
+}
+
+.theme-bimbel .step-num,
+.theme-bimbel .svc-num {
+    border-radius: 1rem;
+    background: #facc15 !important;
+    color: #1e1b4b !important;
+}
+
+/* ---------- Apotek: clinical mint green ---------- */
+.theme-apotek {
+    --font-body: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #effbf6;
+    --line: #d7efe4;
+    --ink: #0b2b22;
+    --muted: #4c6a60;
+}
+
+.theme-apotek h1,
+.theme-apotek h2,
+.theme-apotek h3,
+.theme-apotek .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.theme-apotek .apotek-hero,
+.theme-apotek .apotek-head {
+    background: var(--surface-alt);
+}
+
+.theme-apotek .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-apotek .apotek-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--brand);
+    border: 1px solid var(--line);
+    @apply px-4 py-1.5 text-sm font-semibold;
+}
+
+.theme-apotek .apotek-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 999px;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgb(34 197 94 / 0.2);
+}
+
+.theme-apotek .nav-link {
+    color: var(--ink);
+}
+
+.theme-apotek .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-apotek .card {
+    border-color: var(--line);
+}
+
+.theme-apotek .svc-num,
+.theme-apotek .step-num {
+    border-radius: 999px;
+}
+
+/* ---------- Pet shop: teal, blobs, paws ---------- */
+.theme-petshop {
+    --font-body: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.5rem;
+    --surface: #fffdf8;
+    --surface-alt: #fdf3e3;
+    --line: #f1e3cc;
+    --ink: #1f3433;
+    --muted: #5c6f6d;
+}
+
+.theme-petshop h1,
+.theme-petshop h2,
+.theme-petshop h3,
+.theme-petshop .sec-title {
+    font-weight: 600;
+}
+
+.theme-petshop .sec-title {
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-petshop .pet-hero,
+.theme-petshop .pet-head {
+    background: var(--surface-alt);
+}
+
+.theme-petshop .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-petshop .pet-chip {
+    display: inline-block;
+    border-radius: 999px;
+    background: #fff;
+    @apply px-4 py-1.5 text-sm font-semibold;
+}
+
+.theme-petshop .pet-blob {
+    border-radius: 58% 42% 48% 52% / 52% 55% 45% 48%;
+}
+
+.theme-petshop .pet-blob-bg {
+    border-radius: 48% 52% 60% 40% / 45% 50% 50% 55%;
+    background: #fbbf24;
+}
+
+.theme-petshop .nav-link {
+    color: var(--ink);
+}
+
+.theme-petshop .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-petshop .card {
+    background: #fff;
+    border-color: var(--line);
+}
+
+.theme-petshop .step-num,
+.theme-petshop .svc-num {
+    border-radius: 999px;
+}

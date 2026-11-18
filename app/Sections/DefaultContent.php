@@ -19,7 +19,7 @@ class DefaultContent
     /** The sample logo a site shows until the owner uploads theirs. */
     public const LOGO = 'demo/logo.svg';
 
-    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa', 'hijab', 'kaos', 'mobil', 'biolink'];
+    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa', 'hijab', 'kaos', 'mobil', 'biolink', 'laundry', 'catering', 'bengkel', 'foto', 'wedding', 'bimbel', 'apotek', 'petshop'];
 
     /** Template groups whose sample logo is an emblem image instead of the drawn mark (LOGO). */
     private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png', 'sma' => 'demo/logo-osis.png'];
@@ -111,6 +111,14 @@ class DefaultContent
             'kaos' => TshirtStoreContent::pages($company),
             'mobil' => CarDealerContent::pages($company),
             'biolink' => BioLinkContent::pages($company),
+            'laundry' => LaundryContent::pages($company),
+            'catering' => CateringContent::pages($company),
+            'bengkel' => WorkshopContent::pages($company),
+            'foto' => PhotographerContent::pages($company),
+            'wedding' => WeddingContent::pages($company),
+            'bimbel' => TutoringContent::pages($company),
+            'apotek' => PharmacyContent::pages($company),
+            'petshop' => PetShopContent::pages($company),
             default => self::pages($company),
         };
     }
