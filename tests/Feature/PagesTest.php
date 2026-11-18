@@ -417,6 +417,19 @@ class PagesTest extends TestCase
             ->assertSee('href="http://localhost:8000/layanan?preview_theme=modern"', false);
     }
 
+    public function test_a_demo_site_lets_visitors_browse_every_template()
+    {
+        $this->get('/?tema=kue')->assertDontSee('theme-kue', false);
+
+        config(['compro.demo' => true]);
+
+        $this->get('/?tema=kue')->assertOk()->assertSee('theme-kue', false)->assertHeader('X-Robots-Tag', 'noindex')
+            ->assertSee('href="http://localhost:8000/menu?tema=kue"', false);
+        $this->get('/menu?tema=kue')->assertOk()->assertSee('Menu Kami');
+        $this->get('/?tema=tidak-ada')->assertOk()->assertDontSee('theme-tidak-ada', false);
+        $this->assertFalse(Page::allPresets()->where('preset', 'kue')->exists());
+    }
+
     public function test_images_can_be_uploaded()
     {
         Storage::fake('public');

@@ -18,4 +18,8 @@ return [
     // owner picks templates in the admin.
     'theme' => env('SITE_THEME'),
 
+    // A demo site (MudahCloud's demoweb.mudah.cloud): visitors browse every template's sample
+    // pages with ?tema=<template>, without signing in. Nothing is saved.
+    'demo' => (bool) env('DEMO_MODE', false),
+
 ];

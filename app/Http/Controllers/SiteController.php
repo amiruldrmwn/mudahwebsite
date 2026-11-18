@@ -29,6 +29,11 @@ class SiteController extends Controller
             return $this->sample($site, (string) request('preview_sample'), $slug);
         }
 
+        // A demo site: anyone can browse a template's sample pages.
+        if (config('compro.demo') && Themes::has(request('tema'))) {
+            return $this->sample($site, (string) request('tema'), $slug, 'tema');
+        }
+
         $page = $slug === null
             ? Page::query()->where('is_home', true)->first() ?? Page::query()->orderBy('position')->first()
             : Page::query()->where('slug', $slug)->first();
@@ -86,7 +91,7 @@ class SiteController extends Controller
      * previews show what a template looks like with content made for it. Links inside the page
      * keep the preview going, so every sample page can be browsed.
      */
-    private function sample(Site $site, string $theme, ?string $slug): Response
+    private function sample(Site $site, string $theme, ?string $slug, string $key = 'preview_sample'): Response
     {
         DefaultContent::ensurePhotos();
 
@@ -112,7 +117,8 @@ class SiteController extends Controller
             'sampleLogo' => DefaultContent::sampleLogo(Themes::all()[$theme]['preset']),
         ])->render();
 
-        return response($this->keepPreviewLinks($html, 'preview_sample', $theme));
+        // The same sample pages on every demo address: kept out of search results.
+        return response($this->keepPreviewLinks($html, $key, $theme))->header('X-Robots-Tag', 'noindex');
     }
 
     /**
