@@ -1,21 +1,22 @@
-<section id="{{ $sectionId }}" class="relative overflow-hidden bg-[#141416] text-white">
+{{-- Showroom hero: centred headline, wide car photo, and a perks bar overlapping it. --}}
+<section id="{{ $sectionId }}" class="mobil-hero relative overflow-hidden">
+    <div class="site-container pt-14 text-center sm:pt-20">
+        @if ($d['eyebrow'])<span class="mobil-chip">{{ $d['eyebrow'] }}</span>@endif
+        <h1 class="hero-title mx-auto mt-5 max-w-4xl text-5xl leading-[1.02] sm:text-7xl">{{ $d['title'] }}</h1>
+        @if ($d['subtitle'])<p class="muted mx-auto mt-5 max-w-2xl text-lg leading-relaxed">{{ $d['subtitle'] }}</p>@endif
+        @include('site.partials.hero-buttons', ['class' => 'justify-center mt-8!'])
+    </div>
     @if ($site->image($d['image']))
-        <img src="{{ $site->image($d['image']) }}" alt="" class="absolute inset-0 h-full w-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10"></div>
+        <div class="site-container relative mt-12 pb-16">
+            <img src="{{ $site->image($d['image']) }}" alt="" class="aspect-[4/3] w-full rounded-[2rem] sm:aspect-[21/9] object-cover shadow-[0_30px_80px_-30px_rgb(11_18_32/0.45)]">
+            <div class="mobil-perks relative z-10 mx-auto -mt-10 grid max-w-4xl grid-cols-2 gap-px overflow-hidden rounded-2xl bg-[var(--line)] shadow-xl sm:grid-cols-4">
+                @foreach ([['DP mulai', '15%'], ['Tenor hingga', '6 tahun'], ['Garansi', '5 tahun'], ['Test drive', 'ke rumah']] as [$label, $value])
+                    <div class="bg-white px-4 py-4 text-center">
+                        <div class="muted text-xs">{{ $label }}</div>
+                        <div class="mt-0.5 text-lg font-extrabold" style="color: var(--ink)">{{ $value }}</div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     @endif
-    <div class="site-container relative py-20 sm:py-28 lg:py-36">
-        <div class="max-w-2xl">
-            @if ($d['eyebrow'])<span class="mobil-badge">{{ $d['eyebrow'] }}</span>@endif
-            <h1 class="hero-title mt-5 text-5xl leading-[0.95] uppercase sm:text-7xl">{{ $d['title'] }}</h1>
-            @if ($d['subtitle'])<p class="mt-6 max-w-xl text-lg leading-relaxed text-white/80">{{ $d['subtitle'] }}</p>@endif
-            @include('site.partials.hero-buttons', ['secondary' => 'btn-ghost-light'])
-        </div>
-    </div>
-    <div class="relative border-t border-white/10 bg-black/40 backdrop-blur">
-        <div class="site-container grid grid-cols-2 gap-px text-sm sm:grid-cols-4">
-            @foreach (['Diskon & cashback', 'DP rendah, cicilan ringan', 'Test drive ke rumah', 'Bonus aksesori'] as $perk)
-                <div class="flex items-center gap-2 py-4"><span class="mobil-check">✓</span>{{ $perk }}</div>
-            @endforeach
-        </div>
-    </div>
 </section>

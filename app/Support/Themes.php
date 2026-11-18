@@ -112,10 +112,10 @@ class Themes
             ],
             'motor' => [
                 'label' => 'Rental Motor',
-                'description' => 'Fun dan berani: hijau limau, garis hitam tebal, kartu bergaya stiker, katalog motor per hari. Cocok untuk rental motor wisata, sewa sepeda, dan penyewaan alat.',
-                'fonts' => 'space-grotesk:400,500,600,700',
+                'description' => 'Santai dan tropis: nuansa krem dan jingga senja, foto besar, kotak booking langsung ke WhatsApp, katalog motor dengan harga per hari. Cocok untuk rental motor wisata, sewa skuter, dan sewa sepeda.',
+                'fonts' => 'outfit:400,500,600,700,800',
                 'preset' => 'motor',
-                'color' => '#84cc16',
+                'color' => '#f05a28',
             ],
             'properti' => [
                 'label' => 'Properti & Perumahan',
@@ -168,10 +168,10 @@ class Themes
             ],
             'mobil' => [
                 'label' => 'Sales Mobil & Dealer',
-                'description' => 'Sigap dan meyakinkan: foto mobil besar, huruf tegas kapital, pricelist, simulasi kredit, service, dan tombol cepat di HP. Cocok untuk dealer mobil, sales mobil, showroom, dan mobil bekas.',
-                'fonts' => 'barlow-condensed:600,700,800|barlow:400,500,600,700',
+                'description' => 'Bersih dan modern ala showroom: latar terang, foto mobil lebar, filter tipe mobil, tombol tanya promo dan test drive, serta simulasi kredit. Cocok untuk dealer mobil, sales mobil, showroom, dan mobil bekas.',
+                'fonts' => 'manrope:400,500,600,700,800',
                 'preset' => 'mobil',
-                'color' => '#c8102e',
+                'color' => '#1d4ed8',
             ],
             'biolink' => [
                 'label' => 'Bio Link',

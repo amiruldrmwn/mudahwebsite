@@ -1,2 +1,1 @@
-<div class="border-t-[3px] border-black"></div>
-@include('site.partials.footer-columns', ['bg' => '#111', 'tagline' => 'Jelajahi kota dengan motor kami.'])
+@include('site.partials.footer-columns', ['bg' => '#1f2a2e', 'dark' => true, 'menuTitle' => 'Jelajahi', 'tagline' => 'Selamat jalan-jalan, hati-hati di jalan!'])
