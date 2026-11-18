@@ -44,6 +44,8 @@ class Site
         'color_umroh' => null,
         'color_ac' => null,
         'color_legal' => null,
+        'color_kopi' => null,
+        'color_barber' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

@@ -247,6 +247,23 @@ class PagesTest extends TestCase
         }
     }
 
+    public function test_coffee_and_barber_templates_have_their_pages()
+    {
+        $this->actingAs(User::factory()->create());
+
+        $this->put(route('themes.update'), ['theme' => 'kopi']);
+        $this->get('/')->assertOk()->assertSee('theme-kopi', false)->assertSee('kopi-marquee', false)->assertSee('Es Kopi Susu Aren');
+        foreach (['menu', 'tentang', 'gerai', 'kontak'] as $slug) {
+            $this->get("/{$slug}")->assertOk();
+        }
+
+        $this->put(route('themes.update'), ['theme' => 'barber']);
+        $this->get('/')->assertOk()->assertSee('theme-barber', false)->assertSee('barber-pole', false)->assertSee('Sharp cut. Fresh look.')->assertSee('75K');
+        foreach (['harga', 'tentang', 'galeri', 'kontak'] as $slug) {
+            $this->get("/{$slug}")->assertOk();
+        }
+    }
+
     public function test_price_list_order_buttons_open_whatsapp()
     {
         DefaultContent::install('Toko Uji', replace: true, preset: 'kue');

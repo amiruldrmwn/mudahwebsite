@@ -1184,3 +1184,252 @@
     border-color: var(--brand) !important;
     box-shadow: 0 20px 40px -24px var(--brand);
 }
+
+/* ---------- Coffee Shop: cream and forest green, big rounded type, marquee ---------- */
+.theme-kopi {
+    --font-body: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.5rem;
+    --surface: #ffffff;
+    --surface-alt: #f6f1e7;
+    --line: #ebe3d3;
+    --ink: #1d2a22;
+    --muted: #5d6a61;
+}
+
+.theme-kopi .kopi-bar {
+    background: #6b4a33;
+    color: #fff;
+}
+
+.theme-kopi .kopi-hero {
+    background: var(--surface-alt);
+}
+
+.theme-kopi .kopi-title,
+.theme-kopi .sec-title {
+    color: var(--brand);
+    letter-spacing: -0.04em;
+}
+
+.theme-kopi .sec-title {
+    @apply text-4xl font-extrabold sm:text-5xl;
+}
+
+.theme-kopi .kopi-blob {
+    background: radial-gradient(
+        circle,
+        color-mix(in oklab, var(--brand) 25%, transparent),
+        transparent 70%
+    );
+    transform: scale(1.25);
+}
+
+.theme-kopi .kopi-leaf {
+    filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.15));
+}
+
+.theme-kopi .kopi-marquee span {
+    @apply text-5xl font-extrabold tracking-tight sm:text-7xl;
+    color: transparent;
+    -webkit-text-stroke: 1.5px
+        color-mix(in oklab, var(--brand) 55%, transparent);
+}
+
+.theme-kopi .kopi-marquee-track {
+    animation: kopi-marquee 30s linear infinite;
+}
+
+@keyframes kopi-marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.theme-kopi .kopi-ghost {
+    @apply text-8xl font-extrabold tracking-tight sm:text-9xl;
+    color: transparent;
+    -webkit-text-stroke: 1.5px
+        color-mix(in oklab, var(--brand) 22%, transparent);
+}
+
+.theme-kopi .eyebrow {
+    @apply rounded-full px-4 py-1 text-xs font-bold;
+    background: #fff;
+}
+
+.theme-kopi .nav-link {
+    color: var(--ink);
+}
+
+.theme-kopi .btn {
+    @apply font-semibold;
+    border-radius: 999px;
+}
+
+.theme-kopi .btn-outline {
+    color: var(--brand);
+    box-shadow: inset 0 0 0 2px var(--brand);
+}
+
+.theme-kopi .btn-outline:hover {
+    background: var(--brand);
+    color: var(--on-brand);
+}
+
+.theme-kopi .card {
+    border-color: var(--line);
+    background: #fff;
+}
+
+.theme-kopi .product-card img {
+    background: var(--surface-alt);
+}
+
+.theme-kopi .price-info {
+    @apply rounded-full px-2.5 py-1 font-semibold;
+    background: var(--surface-alt);
+    color: #6b4a33;
+}
+
+.theme-kopi .svc-num {
+    border-radius: 999px !important;
+}
+
+.theme-kopi .step-num {
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--on-brand);
+}
+
+.theme-kopi .team-photo {
+    border-radius: 999px;
+}
+
+/* ---------- Barbershop: dark, condensed display type, barber-pole stripes ---------- */
+.theme-barber {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Bebas Neue', Impact, ui-sans-serif, sans-serif;
+    --radius: 0.25rem;
+    --surface: #111113;
+    --surface-alt: #18181b;
+    --ink: #f4f4f5;
+    --muted: #a1a1aa;
+    --line: #2a2a2e;
+    --brand-soft: color-mix(in oklab, var(--brand) 18%, #111113);
+}
+
+.theme-barber h1,
+.theme-barber h2,
+.theme-barber .barber-display {
+    font-family: var(--font-head);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+.theme-barber .sec-title {
+    @apply text-5xl sm:text-6xl;
+}
+
+.theme-barber .sec-title::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 4px;
+    margin-top: 0.75rem;
+    background: var(--brand);
+}
+
+.theme-barber .sec-head .sec-title::after {
+    margin-inline: auto;
+}
+
+.theme-barber h3 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+}
+
+.barber-pole {
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--brand) 0 14px,
+        #fff 14px 28px,
+        #1d4ed8 28px 42px,
+        #fff 42px 56px
+    );
+}
+
+.theme-barber .barber-nav {
+    color: rgb(255 255 255 / 0.7);
+}
+
+.theme-barber .barber-nav:hover,
+.theme-barber .barber-nav[aria-current='page'] {
+    color: #fff;
+}
+
+.theme-barber details .nav-link {
+    color: var(--ink);
+}
+
+.theme-barber .btn {
+    @apply font-bold tracking-wider uppercase;
+}
+
+.theme-barber .btn-outline {
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.theme-barber .btn-light {
+    background: #fff;
+    color: #111;
+}
+
+.theme-barber .card {
+    background: var(--surface-alt);
+    border-color: var(--line);
+}
+
+.theme-barber .price {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--brand);
+}
+
+.theme-barber .price-row + .price-row {
+    border-top-color: var(--line);
+}
+
+.theme-barber .price-dots {
+    border-bottom-color: #3f3f46;
+}
+
+.theme-barber .field {
+    background: transparent;
+    color: var(--ink);
+}
+
+.theme-barber .step-num {
+    background: var(--brand);
+    color: #fff;
+    font-family: var(--font-head);
+    font-size: 1.75rem;
+}
+
+.theme-barber .team-photo {
+    border-radius: 0;
+    filter: grayscale(0.4);
+    transition: filter 0.3s;
+}
+
+.theme-barber .team-card:hover .team-photo {
+    filter: none;
+}
+
+.theme-barber .prose-site strong,
+.theme-barber .prose-site h2,
+.theme-barber .prose-site h3 {
+    color: var(--ink);
+}

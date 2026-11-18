@@ -82,6 +82,20 @@ class Themes
                 'preset' => 'legal',
                 'color' => '#3048e8',
             ],
+            'kopi' => [
+                'label' => 'Coffee Shop',
+                'description' => 'Segar dan kekinian: krem dengan hijau hutan, judul besar membulat, tulisan berjalan, menu minuman bergambar, dan lokasi gerai. Cocok untuk coffee shop, kafe, kedai teh, dan minuman kekinian.',
+                'fonts' => 'poppins:400,500,600,700,800',
+                'preset' => 'kopi',
+                'color' => '#1f5c3d',
+            ],
+            'barber' => [
+                'label' => 'Barbershop',
+                'description' => 'Maskulin dan tegas: latar gelap, huruf kondensed besar, garis tiang barber, daftar harga gaya "65K", dan tim barber. Cocok untuk barbershop, salon pria, dan studio tato.',
+                'fonts' => 'bebas-neue:400|inter:400,500,600',
+                'preset' => 'barber',
+                'color' => '#d32f2f',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',

@@ -6,7 +6,7 @@
                 @if ($d['subtitle'])<p class="sec-sub">{{ $d['subtitle'] }}</p>@endif
             </div>
         @endif
-        <div class="grid grid-cols-2 gap-6 lg:grid-cols-4">
+        <div @class(['grid gap-6', [1 => 'mx-auto max-w-xs', 2 => 'mx-auto max-w-2xl grid-cols-2', 3 => 'mx-auto max-w-4xl grid-cols-2 sm:grid-cols-3'][count($d['items'])] ?? 'grid-cols-2 lg:grid-cols-4'])>
             @foreach ($d['items'] as $item)
                 <figure class="team-card text-center">
                     @if ($site->image($item['photo']))

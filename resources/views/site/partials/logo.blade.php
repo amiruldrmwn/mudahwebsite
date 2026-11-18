@@ -15,6 +15,22 @@
                 <path d="M24 20v-5" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round"/>
                 <circle cx="24" cy="12.5" r="2" style="fill: #f59e0b"/>
             </svg>
+        @elseif ($theme === 'kopi')
+            {{-- Coffee bean in a leaf-green circle. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <circle cx="24" cy="24" r="24" style="fill: var(--brand)"/>
+                <ellipse cx="24" cy="24" rx="9" ry="12.5" transform="rotate(30 24 24)" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/>
+                <path d="M20 14c6 5 2 15 8 20" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'barber')
+            {{-- Barber pole. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="10" fill="#111"/>
+                <defs><clipPath id="pole"><rect x="18" y="12" width="12" height="24" rx="3"/></clipPath></defs>
+                <rect x="18" y="12" width="12" height="24" rx="3" fill="#fff"/>
+                <g clip-path="url(#pole)" style="stroke: var(--brand)" stroke-width="3.2"><path d="M14 18l20-8M14 26l20-8M14 34l20-8M14 42l20-8"/></g>
+                <rect x="16" y="8" width="16" height="4" rx="2" fill="#d4d4d4"/><rect x="16" y="36" width="16" height="4" rx="2" fill="#d4d4d4"/>
+            </svg>
         @elseif ($theme === 'legal')
             {{-- Shield with a check mark. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
