@@ -308,6 +308,7 @@ class PagesTest extends TestCase
             'kaos' => ['<em>custom</em>', ['produk', 'custom', 'tentang', 'kontak']],
             'mobil' => ['Mobil impian, cicilan ringan', ['pricelist', 'kredit', 'service', 'kontak']],
             'biolink' => ['link-row', ['kelas', 'kontak']],
+            'biolink2' => ['bl2-pill', ['kontak']],
             'laundry' => ['<em>bersih wangi</em>', ['harga', 'tentang', 'kontak']],
             'catering' => ['<em>rumahan</em>', ['menu', 'galeri', 'kontak']],
             'bengkel' => ['<em>jujur</em>', ['layanan', 'galeri', 'booking']],

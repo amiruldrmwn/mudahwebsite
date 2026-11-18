@@ -236,6 +236,13 @@ class Themes
                 'preset' => 'petshop',
                 'color' => '#0d9488',
             ],
+            'biolink2' => [
+                'label' => 'Bio Link Ceria',
+                'description' => 'Ceria dan berani: latar pink, huruf oranye tebal, tombol link kapsul bergaya retro, dan link dikelompokkan dalam kotak. Cocok untuk food blogger, kreator konten, dan UMKM kuliner.',
+                'fonts' => 'rubik:600,700,800|space-mono:400,700',
+                'preset' => 'biolink2',
+                'color' => '#e8552a',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',
@@ -263,7 +270,7 @@ class Themes
             'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'foto', 'wedding']],
             'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['sekolah', 'sma', 'bimbel']],
             'properti' => ['label' => 'Properti, Wisata & Travel', 'themes' => ['properti', 'villa', 'umroh']],
-            'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink']],
+            'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink', 'biolink2']],
         ];
     }
 

@@ -75,6 +75,7 @@ class Site
         'color_bimbel' => null,
         'color_apotek' => null,
         'color_petshop' => null,
+        'color_biolink2' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

@@ -85,7 +85,7 @@
                 <rect x="12" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
                 <rect x="31" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
             </svg>
-        @elseif ($theme === 'biolink')
+        @elseif ($theme === 'biolink' || $theme === 'biolink2')
             {{-- Chain link. --}}
             <svg viewBox="0 0 48 48" class="size-9 shrink-0" aria-hidden="true">
                 <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
