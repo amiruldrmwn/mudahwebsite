@@ -23,11 +23,13 @@
     @endif
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="{{ $site->get('site_name') }}">
-    @if ($site->url('logo'))
+    @if ($site->url('logo') && ! isset($sampleLogo))
         <meta property="og:image" content="{{ $site->url('logo') }}">
     @endif
-    {{-- The site's favicon, else its own uploaded logo, else the MudahCloud mark. --}}
-    @if ($site->url('favicon'))
+    {{-- The site's favicon, else its own uploaded logo, else the MudahCloud mark (always in template demos). --}}
+    @if (isset($sampleLogo))
+        <link rel="icon" href="/favicon.ico" sizes="any">
+    @elseif ($site->url('favicon'))
         <link rel="icon" href="{{ $site->url('favicon') }}">
     @elseif ($site->get('logo') && ! \App\Sections\DefaultContent::isSampleLogo($site->get('logo')))
         <link rel="icon" href="{{ $site->url('logo') }}">

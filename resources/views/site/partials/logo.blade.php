@@ -1,7 +1,7 @@
 @php
-    // Template previews show the template's own sample logo while the site still has a sample one.
-    $logo = isset($sampleLogo) && \App\Sections\DefaultContent::isSampleLogo($site->get('logo')) ? $sampleLogo : $site->get('logo');
-    $showName = $site->get('show_name') !== 'no';
+    // Template demos always show the template's own sample logo and name, never the site's.
+    $logo = isset($sampleLogo) ? $sampleLogo : $site->get('logo');
+    $showName = isset($sampleLogo) || $site->get('show_name') !== 'no';
 @endphp
 <a href="{{ url('/') }}" class="flex items-center gap-3 {{ $class ?? '' }}">
     @if ($logo === \App\Sections\DefaultContent::LOGO)

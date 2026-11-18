@@ -88,4 +88,14 @@ class VisitorStatsTest extends TestCase
 
         $this->get('/')->assertOk()->assertDontSee('text-lg leading-tight font-bold', false)->assertSee('sr-only', false);
     }
+
+    public function test_template_demos_show_their_own_logo_not_the_uploaded_one()
+    {
+        app(Site::class)->put(['logo' => 'site/my-logo.png', 'show_name' => 'no']);
+
+        $this->actingAs(User::factory()->create())->get('/?preview_sample=laundry')
+            ->assertOk()
+            ->assertDontSee('site/my-logo.png', false)
+            ->assertSee('text-lg leading-tight font-bold', false);
+    }
 }
