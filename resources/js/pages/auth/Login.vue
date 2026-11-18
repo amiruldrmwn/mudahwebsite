@@ -74,7 +74,11 @@ const siteName = String(usePage().props.name ?? '');
                     <Checkbox id="remember" name="remember" :tabindex="3" />
                     <span>Ingat saya</span>
                 </Label>
-                <a v-if="forgotUrl" :href="forgotUrl" class="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline" :tabindex="5"
+                <a
+                    v-if="forgotUrl"
+                    :href="forgotUrl"
+                    class="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                    :tabindex="5"
                     >Lupa kata sandi?</a
                 >
             </div>

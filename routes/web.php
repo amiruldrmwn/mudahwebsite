@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\MudahCloudController;
 use App\Http\Controllers\SiteController;
+use App\Http\Middleware\MudahCloudKey;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
@@ -51,7 +52,7 @@ require __DIR__.'/settings.php';
 
 // MudahCloud's client area acting for the owner, with the site's key; the sign-in link is signed instead.
 Route::prefix('_mudahcloud')->withoutMiddleware(ValidateCsrfToken::class)->group(function () {
-    Route::middleware([\App\Http\Middleware\MudahCloudKey::class, 'throttle:60,1'])->group(function () {
+    Route::middleware([MudahCloudKey::class, 'throttle:60,1'])->group(function () {
         Route::get('status', [MudahCloudController::class, 'status']);
         Route::post('theme', [MudahCloudController::class, 'theme']);
         Route::post('password', [MudahCloudController::class, 'password']);

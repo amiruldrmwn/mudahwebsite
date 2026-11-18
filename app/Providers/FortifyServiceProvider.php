@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Actions\Fortify\ResetUserPassword;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -64,10 +67,10 @@ class FortifyServiceProvider extends ServiceProvider
             'action' => route('password.update'),
         ]));
 
-        Fortify::resetUserPasswordsUsing(\App\Actions\Fortify\ResetUserPassword::class);
+        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         // The reset email in the site's language, under its own name.
-        \Illuminate\Auth\Notifications\ResetPassword::toMailUsing(fn ($user, string $token) => (new \Illuminate\Notifications\Messages\MailMessage)
+        ResetPassword::toMailUsing(fn ($user, string $token) => (new MailMessage)
             ->subject('Atur ulang kata sandi admin '.config('app.name'))
             ->greeting('Halo,')
             ->line('Kami menerima permintaan untuk membuat kata sandi baru bagi admin website '.config('app.name').'.')
