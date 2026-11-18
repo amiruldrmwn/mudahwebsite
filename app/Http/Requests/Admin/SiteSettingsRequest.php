@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Ai\AiCatalog;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -37,9 +38,14 @@ class SiteSettingsRequest extends FormRequest
             'show_map' => ['nullable', 'in:yes,no'],
             'maps_embed' => ['nullable', 'string', 'max:3000'],
             'google_verification' => ['nullable', 'string', 'max:255'],
-            'ai_base_url' => ['nullable', 'string', 'url:https', 'max:255'],
             'ai_api_key' => ['nullable', 'string', 'max:500'],
-            'ai_model' => ['nullable', 'string', 'max:100', 'regex:/^[A-Za-z0-9._:\/-]+$/'],
+            'ai_model' => ['nullable', 'string', 'max:100', function (string $attribute, mixed $value, \Closure $fail) {
+                $catalog = app(AiCatalog::class);
+
+                if (is_string($value) && $catalog->models() !== [] && ! $catalog->has($value)) {
+                    $fail('Pilih model dari daftar MudahCloud AI.');
+                }
+            }],
             'remove_ai_key' => ['boolean'],
             'social_instagram' => $url,
             'social_facebook' => $url,
@@ -64,7 +70,6 @@ class SiteSettingsRequest extends FormRequest
             'maps_url' => 'link Google Maps',
             'maps_embed' => 'kode sematan peta',
             'google_verification' => 'kode verifikasi Google',
-            'ai_base_url' => 'alamat API AI',
             'ai_api_key' => 'API key AI',
             'ai_model' => 'model AI',
             'footer_text' => 'teks footer',

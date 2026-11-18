@@ -138,7 +138,7 @@ function onKeydown(event: KeyboardEvent): void {
                 v-if="!enabled"
                 class="m-4 rounded-lg border border-dashed p-4 text-sm text-muted-foreground"
             >
-                Asisten AI belum aktif. Isi alamat API dan API key di
+                Asisten AI belum aktif. Isi API key MudahCloud AI di
                 <a
                     :href="siteSettingsUrl"
                     class="font-medium text-primary underline"

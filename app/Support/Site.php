@@ -37,8 +37,7 @@ class Site
         'maps_embed' => '',
         // Google Search Console ownership code, printed as a meta tag.
         'google_verification' => '',
-        // AI assistant (OpenAI-compatible API). The key is stored encrypted.
-        'ai_base_url' => '',
+        // AI assistant on MudahCloud AI. The key is stored encrypted.
         'ai_api_key' => '',
         'ai_model' => '',
         // Set once the owner picks a template, for the dashboard's getting-started steps.

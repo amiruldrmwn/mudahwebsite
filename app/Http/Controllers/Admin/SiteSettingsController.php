@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Ai\AiCatalog;
+use App\Ai\AiClient;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SiteSettingsRequest;
 use App\Support\Site;
@@ -24,6 +26,8 @@ class SiteSettingsController extends Controller
                 'favicon_url' => $site->url('favicon'),
             ],
             'sitemapUrl' => route('sitemap'),
+            'aiModels' => app(AiCatalog::class)->models(),
+            'aiDefaultModel' => AiClient::DEFAULT_MODEL,
         ]);
     }
 

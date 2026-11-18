@@ -24,13 +24,13 @@ class AssistantTest extends TestCase
         parent::setUp();
         DefaultContent::install('PT Uji');
         $this->page = Page::where('slug', 'tentang')->firstOrFail();
-        app(Site::class)->put(['ai_base_url' => 'https://ai.test/v1', 'ai_api_key' => Crypt::encryptString('sk-test'), 'ai_model' => 'test-model']);
+        app(Site::class)->put(['ai_api_key' => Crypt::encryptString('sk-test'), 'ai_model' => 'test-model']);
         $this->actingAs(User::factory()->create());
     }
 
     private function aiReplies(array $json): void
     {
-        Http::fake(['ai.test/*' => Http::response(['choices' => [['message' => ['content' => json_encode($json)]]]])]);
+        Http::fake(['ai.mudahcloud.com/*' => Http::response(['choices' => [['message' => ['content' => json_encode($json)]]]])]);
     }
 
     private function ask(string $request = 'Buat lebih formal'): TestResponse
@@ -59,7 +59,7 @@ class AssistantTest extends TestCase
 
         $this->assertSame('Perjalanan Kami', $this->page->fresh()->sections[1]['data']['title']);
 
-        Http::assertSent(fn (Request $r) => $r->url() === 'https://ai.test/v1/chat/completions'
+        Http::assertSent(fn (Request $r) => $r->url() === 'https://ai.mudahcloud.com/v1/chat/completions'
             && $r->hasHeader('Authorization', 'Bearer sk-test')
             && $r['model'] === 'test-model'
             && str_contains($r['messages'][0]['content'], 'image_text'));
@@ -80,17 +80,17 @@ class AssistantTest extends TestCase
 
     public function test_json_wrapped_in_prose_is_read()
     {
-        Http::fake(['ai.test/*' => Http::response(['choices' => [['message' => ['content' => "Tentu!\n```json\n".json_encode(['message' => 'Selesai', 'sections' => [['type' => 'text', 'data' => ['title' => 'Halo']]]])."\n```"]]]])]);
+        Http::fake(['ai.mudahcloud.com/*' => Http::response(['choices' => [['message' => ['content' => "Tentu!\n```json\n".json_encode(['message' => 'Selesai', 'sections' => [['type' => 'text', 'data' => ['title' => 'Halo']]]])."\n```"]]]])]);
 
         $this->ask()->assertOk()->assertJsonPath('sections.0.data.title', 'Halo');
     }
 
     public function test_gateway_errors_are_explained()
     {
-        Http::fake(['ai.test/*' => Http::response(['error' => 'insufficient'], 402)]);
-        $this->ask()->assertStatus(422)->assertJsonPath('message', fn ($m) => str_contains($m, 'kredit AI habis'));
+        Http::fake(['ai.mudahcloud.com/*' => Http::response(['error' => 'insufficient'], 402)]);
+        $this->ask()->assertStatus(422)->assertJsonPath('message', fn ($m) => str_contains($m, 'Kredit AI Anda habis'));
 
-        Http::fake(['ai.test/*' => Http::response(['choices' => [['message' => ['content' => 'bukan json']]]])]);
+        Http::fake(['ai.mudahcloud.com/*' => Http::response(['choices' => [['message' => ['content' => 'bukan json']]]])]);
         $this->ask()->assertStatus(422);
     }
 
@@ -99,7 +99,7 @@ class AssistantTest extends TestCase
         app(Site::class)->put(['ai_api_key' => '']);
         Http::fake();
 
-        $this->ask()->assertStatus(422)->assertJsonPath('message', 'Asisten AI belum aktif. Isi alamat API dan API key di Pengaturan Situs.');
+        $this->ask()->assertStatus(422)->assertJsonPath('message', 'Asisten AI belum aktif. Isi API key MudahCloud AI di Pengaturan Situs.');
         Http::assertNothingSent();
         $this->get(route('pages.edit', $this->page))->assertInertia(fn ($p) => $p->where('aiEnabled', false));
     }

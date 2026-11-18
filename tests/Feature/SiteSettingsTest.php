@@ -8,6 +8,7 @@ use App\Sections\DefaultContent;
 use App\Support\Site;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -94,9 +95,16 @@ class SiteSettingsTest extends TestCase
 
     public function test_ai_key_is_saved_encrypted_and_never_sent_back()
     {
+        Http::fake(['ai.mudahcloud.com/v1/models' => Http::response(['data' => [
+            ['id' => 'gpt-test', 'owned_by' => 'openai', 'mode' => 'chat', 'context_length' => 128000, 'pricing' => ['prompt' => '0.000001', 'completion' => '0.000002'], 'supports_reasoning' => false, 'supports_vision' => true],
+            ['id' => 'embed-x', 'owned_by' => 'openai', 'mode' => 'embedding'],
+        ]])]);
         $this->actingAs(User::factory()->create());
 
-        $this->post(route('site.update'), $this->valid(['ai_base_url' => 'https://ai.test/v1', 'ai_api_key' => 'sk-secret', 'ai_model' => 'gpt-test']))->assertRedirect();
+        // Only models from the MudahCloud AI list are accepted.
+        $this->post(route('site.update'), $this->valid(['ai_model' => 'made-up-model']))->assertSessionHasErrors('ai_model');
+
+        $this->post(route('site.update'), $this->valid(['ai_api_key' => 'sk-secret', 'ai_model' => 'gpt-test']))->assertRedirect();
 
         $site = app(Site::class);
         $this->assertNotSame('sk-secret', $site->get('ai_api_key'));
@@ -104,9 +112,10 @@ class SiteSettingsTest extends TestCase
         $this->assertTrue(app(AiClient::class)->enabled());
 
         // A blank field keeps the key; the settings page only says one is saved.
-        $this->post(route('site.update'), $this->valid(['ai_base_url' => 'https://ai.test/v1']))->assertRedirect();
+        $this->post(route('site.update'), $this->valid())->assertRedirect();
         $this->assertSame('sk-secret', app(Site::class)->aiApiKey());
-        $this->get(route('site.edit'))->assertDontSee('sk-secret')->assertInertia(fn ($page) => $page->where('settings.ai_key_set', true)->missing('settings.ai_api_key'));
+        $this->get(route('site.edit'))->assertDontSee('sk-secret')->assertInertia(fn ($page) => $page->where('settings.ai_key_set', true)->missing('settings.ai_api_key')
+            ->has('aiModels', 1)->where('aiModels.0.input', 1)->where('aiModels.0.output', 2));
 
         $this->post(route('site.update'), $this->valid(['remove_ai_key' => true]))->assertRedirect();
         $this->assertNull(app(Site::class)->aiApiKey());

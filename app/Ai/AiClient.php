@@ -7,18 +7,20 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 
 /**
- * Chat completions on an OpenAI-compatible API (MudahCloud AI Gateway, OpenAI, DeepSeek, ...)
- * with the address, key and model the owner saved in Pengaturan Situs.
+ * Chat completions on MudahCloud AI (OpenAI compatible) with the API key and model the owner
+ * saved in Pengaturan Situs. Usage is paid from the owner's AI credit at MudahCloud.
  */
 class AiClient
 {
+    public const BASE_URL = 'https://ai.mudahcloud.com/v1';
+
     public const DEFAULT_MODEL = 'deepseek-v4-flash';
 
     public function __construct(private Site $site) {}
 
     public function enabled(): bool
     {
-        return filled($this->site->get('ai_base_url')) && $this->site->aiApiKey() !== null;
+        return $this->site->aiApiKey() !== null;
     }
 
     public function model(): string
@@ -34,14 +36,14 @@ class AiClient
     public function chat(array $messages, int $maxTokens = 6000): string
     {
         if (! $this->enabled()) {
-            throw new AiException('Asisten AI belum aktif. Isi alamat API dan API key di Pengaturan Situs.');
+            throw new AiException('Asisten AI belum aktif. Isi API key MudahCloud AI di Pengaturan Situs.');
         }
 
         try {
             $response = Http::withToken((string) $this->site->aiApiKey())
                 ->acceptJson()
                 ->timeout(120)
-                ->post(rtrim((string) $this->site->get('ai_base_url'), '/').'/chat/completions', [
+                ->post(self::BASE_URL.'/chat/completions', [
                     'model' => $this->model(),
                     'messages' => $messages,
                     'max_tokens' => $maxTokens,
@@ -49,16 +51,16 @@ class AiClient
                     'response_format' => ['type' => 'json_object'],
                 ]);
         } catch (ConnectionException) {
-            throw new AiException('Layanan AI tidak bisa dihubungi. Periksa alamat API di Pengaturan Situs atau coba lagi nanti.');
+            throw new AiException('MudahCloud AI tidak bisa dihubungi. Coba lagi sebentar lagi.');
         }
 
         if ($response->failed()) {
             throw new AiException(match ($response->status()) {
                 401, 403 => 'API key AI ditolak. Periksa API key di Pengaturan Situs.',
-                402 => 'Saldo atau kredit AI habis. Isi ulang di penyedia AI Anda lalu coba lagi.',
-                404 => 'Alamat API atau nama model tidak ditemukan. Periksa di Pengaturan Situs.',
+                402 => 'Kredit AI Anda habis. Isi ulang kredit AI di MudahCloud lalu coba lagi.',
+                404 => 'Model AI tidak ditemukan. Pilih model lain di Pengaturan Situs.',
                 429 => 'Terlalu banyak permintaan ke AI. Tunggu sebentar lalu coba lagi.',
-                default => 'Layanan AI sedang bermasalah (HTTP '.$response->status().'). Coba lagi nanti.',
+                default => 'MudahCloud AI sedang bermasalah (HTTP '.$response->status().'). Coba lagi nanti.',
             });
         }
 
