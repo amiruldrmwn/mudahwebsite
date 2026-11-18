@@ -41,6 +41,7 @@ class Site
         'color_kue' => null,
         'color_sekolah' => null,
         'color_sma' => null,
+        'color_umroh' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

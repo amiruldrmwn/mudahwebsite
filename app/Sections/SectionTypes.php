@@ -92,6 +92,27 @@ class SectionTypes
                     'order_button' => ['type' => 'select', 'label' => 'Tombol pesan via WhatsApp', 'options' => ['yes' => 'Tampilkan', 'no' => 'Sembunyikan'], 'default' => 'yes'],
                 ],
             ],
+            'packages' => [
+                'label' => 'Paket Perjalanan',
+                'description' => 'Kartu paket umroh, haji, atau tur: tanggal berangkat, durasi, maskapai, hotel, dan harga, dengan tombol tanya via WhatsApp.',
+                'fields' => [
+                    'title' => ['type' => 'text', 'label' => 'Judul', 'max' => 150],
+                    'subtitle' => ['type' => 'textarea', 'label' => 'Subjudul', 'max' => 400],
+                    'items' => ['type' => 'items', 'label' => 'Paket', 'max_items' => 24, 'fields' => [
+                        'image' => ['type' => 'image', 'label' => 'Foto / brosur'],
+                        'name' => ['type' => 'text', 'label' => 'Nama paket', 'max' => 100, 'required' => true],
+                        'date' => ['type' => 'text', 'label' => 'Tanggal berangkat (mis. 19 Nov)', 'max' => 30],
+                        'duration' => ['type' => 'text', 'label' => 'Durasi (mis. 9 Hari)', 'max' => 30],
+                        'airline' => ['type' => 'text', 'label' => 'Maskapai', 'max' => 60],
+                        'rating' => ['type' => 'text', 'label' => 'Kelas hotel (mis. Bintang 5)', 'max' => 30],
+                        'hotels' => ['type' => 'textarea', 'label' => 'Hotel (satu per baris)', 'max' => 300],
+                        'price' => ['type' => 'text', 'label' => 'Harga mulai (mis. Rp39.250.000)', 'max' => 40],
+                        'url' => ['type' => 'url', 'label' => 'Link detail (opsional, kosongkan untuk WhatsApp)', 'max' => 255],
+                    ]],
+                    'button_label' => ['type' => 'text', 'label' => 'Tombol di bawah (mis. Lihat Semua Paket)', 'max' => 40],
+                    'button_url' => ['type' => 'url', 'label' => 'Link tombol di bawah', 'max' => 255],
+                ],
+            ],
             'posts' => [
                 'label' => 'Berita / Kabar Terbaru',
                 'description' => 'Kartu berita, kegiatan, pengumuman, atau prestasi dengan foto, kategori, dan tanggal.',

@@ -15,6 +15,14 @@
                 <path d="M24 20v-5" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round"/>
                 <circle cx="24" cy="12.5" r="2" style="fill: #f59e0b"/>
             </svg>
+        @elseif ($theme === 'umroh')
+            {{-- Crescent and Kaaba, in navy and gold. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M16 20l8-4 8 4v12l-8 4-8-4z" fill="none" style="stroke: #d4b37a" stroke-width="2.2" stroke-linejoin="round"/>
+                <path d="M16 24l8 4 8-4" fill="none" style="stroke: #d4b37a" stroke-width="2.2"/>
+                <path d="M35 9.5a5 5 0 1 0 3.5 8.6A4 4 0 1 1 35 9.5z" style="fill: #d4b37a"/>
+            </svg>
         @else
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
                 <rect width="48" height="48" rx="12" style="fill: var(--brand)"/>

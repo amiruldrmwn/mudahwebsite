@@ -202,6 +202,21 @@ class PagesTest extends TestCase
         }
     }
 
+    public function test_umroh_template_shows_packages_with_whatsapp_detail()
+    {
+        $this->actingAs(User::factory()->create());
+        app(Site::class)->put(['whatsapp' => '0812 3456 789']);
+
+        $this->put(route('themes.update'), ['theme' => 'umroh']);
+
+        $this->get('/')->assertOk()->assertSee('theme-umroh', false)->assertSee('Umroh Signature 9 Hari')->assertSee('Garuda Indonesia')
+            ->assertSee('Madinah: Pullman Madinah')->assertSee('Rp39.500.000')
+            ->assertSee('https://wa.me/628123456789?text='.rawurlencode('Halo, saya tertarik dengan paket Umroh Reguler 9 Hari keberangkatan 19 Nov'), false);
+        foreach (['paket', 'haji', 'jadwal', 'faq', 'kontak'] as $slug) {
+            $this->get("/{$slug}")->assertOk();
+        }
+    }
+
     public function test_price_list_order_buttons_open_whatsapp()
     {
         DefaultContent::install('Toko Uji', replace: true, preset: 'kue');

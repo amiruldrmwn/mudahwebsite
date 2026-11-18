@@ -61,6 +61,13 @@ class Themes
                 'preset' => 'sekolah',
                 'color' => '#b3261e',
             ],
+            'umroh' => [
+                'label' => 'Travel Umroh',
+                'description' => 'Elegan dan menenangkan: biru navy dengan aksen emas, kartu paket lengkap (tanggal, maskapai, hotel, harga), program haji, jadwal keberangkatan, dan testimoni jamaah. Cocok untuk travel umroh, haji, dan wisata halal.',
+                'fonts' => 'manrope:400,500,600,700,800',
+                'preset' => 'umroh',
+                'color' => '#1f2b4d',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',

@@ -180,6 +180,11 @@
         color: var(--brand);
     }
 
+    .package-chip {
+        background: rgb(255 255 255 / 0.92);
+        color: var(--ink);
+    }
+
     .price-info {
         color: var(--muted);
     }
@@ -812,4 +817,111 @@
 
 .theme-sma .price-list {
     @apply max-w-none;
+}
+
+/* ---------- Travel Umroh: deep navy, gold accents, soft rounded cards ---------- */
+.theme-umroh {
+    --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --gold: #c19a5b;
+    --radius: 1.25rem;
+    --surface-alt: #f5f1ea;
+    --line: #e6e3dd;
+    --ink: #172036;
+    --muted: #5b6275;
+}
+
+.theme-umroh .sec-title {
+    @apply font-extrabold;
+}
+
+.theme-umroh .eyebrow {
+    background: color-mix(in oklab, var(--gold) 18%, transparent);
+    color: var(--gold);
+}
+
+.theme-umroh .umroh-badge {
+    background: var(--gold);
+    color: #fff;
+}
+
+.theme-umroh .eyebrow {
+    @apply rounded-full px-4 py-1 text-xs font-bold;
+}
+
+.theme-umroh .umroh-nav {
+    @apply text-sm font-semibold;
+    color: rgb(255 255 255 / 0.75);
+}
+
+.theme-umroh .umroh-nav:hover {
+    color: #fff;
+}
+
+.theme-umroh .umroh-nav[aria-current='page'] {
+    background: #fff;
+    color: var(--ink);
+}
+
+.theme-umroh details .nav-link {
+    color: var(--ink);
+}
+
+.theme-umroh .btn {
+    @apply font-bold;
+    border-radius: 999px;
+}
+
+.theme-umroh .btn-accent {
+    background: var(--gold);
+    color: #fff;
+}
+
+.theme-umroh .btn-accent:hover {
+    background: color-mix(in oklab, var(--gold) 85%, black);
+}
+
+.theme-umroh .btn-outline {
+    box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+.theme-umroh .card {
+    border-color: var(--line);
+    box-shadow: 0 12px 30px -20px rgb(23 32 54 / 0.35);
+}
+
+.theme-umroh .svc-num {
+    border-radius: 999px !important;
+    background: color-mix(in oklab, var(--gold) 16%, white) !important;
+    color: var(--gold) !important;
+}
+
+.theme-umroh .price {
+    color: var(--ink);
+}
+
+.theme-umroh .price-info {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.theme-umroh .price-list {
+    @apply max-w-4xl;
+}
+
+.theme-umroh .step-num {
+    border-radius: 999px;
+    background: var(--gold);
+    color: #fff;
+}
+
+.theme-umroh .team-photo {
+    border-radius: 1.25rem;
+}
+
+.theme-umroh .post-badge {
+    background: var(--gold) !important;
+}
+
+.theme-umroh .sec-alt {
+    background: var(--surface-alt);
 }
