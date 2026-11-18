@@ -4,7 +4,7 @@ namespace App\Sections;
 
 /**
  * Sample pages for the Shoe Cleaning template: treatments and prices per pair, pickup and
- * drop-off, before and after, and contact. Pictures are drawn sneakers (resources/demo/sepatu-*).
+ * drop-off and contact. Photos from Unsplash (resources/demo/CREDITS.md).
  */
 class ShoeCleaningContent
 {
@@ -19,6 +19,7 @@ class ShoeCleaningContent
             ['name' => 'Unyellowing', 'description' => 'Mengembalikan sol yang menguning jadi putih lagi.', 'info' => '3–4 hari', 'price' => 'Rp75.000'],
             ['name' => 'Repaint', 'description' => 'Cat ulang bagian yang pudar dengan warna yang mirip aslinya.', 'info' => '4–7 hari', 'price' => 'Rp150.000'],
             ['name' => 'Reglue', 'description' => 'Lem ulang sol yang mulai lepas.', 'info' => '2–3 hari', 'price' => 'Rp60.000'],
+            ['name' => 'Protector', 'description' => 'Lapisan anti air dan noda setelah dicuci.', 'info' => '1 hari', 'price' => 'Rp30.000'],
             ['name' => 'Cuci Tas / Topi', 'description' => 'Tas kanvas, ransel, dan topi dicuci dengan sabun khusus.', 'info' => '2–3 hari', 'price' => 'Rp45.000'],
         ], 'note' => 'Sepatu kulit, suede, dan bahan khusus dicek dulu sebelum dicuci. Gratis antar jemput minimal 3 pasang.', 'order_button' => 'yes']];
 
@@ -37,7 +38,7 @@ class ShoeCleaningContent
                     'subtitle' => "{$company} merawat sneakers, sepatu kulit, suede, dan kanvas dengan tangan. Antar ke workshop atau kami jemput di rumah Anda.",
                     'button_label' => 'Lihat Harga', 'button_url' => '/layanan',
                     'button2_label' => 'Cara Pesan', 'button2_url' => '/layanan',
-                    'image' => 'demo/sepatu-hero.svg',
+                    'image' => 'demo/sepatu-hero.jpg',
                 ]],
                 ['type' => 'stats', 'data' => ['items' => [
                     ['value' => '12rb+', 'label' => 'Pasang sepatu dirawat'],
@@ -46,9 +47,9 @@ class ShoeCleaningContent
                     ['value' => '100%', 'label' => 'Garansi cuci ulang'],
                 ]]],
                 ['type' => 'services', 'data' => ['title' => 'Treatment favorit', 'subtitle' => 'Dikerjakan tangan, sesuai bahan sepatu Anda.', 'items' => [
-                    ['title' => 'Deep Clean', 'text' => 'Bagian luar, dalam, insole, dan tali dicuci sampai bersih dan wangi.', 'image' => 'demo/sepatu-deep.svg'],
-                    ['title' => 'Unyellowing', 'text' => 'Sol yang menguning dibuat putih lagi tanpa merusak bahan.', 'image' => 'demo/sepatu-unyellow.svg'],
-                    ['title' => 'Repaint', 'text' => 'Warna yang pudar dicat ulang serapi aslinya.', 'image' => 'demo/sepatu-repaint.svg'],
+                    ['title' => 'Deep Clean', 'text' => 'Bagian luar, dalam, insole, dan tali dicuci sampai bersih dan wangi.', 'image' => 'demo/sepatu-deep.jpg'],
+                    ['title' => 'Repaint', 'text' => 'Warna yang pudar dicat ulang serapi aslinya.', 'image' => 'demo/sepatu-repaint.jpg'],
+                    ['title' => 'Perawatan Kulit', 'text' => 'Sepatu kulit dibersihkan, diberi nutrisi, dan disemir sampai mengilap.', 'image' => 'demo/sepatu-leather.jpg'],
                 ]]],
                 $steps,
                 ['type' => 'testimonials', 'data' => ['title' => 'Kata pelanggan', 'items' => [
@@ -62,8 +63,8 @@ class ShoeCleaningContent
                 ['type' => 'page_header', 'data' => ['title' => 'Treatment & Harga', 'subtitle' => 'Pilih perawatan sesuai kondisi sepatu Anda.']],
                 $prices,
                 ['type' => 'services', 'data' => ['title' => 'Perawatan lain', 'items' => [
-                    ['title' => 'Reglue', 'text' => 'Sol yang mulai lepas dilem ulang dengan lem khusus sepatu.', 'image' => 'demo/sepatu-reglue.svg'],
-                    ['title' => 'Repaint', 'text' => 'Cat ulang midsole dan upper dengan warna yang mendekati aslinya.', 'image' => 'demo/sepatu-repaint.svg'],
+                    ['title' => 'Protector', 'text' => 'Lapisan pelindung anti air dan noda, agar sepatu bersih lebih lama.', 'image' => 'demo/sepatu-protect.jpg'],
+                    ['title' => 'Perawatan Kulit', 'text' => 'Kulit dibersihkan, diberi nutrisi, dan disemir agar tidak retak.', 'image' => 'demo/sepatu-leather.jpg'],
                 ]]],
                 $steps,
                 ['type' => 'faq', 'data' => ['title' => 'Pertanyaan umum', 'items' => [
@@ -74,7 +75,7 @@ class ShoeCleaningContent
             ]],
             ['title' => 'Tentang', 'slug' => 'tentang', 'sections' => [
                 ['type' => 'page_header', 'data' => ['title' => 'Tentang Kami', 'subtitle' => 'Workshop perawatan sepatu yang dikerjakan dengan tangan.']],
-                ['type' => 'image_text', 'data' => ['title' => 'Kami merawat sepatu seperti milik sendiri', 'body' => "{$company} berawal dari hobi merawat sneakers. Sekarang kami membantu ribuan pelanggan menjaga sepatu kesayangan tetap awet.\n\n- Dikerjakan tangan, bukan mesin cuci\n- Cairan pembersih sesuai bahan\n- Garansi cuci ulang kalau belum bersih", 'image' => 'demo/sepatu-shop.svg', 'image_position' => 'right']],
+                ['type' => 'image_text', 'data' => ['title' => 'Kami merawat sepatu seperti milik sendiri', 'body' => "{$company} berawal dari hobi merawat sneakers. Sekarang kami membantu ribuan pelanggan menjaga sepatu kesayangan tetap awet.\n\n- Dikerjakan tangan, bukan mesin cuci\n- Cairan pembersih sesuai bahan\n- Garansi cuci ulang kalau belum bersih", 'image' => 'demo/sepatu-tools.jpg', 'image_position' => 'right']],
             ]],
             ['title' => 'Kontak', 'slug' => 'kontak', 'sections' => [
                 ['type' => 'page_header', 'data' => ['title' => 'Hubungi Kami', 'subtitle' => 'Workshop buka setiap hari 09.00–20.00.']],
