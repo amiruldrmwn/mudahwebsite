@@ -41,6 +41,7 @@ onBeforeUnmount(() => observer?.disconnect());
                 transform: `scale(${scale})`,
             }"
             loading="lazy"
+            :scrolling="interactive ? 'auto' : 'no'"
             :tabindex="interactive ? 0 : -1"
         />
     </div>

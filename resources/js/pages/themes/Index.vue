@@ -324,19 +324,19 @@ function apply(reset: boolean): void {
                             <span class="size-2 rounded-full bg-amber-400" />
                             <span class="size-2 rounded-full bg-emerald-400" />
                         </span>
-                        <span class="block aspect-[16/10]">
+                        <span class="relative block aspect-[16/10]">
                             <DesktopPreview
                                 :src="theme.sample_url"
                                 :title="`Contoh ${theme.label}`"
                             />
-                        </span>
-                        <span
-                            class="absolute inset-0 top-8 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/35 group-hover:opacity-100"
-                        >
                             <span
-                                class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-black shadow-lg"
-                                ><Eye class="size-4" />Lihat contoh</span
+                                class="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/35 group-hover:opacity-100"
                             >
+                                <span
+                                    class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-black shadow-lg"
+                                    ><Eye class="size-4" />Lihat contoh</span
+                                >
+                            </span>
                         </span>
                     </button>
                     <div class="flex flex-1 flex-col gap-2 p-4">
