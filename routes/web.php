@@ -51,7 +51,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 require __DIR__.'/settings.php';
 
 // MudahCloud's client area acting for the owner, with the site's key; the sign-in link is signed instead.
-Route::prefix('_mudahcloud')->withoutMiddleware(ValidateCsrfToken::class)->group(function () {
+Route::prefix('_mudahcloud')->group(function () {
     Route::middleware([MudahCloudKey::class, 'throttle:60,1'])->group(function () {
         Route::get('status', [MudahCloudController::class, 'status']);
         Route::post('theme', [MudahCloudController::class, 'theme']);

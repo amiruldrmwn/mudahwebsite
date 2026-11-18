@@ -20,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
+        // MudahCloud's calls carry the site's key instead of a CSRF token (MudahCloudKey).
+        $middleware->validateCsrfTokens(except: ['_mudahcloud/*']);
+
         $middleware->web(append: [
             HandleAppearance::class,
             HandleInertiaRequests::class,

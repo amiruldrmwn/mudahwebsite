@@ -17,6 +17,18 @@ class MudahCloudTest extends TestCase
         return $this->withToken('mc-key')->json($method, "/_mudahcloud/{$uri}", $data);
     }
 
+    public function test_mudahcloud_posts_need_no_csrf_token()
+    {
+        config(['compro.mudahcloud_key' => 'mc-key']);
+        User::factory()->create();
+        // The CSRF check the tests normally skip, on as in production.
+        $this->app->instance('env', 'production');
+        $this->app->forgetInstance(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
+
+        $this->mc('POST', 'login')->assertOk();
+        $this->post('/kirim-pesan', ['name' => 'x'])->assertStatus(419);
+    }
+
     public function test_without_the_key_nothing_answers()
     {
         $this->getJson('/_mudahcloud/status')->assertNotFound();
