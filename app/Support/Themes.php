@@ -190,6 +190,41 @@ class Themes
         ];
     }
 
+    /**
+     * Categories for the template gallery, in display order. A template missing from every
+     * category is listed under "Lainnya".
+     *
+     * @return array<string, array{label: string, themes: list<string>}>
+     */
+    public static function categories(): array
+    {
+        return [
+            'bisnis' => ['label' => 'Bisnis & Perusahaan', 'themes' => ['korporat', 'modern', 'minimalis', 'legal', 'tambang']],
+            'kuliner' => ['label' => 'Kuliner', 'themes' => ['resto', 'kopi', 'kue', 'catering']],
+            'toko' => ['label' => 'Toko & Fashion', 'themes' => ['hijab', 'kaos', 'apotek', 'petshop']],
+            'kesehatan' => ['label' => 'Kesehatan & Kecantikan', 'themes' => ['gigi', 'kecantikan', 'spa', 'barber']],
+            'otomotif' => ['label' => 'Otomotif & Transportasi', 'themes' => ['mobil', 'rental', 'motor', 'bengkel']],
+            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'foto', 'wedding']],
+            'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['sekolah', 'sma', 'bimbel']],
+            'properti' => ['label' => 'Properti, Wisata & Travel', 'themes' => ['properti', 'villa', 'umroh']],
+            'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink']],
+        ];
+    }
+
+    /**
+     * The gallery category of a template.
+     */
+    public static function categoryOf(string $theme): string
+    {
+        foreach (self::categories() as $key => $category) {
+            if (in_array($theme, $category['themes'], true)) {
+                return $key;
+            }
+        }
+
+        return 'lainnya';
+    }
+
     public static function has(?string $theme): bool
     {
         return is_string($theme) && array_key_exists($theme, self::all());
