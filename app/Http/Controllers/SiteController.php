@@ -18,10 +18,10 @@ use Illuminate\View\View;
  */
 class SiteController extends Controller
 {
-    public function show(Site $site, ?string $slug = null): View
+    public function show(Site $site, ?string $slug = null): View|Response
     {
-        if ($slug === null && request()->user() && Themes::has(request('preview_sample'))) {
-            return $this->sample($site, (string) request('preview_sample'));
+        if (request()->user() && Themes::has(request('preview_sample'))) {
+            return $this->sample($site, (string) request('preview_sample'), $slug);
         }
 
         $page = $slug === null
@@ -37,17 +37,22 @@ class SiteController extends Controller
         // The home page lives at /, not at its slug.
         abort_if($slug !== null && $page->is_home, 404);
 
-        return view('site.page', [
-            'page' => $page,
-            'theme' => request()->user() && Themes::has(request('preview_theme')) ? request('preview_theme') : Themes::current($site),
-        ]);
+        // An admin previewing their own pages in another template keeps that template on every page.
+        if (request()->user() && Themes::has(request('preview_theme'))) {
+            $theme = (string) request('preview_theme');
+
+            return response($this->keepPreviewLinks(view('site.page', ['page' => $page, 'theme' => $theme])->render(), 'preview_theme', $theme));
+        }
+
+        return view('site.page', ['page' => $page, 'theme' => Themes::current($site)]);
     }
 
     /**
-     * The home page of a template's sample content, without saving anything: the admin's
-     * template previews show what a template looks like with content made for it.
+     * A page of a template's sample content, without saving anything: the admin's template
+     * previews show what a template looks like with content made for it. Links inside the page
+     * keep the preview going, so every sample page can be browsed.
      */
-    private function sample(Site $site, string $theme): View
+    private function sample(Site $site, string $theme, ?string $slug): Response
     {
         DefaultContent::ensurePhotos();
 
@@ -62,7 +67,49 @@ class SiteController extends Controller
                 'sections' => array_map(fn (array $s) => SectionTypes::clean($s), $p['sections']),
             ]));
 
-        return view('site.page', ['page' => $pages->first(), 'menu' => $pages, 'theme' => $theme, 'brand' => Themes::all()[$theme]['color'], 'sampleLogo' => DefaultContent::sampleLogo(Themes::all()[$theme]['preset'])]);
+        $page = $slug === null ? $pages->firstWhere('is_home', true) : $pages->first(fn (Page $p) => $p->slug === $slug && ! $p->is_home);
+        abort_if($page === null, 404);
+
+        $html = view('site.page', [
+            'page' => $page,
+            'menu' => $pages,
+            'theme' => $theme,
+            'brand' => Themes::all()[$theme]['color'],
+            'sampleLogo' => DefaultContent::sampleLogo(Themes::all()[$theme]['preset']),
+        ])->render();
+
+        return response($this->keepPreviewLinks($html, 'preview_sample', $theme));
+    }
+
+    /**
+     * Adds ?<key>=<theme> to the links that point to pages of this site.
+     */
+    private function keepPreviewLinks(string $html, string $key, string $theme): string
+    {
+        $base = rtrim(url('/'), '/');
+
+        return (string) preg_replace_callback('/href="([^"]*)"/', function (array $m) use ($base, $key, $theme) {
+            $url = html_entity_decode($m[1]);
+
+            if (str_starts_with($url, $base)) {
+                $path = substr($url, strlen($base));
+            } elseif (str_starts_with($url, '/') && ! str_starts_with($url, '//')) {
+                $path = $url;
+            } else {
+                return $m[0];
+            }
+
+            $path = $path === '' ? '/' : $path;
+
+            if (preg_match('#^/(storage|build|admin|kirim-pesan|favicon)#', $path)) {
+                return $m[0];
+            }
+
+            [$path, $fragment] = array_pad(explode('#', $path, 2), 2, null);
+            $path .= (str_contains($path, '?') ? '&' : '?').$key.'='.$theme;
+
+            return 'href="'.e($base.$path.($fragment !== null ? '#'.$fragment : '')).'"';
+        }, $html);
     }
 
     public function contact(Request $request): RedirectResponse

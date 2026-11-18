@@ -374,6 +374,24 @@ class PagesTest extends TestCase
         $this->assertFalse(Page::where('slug', 'menu')->exists());
     }
 
+    public function test_every_sample_page_can_be_browsed_and_links_stay_in_the_preview()
+    {
+        $this->actingAs(User::factory()->create());
+
+        // Inner sample pages open, and their menu and buttons keep the sample preview.
+        $this->get('/menu?preview_sample=kue')->assertOk()->assertSee('theme-kue', false)->assertSee('Menu Kami')
+            ->assertSee('href="http://localhost:8000/kontak?preview_sample=kue"', false)
+            ->assertSee('href="http://localhost:8000/?preview_sample=kue"', false)
+            ->assertDontSee('/storage/demo/cake-hero.jpg?preview_sample', false);
+        $this->get('/?preview_sample=umroh')->assertSee('href="http://localhost:8000/paket?preview_sample=umroh"', false);
+        $this->get('/tidak-ada?preview_sample=kue')->assertNotFound();
+        $this->assertFalse(Page::allPresets()->where('preset', 'kue')->exists());
+
+        // Previewing your own pages in another template keeps that template too.
+        $this->get('/tentang?preview_theme=modern')->assertOk()->assertSee('theme-modern', false)
+            ->assertSee('href="http://localhost:8000/layanan?preview_theme=modern"', false);
+    }
+
     public function test_images_can_be_uploaded()
     {
         Storage::fake('public');
