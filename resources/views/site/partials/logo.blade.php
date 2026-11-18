@@ -85,6 +85,55 @@
                 <rect x="12" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
                 <rect x="31" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
             </svg>
+        @elseif ($theme === 'masjid')
+            {{-- Dome and crescent. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="24" style="fill: var(--brand)"/>
+                <path d="M14 34v-6c0-5.5 4.5-9.5 10-11 5.5 1.5 10 5.5 10 11v6zM12 34h24" fill="none" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M26.5 8.5a4 4 0 1 0 1.8 6.8 3.2 3.2 0 1 1-1.8-6.8z" fill="#e4c46a"/>
+            </svg>
+        @elseif ($theme === 'gym')
+            {{-- Dumbbell. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="6" style="fill: var(--brand)"/>
+                <path d="M15 24h18M11 17v14M37 17v14M7 20v8M41 20v8" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'klinik')
+            {{-- Medical cross with a heartbeat. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M19 10h10v9h9v10h-9v9H19v-9h-9V19h9z" fill="none" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linejoin="round"/>
+                <path d="M15 25h5l2-4 3 7 2-3h6" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'bangunan')
+            {{-- Bricks. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="8" fill="#1f2937"/>
+                <path d="M9 14h14v6H9zM25 14h14v6H25zM16 22h16v6H16zM9 22h5v6H9zM34 22h5v6h-5zM9 30h14v6H9zM25 30h14v6H25z" style="fill: var(--brand)"/>
+            </svg>
+        @elseif ($theme === 'percetakan')
+            {{-- Four CMYK drops. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" fill="#111827"/>
+                <circle cx="18" cy="18" r="7" fill="#06b6d4"/><circle cx="30" cy="18" r="7" style="fill: var(--brand)" opacity=".9"/><circle cx="18" cy="30" r="7" fill="#facc15" opacity=".9"/><circle cx="30" cy="30" r="7" fill="#fff" opacity=".85"/>
+            </svg>
+        @elseif ($theme === 'eo')
+            {{-- Spotlight star. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#0b0b12"/>
+                <path d="M24 9l3.6 9.4L37 22l-9.4 3.6L24 35l-3.6-9.4L11 22l9.4-3.6z" style="fill: var(--brand)"/>
+                <circle cx="36" cy="36" r="2.5" fill="#fbbf24"/>
+            </svg>
+        @elseif ($theme === 'desa')
+            {{-- Rice field and roof. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="10" style="fill: var(--brand)"/>
+                <path d="M12 24l12-10 12 10M16 22v10h16V22" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 37c5-3 9-3 16 0s11 3 16 0" fill="none" stroke="#fde047" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'cv')
+            {{-- Monogram. --}}
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full text-lg font-semibold" style="background: var(--brand); color: var(--on-brand)">{{ mb_substr($site->get('site_name') ?: 'A', 0, 1) }}</span>
         @elseif ($theme === 'pesantren')
             {{-- Mosque dome inside an eight-point star. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">

@@ -3834,3 +3834,698 @@
     color: #fff;
     @apply font-semibold;
 }
+
+/* ---------- Masjid & Yayasan: teal, cream and gold, pointed arches ---------- */
+.theme-masjid {
+    --font-body: 'Nunito Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Cormorant Garamond', ui-serif, Georgia, serif;
+    --gold: #c9a227;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #faf6ec;
+    --line: #ece4cf;
+    --ink: #13312e;
+    --muted: #55645f;
+}
+
+.theme-masjid h1,
+.theme-masjid h2,
+.theme-masjid .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.theme-masjid .sec-title {
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-masjid .masjid-topbar {
+    background: var(--brand);
+    color: rgb(255 255 255 / 0.85);
+    @apply font-semibold tracking-wide;
+}
+
+.theme-masjid .masjid-hero {
+    background:
+        radial-gradient(
+            36rem 26rem at 85% 40%,
+            color-mix(in oklab, var(--brand) 14%, transparent),
+            transparent 70%
+        ),
+        var(--surface-alt);
+}
+
+.theme-masjid .masjid-eyebrow {
+    color: var(--gold);
+    @apply text-sm font-bold tracking-[0.2em] uppercase;
+}
+
+.theme-masjid .hero-title {
+    color: var(--brand);
+}
+
+.theme-masjid .hero-title em {
+    color: var(--gold);
+}
+
+.theme-masjid .masjid-arch,
+.theme-masjid .masjid-arch-back {
+    border-radius: 50% 50% 1rem 1rem / 32% 32% 1rem 1rem;
+}
+
+.theme-masjid .masjid-arch-back {
+    background: var(--gold);
+    transform: translate(14px, 14px);
+}
+
+.theme-masjid .masjid-head {
+    background: linear-gradient(135deg, #134e4a, var(--brand));
+}
+
+.theme-masjid .btn {
+    border-radius: 999px;
+    @apply font-bold;
+}
+
+.theme-masjid .card {
+    border-color: var(--line);
+    border-radius: 1.5rem 1.5rem 1rem 1rem;
+}
+
+.theme-masjid .step-num,
+.theme-masjid .svc-num {
+    border-radius: 999px;
+    background: var(--surface-alt);
+    color: var(--brand);
+    border: 2px solid var(--gold);
+    font-family: var(--font-head);
+}
+
+/* ---------- Gym & Fitness: black, red, condensed caps ---------- */
+.theme-gym {
+    --font-body: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Bebas Neue', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.25rem;
+    --surface: #ffffff;
+    --surface-alt: #f4f4f5;
+    --line: #e4e4e7;
+    --ink: #0a0a0a;
+    --muted: #52525b;
+}
+
+.theme-gym h1,
+.theme-gym h2,
+.theme-gym .sec-title {
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.theme-gym .sec-title {
+    @apply text-5xl sm:text-6xl;
+}
+
+.theme-gym .gym-bar {
+    background: #0a0a0a;
+    color: #fff;
+}
+
+.theme-gym .gym-bar .nav-link {
+    color: rgb(255 255 255 / 0.8);
+}
+
+.theme-gym .gym-bar .nav-link[aria-current='page'],
+.theme-gym .gym-bar .nav-link:hover {
+    color: var(--brand);
+}
+
+.theme-gym .gym-hero {
+    background: #0a0a0a;
+    color: #fff;
+}
+
+.theme-gym .gym-shade {
+    background: linear-gradient(
+        90deg,
+        #0a0a0a 10%,
+        rgb(10 10 10 / 0.55) 60%,
+        rgb(10 10 10 / 0.25)
+    );
+}
+
+.theme-gym .gym-slab {
+    background: color-mix(in oklab, var(--brand) 22%, transparent);
+    transform: skewX(-12deg);
+}
+
+.theme-gym .gym-tag {
+    display: inline-block;
+    background: var(--brand);
+    color: #fff;
+    transform: skewX(-10deg);
+    @apply px-3 py-1 text-sm font-bold tracking-widest uppercase;
+}
+
+.theme-gym .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-gym .btn {
+    border-radius: 0.125rem;
+    @apply font-bold tracking-wider uppercase;
+}
+
+.theme-gym .gym-ghost {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.theme-gym .card {
+    border-color: var(--line);
+    border-bottom: 4px solid var(--brand);
+}
+
+.theme-gym .step-num,
+.theme-gym .svc-num {
+    border-radius: 0;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: var(--font-head);
+}
+
+/* ---------- Klinik Pratama: calm blue and white ---------- */
+.theme-klinik {
+    --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.25rem;
+    --surface: #ffffff;
+    --surface-alt: #f0f7fc;
+    --line: #dbeaf5;
+    --ink: #0c2a3e;
+    --muted: #4a6375;
+}
+
+.theme-klinik h1,
+.theme-klinik h2,
+.theme-klinik .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.theme-klinik .klinik-topbar {
+    background: var(--brand);
+    color: rgb(255 255 255 / 0.9);
+}
+
+.theme-klinik .klinik-hero {
+    background: linear-gradient(180deg, var(--surface-alt), #fff);
+}
+
+.theme-klinik .klinik-chip {
+    display: inline-block;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--brand) 12%, white);
+    color: var(--brand);
+    @apply px-4 py-1.5 text-sm font-semibold;
+}
+
+.theme-klinik .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-klinik .klinik-photo {
+    border-radius: 2rem;
+    box-shadow: 0 30px 60px -30px rgb(3 105 161 / 0.45);
+}
+
+.theme-klinik .klinik-float {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 15px 35px -12px rgb(12 42 62 / 0.3);
+    @apply px-4 py-3;
+}
+
+.theme-klinik .klinik-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 999px;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgb(34 197 94 / 0.2);
+}
+
+.theme-klinik .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-klinik .card {
+    border-color: var(--line);
+}
+
+.theme-klinik .step-num,
+.theme-klinik .svc-num {
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--brand) 12%, white);
+    color: var(--brand);
+}
+
+/* ---------- Toko Bangunan: amber and charcoal, sturdy ---------- */
+.theme-bangunan {
+    --font-body: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.375rem;
+    --surface: #ffffff;
+    --surface-alt: #f8f7f4;
+    --line: #e7e5e4;
+    --ink: #1f2937;
+    --muted: #57534e;
+}
+
+.theme-bangunan h1,
+.theme-bangunan h2,
+.theme-bangunan .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.theme-bangunan .bangunan-topbar {
+    background: var(--brand);
+    color: #1f2937;
+}
+
+.theme-bangunan .bangunan-hero {
+    background: #1f2937;
+    color: #fff;
+}
+
+.theme-bangunan .bangunan-stripes {
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--brand) 0 14px,
+        transparent 14px 28px
+    );
+    opacity: 0.18;
+}
+
+.theme-bangunan .bangunan-tag {
+    display: inline-block;
+    background: var(--brand);
+    color: #1f2937;
+    @apply px-3 py-1 text-xs font-extrabold tracking-wider uppercase;
+}
+
+.theme-bangunan .hero-title em {
+    font-style: normal;
+    background: var(--brand);
+    color: #1f2937;
+    padding: 0 0.15em;
+}
+
+.theme-bangunan .bangunan-offset {
+    background: var(--brand);
+}
+
+.theme-bangunan .btn {
+    @apply font-bold;
+}
+
+.theme-bangunan .bangunan-ghost {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgb(255 255 255 / 0.6);
+}
+
+.theme-bangunan .card {
+    border: 2px solid var(--line);
+}
+
+.theme-bangunan .step-num,
+.theme-bangunan .svc-num {
+    border-radius: 0.25rem;
+    background: var(--brand);
+    color: #1f2937;
+}
+
+/* ---------- Percetakan: magenta with CMYK accents ---------- */
+.theme-percetakan {
+    --font-body: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #fdf4f8;
+    --line: #f3e3ec;
+    --ink: #111827;
+    --muted: #525866;
+}
+
+.theme-percetakan h1,
+.theme-percetakan h2,
+.theme-percetakan .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.theme-percetakan .cetak-cmyk {
+    background: linear-gradient(
+        90deg,
+        #06b6d4 0 25%,
+        var(--brand) 25% 50%,
+        #facc15 50% 75%,
+        #111827 75%
+    );
+}
+
+.theme-percetakan .cetak-hero {
+    background:
+        radial-gradient(
+            18rem 18rem at 92% 10%,
+            rgb(6 182 212 / 0.22),
+            transparent 70%
+        ),
+        radial-gradient(
+            20rem 18rem at 70% 95%,
+            color-mix(in oklab, var(--brand) 22%, transparent),
+            transparent 70%
+        ),
+        radial-gradient(
+            16rem 14rem at 2% 85%,
+            rgb(250 204 21 / 0.25),
+            transparent 70%
+        ),
+        #fff;
+}
+
+.theme-percetakan .cetak-chip {
+    display: inline-block;
+    border-radius: 999px;
+    background: #111827;
+    color: #fff;
+    @apply px-4 py-1.5 text-sm font-medium;
+}
+
+.theme-percetakan .hero-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, #06b6d4, var(--brand), #f59e0b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.theme-percetakan .cetak-ink {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    box-shadow: 0 0 0 3px #fff;
+}
+
+.theme-percetakan .cetak-print {
+    border-radius: 0.75rem;
+    border: 10px solid #fff;
+    transform: rotate(3deg);
+    box-shadow: 0 30px 60px -25px rgb(17 24 39 / 0.45);
+}
+
+.theme-percetakan .cetak-head {
+    background: linear-gradient(120deg, var(--brand), #7c3aed 60%, #06b6d4);
+}
+
+.theme-percetakan .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-percetakan .card {
+    border-color: var(--line);
+}
+
+.theme-percetakan .step-num,
+.theme-percetakan .svc-num {
+    border-radius: 999px;
+    background: var(--brand);
+    color: #fff;
+}
+
+/* ---------- Event Organizer: dark stage, spotlight, wide type ---------- */
+.theme-eo {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Syne', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #f6f5f8;
+    --line: #e8e6ee;
+    --ink: #0b0b12;
+    --muted: #55536a;
+}
+
+.theme-eo h1,
+.theme-eo h2,
+.theme-eo .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.theme-eo .eo-bar {
+    background: rgb(11 11 18 / 0.92);
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+.theme-eo .eo-bar .nav-link {
+    color: rgb(255 255 255 / 0.75);
+}
+
+.theme-eo .eo-bar .nav-link[aria-current='page'],
+.theme-eo .eo-bar .nav-link:hover {
+    color: #fff;
+}
+
+.theme-eo .eo-hero {
+    background: #0b0b12;
+    color: #fff;
+}
+
+.theme-eo .eo-glow {
+    background:
+        radial-gradient(
+            40rem 28rem at 50% 0%,
+            color-mix(in oklab, var(--brand) 35%, transparent),
+            transparent 70%
+        ),
+        linear-gradient(180deg, rgb(11 11 18 / 0.55), rgb(11 11 18 / 0.85));
+}
+
+.theme-eo .eo-eyebrow {
+    display: inline-block;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    border-radius: 999px;
+    color: #fff;
+    @apply px-4 py-1.5 text-xs font-semibold tracking-[0.25em] uppercase;
+}
+
+.theme-eo .hero-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--brand), #fbbf24);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.theme-eo .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-eo .eo-ghost {
+    background: rgb(255 255 255 / 0.08);
+    color: #fff;
+    border: 1px solid rgb(255 255 255 / 0.35);
+}
+
+.theme-eo .card {
+    border-color: var(--line);
+}
+
+.theme-eo .step-num,
+.theme-eo .svc-num {
+    border-radius: 999px;
+    background: #0b0b12;
+    color: #fff;
+    font-family: var(--font-head);
+}
+
+/* ---------- Website Desa: green with red-white, official and friendly ---------- */
+.theme-desa {
+    --font-body: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Merriweather', ui-serif, Georgia, serif;
+    --radius: 0.75rem;
+    --surface: #ffffff;
+    --surface-alt: #f3f7f2;
+    --line: #dfe8dc;
+    --ink: #17261b;
+    --muted: #4f5f53;
+}
+
+.theme-desa h1,
+.theme-desa h2,
+.theme-desa .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.theme-desa .desa-flag {
+    background: linear-gradient(180deg, #dc2626 50%, #fff 50%);
+}
+
+.theme-desa .desa-nav {
+    background: var(--brand);
+}
+
+.theme-desa .desa-nav .nav-link {
+    color: rgb(255 255 255 / 0.85);
+}
+
+.theme-desa .desa-nav .nav-link[aria-current='page'],
+.theme-desa .desa-nav .nav-link:hover {
+    background: rgb(0 0 0 / 0.15);
+    color: #fff;
+}
+
+.theme-desa .desa-hero {
+    background: var(--surface-alt);
+    @apply pb-12;
+}
+
+.theme-desa .desa-card {
+    background: #fff;
+    border-radius: 1rem;
+    border-top: 5px solid var(--brand);
+    box-shadow: 0 25px 50px -20px rgb(23 38 27 / 0.35);
+}
+
+.theme-desa .desa-eyebrow {
+    color: #dc2626;
+    @apply text-xs font-bold tracking-[0.15em] uppercase;
+}
+
+.theme-desa .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-desa .desa-head {
+    background: linear-gradient(135deg, #14532d, var(--brand));
+}
+
+.theme-desa .btn {
+    @apply font-semibold;
+}
+
+.theme-desa .card {
+    border-color: var(--line);
+}
+
+.theme-desa .step-num,
+.theme-desa .svc-num {
+    background: var(--brand);
+    color: #fff;
+}
+
+/* ---------- CV Online / Portfolio: light, serif statement, indigo ---------- */
+.theme-cv {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Instrument Serif', ui-serif, Georgia, serif;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #f7f7f5;
+    --line: #e7e7e4;
+    --ink: #111827;
+    --muted: #5b6070;
+}
+
+.theme-cv h1,
+.theme-cv h2,
+.theme-cv .sec-title {
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.theme-cv .sec-title {
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-cv .cv-hero {
+    background: var(--surface-alt);
+}
+
+.theme-cv .cv-eyebrow {
+    color: var(--brand);
+    @apply text-sm font-semibold tracking-wide;
+}
+
+.theme-cv .hero-title em {
+    color: var(--brand);
+}
+
+.theme-cv .cv-photo {
+    border: 6px solid #fff;
+    box-shadow: 0 25px 50px -20px rgb(17 24 39 / 0.4);
+}
+
+.theme-cv .cv-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 10px 25px -10px rgb(17 24 39 / 0.35);
+    @apply px-3 py-1.5 text-xs font-medium;
+}
+
+.theme-cv .cv-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: #22c55e;
+}
+
+.theme-cv .cv-link {
+    color: var(--brand);
+}
+
+.theme-cv .btn {
+    border-radius: 999px;
+    @apply font-medium;
+}
+
+.theme-cv .card {
+    border-color: var(--line);
+}
+
+.theme-cv .step-num,
+.theme-cv .svc-num {
+    border-radius: 999px;
+    background: #fff;
+    color: var(--brand);
+    border: 1px solid var(--line);
+    font-family: var(--font-head);
+}
+
+/* Amber reads best with dark text; the generic white-or-dark pick chooses white for it. */
+.site.theme-bangunan {
+    --on-brand: #1f2937;
+}
+
+.theme-bangunan .nav-link[aria-current='page'] {
+    color: var(--ink);
+    box-shadow: inset 0 -3px 0 var(--brand);
+}
+
+.theme-bangunan .price {
+    color: #b45309;
+}
