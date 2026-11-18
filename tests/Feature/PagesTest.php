@@ -319,6 +319,10 @@ class PagesTest extends TestCase
             'petshop' => ['<em>bahagia</em>', ['layanan', 'galeri', 'booking']],
             'sepatu' => ['<em>kinclong</em>', ['layanan', 'tentang', 'kontak']],
             'lawfirm' => ['<em>bisnis</em>', ['bidang-praktik', 'tim', 'tentang', 'kontak']],
+            'pesantren' => ['<em>Qur&#039;ani</em>', ['profil', 'program', 'pendaftaran', 'kontak']],
+            'cleaning' => ['<em>bersih dan wangi</em>', ['layanan', 'tentang', 'kontak']],
+            'satpam' => ['<em>aman</em>', ['layanan', 'tentang', 'kontak']],
+            'biolink3' => ['bl3-card', ['kontak']],
         ];
 
         foreach ($expect as $theme => [$text, $slugs]) {

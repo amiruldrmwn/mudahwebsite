@@ -19,7 +19,7 @@ class DefaultContent
     /** The sample logo a site shows until the owner uploads theirs. */
     public const LOGO = 'demo/logo.svg';
 
-    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa', 'hijab', 'kaos', 'mobil', 'biolink', 'laundry', 'catering', 'bengkel', 'foto', 'wedding', 'bimbel', 'apotek', 'petshop', 'biolink2', 'sepatu', 'lawfirm'];
+    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa', 'hijab', 'kaos', 'mobil', 'biolink', 'laundry', 'catering', 'bengkel', 'foto', 'wedding', 'bimbel', 'apotek', 'petshop', 'biolink2', 'sepatu', 'lawfirm', 'pesantren', 'cleaning', 'satpam', 'biolink3'];
 
     /** Template groups whose sample logo is an emblem image instead of the drawn mark (LOGO). */
     private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png', 'sma' => 'demo/logo-osis.png'];
@@ -122,6 +122,10 @@ class DefaultContent
             'biolink2' => BioLinkPlayfulContent::pages($company),
             'sepatu' => ShoeCleaningContent::pages($company),
             'lawfirm' => LawFirmContent::pages($company),
+            'pesantren' => PesantrenContent::pages($company),
+            'cleaning' => CleaningContent::pages($company),
+            'satpam' => SecurityContent::pages($company),
+            'biolink3' => BioLinkMusicContent::pages($company),
             default => self::pages($company),
         };
     }

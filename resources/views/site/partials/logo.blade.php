@@ -85,7 +85,28 @@
                 <rect x="12" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
                 <rect x="31" y="30" width="5" height="4" rx="1" style="fill: var(--on-brand)"/>
             </svg>
-        @elseif ($theme === 'biolink' || $theme === 'biolink2')
+        @elseif ($theme === 'pesantren')
+            {{-- Mosque dome inside an eight-point star. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="12" style="fill: var(--brand)"/>
+                <path d="M24 6l5 7h8v8l5 3-5 3v8h-8l-5 7-5-7h-8v-8l-5-3 5-3v-8h8z" fill="none" stroke="#d4af37" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M17 32v-5c0-4 3-7 7-8.5 4 1.5 7 4.5 7 8.5v5zM24 18.5V15" fill="none" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'cleaning')
+            {{-- Sparkles. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="16" style="fill: var(--brand)"/>
+                <path d="M21 11l2.6 7.4L31 21l-7.4 2.6L21 31l-2.6-7.4L11 21l7.4-2.6z" style="fill: var(--on-brand)"/>
+                <path d="M33 27l1.4 3.6L38 32l-3.6 1.4L33 37l-1.4-3.6L28 32l3.6-1.4z" fill="#fde68a"/>
+            </svg>
+        @elseif ($theme === 'satpam')
+            {{-- Shield with a star. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="8" style="fill: var(--brand)"/>
+                <path d="M24 9l12 4.5v9c0 8-5.2 13.4-12 16.5-6.8-3.1-12-8.5-12-16.5v-9z" fill="none" stroke="#facc15" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M24 17l2 4.3 4.6.5-3.4 3.1 1 4.6-4.2-2.4-4.2 2.4 1-4.6-3.4-3.1 4.6-.5z" fill="#facc15"/>
+            </svg>
+        @elseif ($theme === 'biolink' || $theme === 'biolink2' || $theme === 'biolink3')
             {{-- Chain link. --}}
             <svg viewBox="0 0 48 48" class="size-9 shrink-0" aria-hidden="true">
                 <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>

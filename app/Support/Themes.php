@@ -82,6 +82,27 @@ class Themes
                 'preset' => 'lawfirm',
                 'color' => '#1e3a5f',
             ],
+            'pesantren' => [
+                'label' => 'Pesantren',
+                'description' => 'Teduh dan berwibawa: hijau zamrud dengan aksen emas, ornamen geometris islami, program tahfidz dan kitab, kehidupan santri, dan pendaftaran santri baru. Cocok untuk pondok pesantren, madrasah, TPQ, dan rumah tahfidz.',
+                'fonts' => 'amiri:400,700|plus-jakarta-sans:400,500,600,700',
+                'preset' => 'pesantren',
+                'color' => '#047857',
+            ],
+            'cleaning' => [
+                'label' => 'Cleaning Service',
+                'description' => 'Segar dan rapi: hijau toska dengan putih bersih, sudut membulat, paket bersih rumah dengan harga, layanan tambahan, dan alur pesan. Cocok untuk jasa bersih rumah, cleaning service kantor, cuci sofa dan kasur, serta disinfeksi.',
+                'fonts' => 'outfit:400,500,600,700',
+                'preset' => 'cleaning',
+                'color' => '#0d9488',
+            ],
+            'satpam' => [
+                'label' => 'Jasa Keamanan',
+                'description' => 'Tegas dan terpercaya: biru gelap dengan aksen kuning, huruf kapital tegas, layanan pengamanan, keunggulan, dan permintaan survei lokasi. Cocok untuk jasa satpam (BUJP), outsourcing keamanan, pengawalan, dan pemasangan CCTV.',
+                'fonts' => 'oswald:500,600,700|inter:400,500,600',
+                'preset' => 'satpam',
+                'color' => '#1e3a8a',
+            ],
             'legal' => [
                 'label' => 'Jasa Legal & Perizinan',
                 'description' => 'Tepercaya dan modern: biru royal dengan aksen oranye, ringkasan syarat dan dokumen, alur 3 langkah, paket harga bertingkat, dan tim konsultan. Cocok untuk jasa pendirian PT/CV, perizinan, notaris, konsultan pajak, dan agensi.',
@@ -257,6 +278,13 @@ class Themes
                 'preset' => 'biolink2',
                 'color' => '#e8552a',
             ],
+            'biolink3' => [
+                'label' => 'Bio Link Gelap',
+                'description' => 'Gelap dan menyala: latar hitam dengan cahaya ungu, foto profil bercincin gradasi, tautan berkartu dengan gambar sampul. Cocok untuk musisi, DJ, gamer, streamer, dan kreator konten.',
+                'fonts' => 'sora:400,600,700',
+                'preset' => 'biolink3',
+                'color' => '#a855f7',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',
@@ -281,10 +309,10 @@ class Themes
             'toko' => ['label' => 'Toko & Fashion', 'themes' => ['hijab', 'kaos', 'apotek', 'petshop']],
             'kesehatan' => ['label' => 'Kesehatan & Kecantikan', 'themes' => ['gigi', 'kecantikan', 'spa', 'barber']],
             'otomotif' => ['label' => 'Otomotif & Transportasi', 'themes' => ['mobil', 'rental', 'motor', 'bengkel']],
-            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'sepatu', 'foto', 'wedding']],
-            'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['sekolah', 'sma', 'bimbel']],
+            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'sepatu', 'cleaning', 'satpam', 'foto', 'wedding']],
+            'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['sekolah', 'sma', 'pesantren', 'bimbel']],
             'properti' => ['label' => 'Properti, Wisata & Travel', 'themes' => ['properti', 'villa', 'umroh']],
-            'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink', 'biolink2']],
+            'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink', 'biolink2', 'biolink3']],
         ];
     }
 

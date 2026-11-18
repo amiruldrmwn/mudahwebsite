@@ -3414,3 +3414,423 @@
     border: 1px solid var(--gold);
     font-family: var(--font-head);
 }
+
+/* ---------- Pesantren: emerald green, gold, geometric star pattern ---------- */
+.theme-pesantren {
+    --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Amiri', ui-serif, Georgia, serif;
+    --gold: #d4af37;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #f3f8f5;
+    --line: #dcebe3;
+    --ink: #10231b;
+    --muted: #4b5f56;
+}
+
+.theme-pesantren h1,
+.theme-pesantren h2,
+.theme-pesantren .sec-title {
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.theme-pesantren .sec-title {
+    @apply text-3xl sm:text-4xl;
+}
+
+.theme-pesantren .pesantren-topbar {
+    background: #064e3b;
+    color: rgb(255 255 255 / 0.8);
+}
+
+.theme-pesantren .pesantren-hero {
+    color: #fff;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 8l9 13h15v15l13 4-13 4v15H49l-9 13-9-13H16V44L3 40l13-4V21h15z' fill='none' stroke='%23d4af37' stroke-opacity='.16' stroke-width='1.2'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #064e3b, var(--brand));
+}
+
+.theme-pesantren .pesantren-eyebrow {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    color: var(--gold);
+    @apply px-4 py-1.5 text-xs font-semibold tracking-[0.15em] uppercase;
+}
+
+.theme-pesantren .hero-title em {
+    font-style: normal;
+    color: var(--gold);
+}
+
+.theme-pesantren .pesantren-arch {
+    border-radius: 999px 999px 1.5rem 1.5rem;
+    border: 6px solid rgb(212 175 55 / 0.7);
+    box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.5);
+}
+
+.theme-pesantren .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-pesantren .pesantren-hero .btn:not(.pesantren-ghost) {
+    background: var(--gold);
+    color: #10231b;
+}
+
+.theme-pesantren .pesantren-ghost {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgb(255 255 255 / 0.55);
+}
+
+.theme-pesantren .pesantren-ghost:hover {
+    background: rgb(255 255 255 / 0.1);
+}
+
+.theme-pesantren .card {
+    border-color: var(--line);
+    border-bottom: 3px solid var(--gold);
+}
+
+.theme-pesantren .step-num,
+.theme-pesantren .svc-num {
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 0 0 3px var(--gold);
+}
+
+/* ---------- Cleaning Service: teal and mint, soft and round ---------- */
+.theme-cleaning {
+    --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.5rem;
+    --surface: #ffffff;
+    --surface-alt: #f0fdfa;
+    --line: #ccfbf1;
+    --ink: #0f2e2b;
+    --muted: #4d6662;
+}
+
+.theme-cleaning h1,
+.theme-cleaning h2,
+.theme-cleaning .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.theme-cleaning .cleaning-nav {
+    background: var(--surface-alt);
+}
+
+.theme-cleaning .cleaning-nav .nav-link[aria-current='page'] {
+    background: #fff;
+    color: var(--brand);
+    box-shadow: 0 2px 8px rgb(13 148 136 / 0.15);
+}
+
+.theme-cleaning .cleaning-hero {
+    background:
+        radial-gradient(
+            30rem 20rem at 85% 20%,
+            color-mix(in oklab, var(--brand) 22%, white),
+            transparent 70%
+        ),
+        radial-gradient(20rem 14rem at 5% 90%, #fef9c3, transparent 70%),
+        var(--surface-alt);
+}
+
+.theme-cleaning .cleaning-chip {
+    display: inline-block;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--brand);
+    box-shadow: 0 2px 10px rgb(13 148 136 / 0.15);
+    @apply px-4 py-1.5 text-sm font-semibold;
+}
+
+.theme-cleaning .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-cleaning .cleaning-blob {
+    border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%;
+    border: 8px solid #fff;
+    box-shadow: 0 30px 60px -25px rgb(13 148 136 / 0.45);
+}
+
+.theme-cleaning .cleaning-float {
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 12px 30px -10px rgb(15 46 43 / 0.3);
+    @apply px-4 py-2 text-sm font-semibold;
+}
+
+.theme-cleaning .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-cleaning .card {
+    border-color: var(--line);
+    box-shadow: 0 10px 30px -18px rgb(13 148 136 / 0.35);
+}
+
+.theme-cleaning .step-num,
+.theme-cleaning .svc-num {
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--brand) 15%, white);
+    color: var(--brand);
+}
+
+/* ---------- Jasa Keamanan: dark navy, hazard yellow, condensed caps ---------- */
+.theme-satpam {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Oswald', ui-sans-serif, system-ui, sans-serif;
+    --alert: #facc15;
+    --radius: 0.25rem;
+    --surface: #ffffff;
+    --surface-alt: #f1f5f9;
+    --line: #e2e8f0;
+    --ink: #0f172a;
+    --muted: #475569;
+}
+
+.theme-satpam h1,
+.theme-satpam h2,
+.theme-satpam .sec-title {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+}
+
+.theme-satpam .satpam-topbar {
+    background: var(--alert);
+    color: #0f172a;
+    @apply font-semibold;
+}
+
+.theme-satpam .satpam-bar {
+    background: #0b1220;
+    color: #fff;
+}
+
+.theme-satpam .satpam-bar .nav-link {
+    color: rgb(255 255 255 / 0.85);
+}
+
+.theme-satpam .satpam-bar .nav-link[aria-current='page'],
+.theme-satpam .satpam-bar .nav-link:hover {
+    color: var(--alert);
+}
+
+.theme-satpam .satpam-bar a:has(> svg) span,
+.theme-satpam .satpam-bar a > span {
+    color: #fff;
+}
+
+.theme-satpam .satpam-btn {
+    display: inline-flex;
+    background: var(--alert);
+    color: #0f172a;
+    border-radius: 0.125rem;
+    @apply font-bold tracking-wide uppercase;
+}
+
+.theme-satpam .satpam-hero {
+    background: #0b1220;
+    color: #fff;
+}
+
+.theme-satpam .satpam-shade {
+    background: linear-gradient(
+        90deg,
+        #0b1220 0%,
+        rgb(11 18 32 / 0.8) 45%,
+        rgb(11 18 32 / 0.3) 100%
+    );
+}
+
+.theme-satpam .satpam-eyebrow {
+    display: inline-block;
+    border-left: 4px solid var(--alert);
+    color: var(--alert);
+    @apply pl-3 text-xs font-semibold tracking-[0.2em] uppercase;
+}
+
+.theme-satpam .hero-title em {
+    font-style: normal;
+    color: var(--alert);
+}
+
+.theme-satpam .satpam-stripe {
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--alert) 0 18px,
+        #0b1220 18px 36px
+    );
+}
+
+.theme-satpam .btn {
+    border-radius: 0.125rem;
+    @apply font-bold tracking-wide uppercase;
+}
+
+.theme-satpam .satpam-hero .btn:not(.satpam-ghost) {
+    background: var(--alert);
+    color: #0f172a;
+}
+
+.theme-satpam .satpam-ghost {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgb(255 255 255 / 0.6);
+}
+
+.theme-satpam .card {
+    border-color: var(--line);
+    border-top: 4px solid var(--brand);
+}
+
+.theme-satpam .step-num,
+.theme-satpam .svc-num {
+    border-radius: 0.125rem;
+    background: var(--alert);
+    color: #0f172a;
+    font-family: var(--font-head);
+}
+
+/* ---------- Bio Link Gelap: black, purple glow, glass cards ---------- */
+.theme-biolink3 {
+    --font-body: 'Sora', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Sora', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #0a0a12;
+    --surface-alt: #12121e;
+    --line: rgb(255 255 255 / 0.1);
+    --ink: #f4f4f8;
+    --muted: rgb(244 244 248 / 0.65);
+    background:
+        radial-gradient(
+            28rem 22rem at 50% -5%,
+            color-mix(in oklab, var(--brand) 45%, transparent),
+            transparent 70%
+        ),
+        radial-gradient(
+            20rem 18rem at 100% 100%,
+            rgb(236 72 153 / 0.18),
+            transparent 70%
+        ),
+        var(--surface) !important;
+    background-attachment: fixed !important;
+    color: var(--ink);
+    min-height: 100vh;
+}
+
+.theme-biolink3 h1,
+.theme-biolink3 h2,
+.theme-biolink3 .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+.theme-biolink3 .bl3-ring {
+    background: conic-gradient(
+        from 180deg,
+        var(--brand),
+        #ec4899,
+        #f59e0b,
+        var(--brand)
+    );
+    box-shadow: 0 0 40px color-mix(in oklab, var(--brand) 60%, transparent);
+}
+
+.theme-biolink3 .bl3-ring img {
+    border: 4px solid var(--surface);
+}
+
+.theme-biolink3 .bl3-handle,
+.theme-biolink3 .bl3-title {
+    color: color-mix(in oklab, var(--brand) 60%, white);
+}
+
+.theme-biolink3 .bl3-cta {
+    background: linear-gradient(90deg, var(--brand), #ec4899);
+    color: #fff;
+    box-shadow: 0 10px 30px -10px
+        color-mix(in oklab, var(--brand) 80%, transparent);
+    transition: transform 0.15s;
+}
+
+.theme-biolink3 .bl3-cta:hover {
+    transform: translateY(-2px);
+}
+
+.theme-biolink3 .bl3-card {
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    transition:
+        background 0.15s,
+        border-color 0.15s,
+        transform 0.15s;
+}
+
+.theme-biolink3 .bl3-card:hover {
+    background: rgb(255 255 255 / 0.1);
+    border-color: color-mix(in oklab, var(--brand) 70%, white);
+    transform: translateY(-1px);
+}
+
+.theme-biolink3 .bl3-dot {
+    background: var(--brand);
+    box-shadow: 0 0 10px var(--brand);
+}
+
+.theme-biolink3 .bl3-badge {
+    background: var(--brand);
+    color: #fff;
+}
+
+.theme-biolink3 .bl3-nav .nav-link {
+    color: rgb(255 255 255 / 0.75);
+    border: 1px solid rgb(255 255 255 / 0.15);
+}
+
+.theme-biolink3 .bl3-nav .nav-link[aria-current='page'] {
+    background: #fff;
+    color: #0a0a12;
+}
+
+.theme-biolink3 .bl3-social {
+    color: rgb(255 255 255 / 0.8);
+}
+
+.theme-biolink3 main .sec {
+    background: transparent !important;
+}
+
+.theme-biolink3 .card {
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    color: #fff;
+}
+
+.theme-biolink3 .field {
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.15);
+    color: #fff;
+}
+
+.theme-biolink3 .btn {
+    border-radius: 1rem;
+    background: linear-gradient(90deg, var(--brand), #ec4899);
+    color: #fff;
+    @apply font-semibold;
+}
