@@ -264,6 +264,21 @@ class PagesTest extends TestCase
         }
     }
 
+    public function test_mining_template_has_its_pages_and_metric_panel()
+    {
+        $this->actingAs(User::factory()->create());
+
+        $this->put(route('themes.update'), ['theme' => 'tambang']);
+        $this->get('/')->assertOk()->assertSee('theme-tambang', false)->assertSee('mine-hazard', false)
+            ->assertSee('Energi untuk negeri, tanggung jawab untuk bumi')->assertSee('42,5 MT')->assertSee('-mt-14', false);
+        foreach (['tentang', 'operasi', 'keberlanjutan', 'berita', 'kontak'] as $slug) {
+            $this->get("/{$slug}")->assertOk();
+        }
+        // The metric panel overlaps only the banner right above it.
+        Page::where('slug', 'keberlanjutan')->first()->update(['sections' => array_reverse(Page::where('slug', 'keberlanjutan')->first()->sections)]);
+        $this->get('/keberlanjutan')->assertDontSee('-mt-14', false);
+    }
+
     public function test_price_list_order_buttons_open_whatsapp()
     {
         DefaultContent::install('Toko Uji', replace: true, preset: 'kue');

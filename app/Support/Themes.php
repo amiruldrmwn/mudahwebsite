@@ -96,6 +96,13 @@ class Themes
                 'preset' => 'barber',
                 'color' => '#d32f2f',
             ],
+            'tambang' => [
+                'label' => 'Pertambangan & Energi',
+                'description' => 'Kokoh dan berwibawa: crimson dan arang, garis pengaman kuning-hitam, panel angka kinerja, lokasi tambang, keberlanjutan, dan direksi. Cocok untuk perusahaan tambang, energi, migas, kontraktor alat berat, dan industri.',
+                'fonts' => 'archivo:400,500,600,700,800',
+                'preset' => 'tambang',
+                'color' => '#b91c1c',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',

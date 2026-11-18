@@ -15,6 +15,14 @@
                 <path d="M24 20v-5" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round"/>
                 <circle cx="24" cy="12.5" r="2" style="fill: #f59e0b"/>
             </svg>
+        @elseif ($theme === 'tambang')
+            {{-- Mountain with a pickaxe peak. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="8" style="fill: var(--brand)"/>
+                <path d="M8 36l11-16 6 8 4-5 11 13z" style="fill: var(--on-brand)"/>
+                <path d="M19 20l3 4.5-3 2.5-3-2.5z" style="fill: #facc15"/>
+                <path d="M30 11l7 7M34 9l-8 8" style="stroke: #facc15" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
         @elseif ($theme === 'kopi')
             {{-- Coffee bean in a leaf-green circle. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
