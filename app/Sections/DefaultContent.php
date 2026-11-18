@@ -23,12 +23,12 @@ class DefaultContent
 
     public static function install(string $company, bool $replace = false, string $preset = 'korporat'): bool
     {
-        if (Page::query()->exists()) {
+        if (Page::allPresets()->where('preset', $preset)->exists()) {
             if (! $replace) {
                 return false;
             }
 
-            Page::query()->delete();
+            Page::allPresets()->where('preset', $preset)->delete();
         }
 
         self::copyPhotos();
@@ -42,6 +42,7 @@ class DefaultContent
         foreach (self::pagesFor($preset, $company) as $position => $page) {
             Page::query()->create([
                 ...$page,
+                'preset' => $preset,
                 'position' => $position,
                 'sections' => array_map(fn (array $s) => SectionTypes::clean($s), $page['sections']),
             ]);

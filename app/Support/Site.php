@@ -35,6 +35,10 @@ class Site
         'social_tiktok' => '',
         'social_x' => '',
         'footer_text' => '',
+        // Brand colour last used with each template group, restored when switching back.
+        'color_korporat' => null,
+        'color_spa' => null,
+        'color_kue' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

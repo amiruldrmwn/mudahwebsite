@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3';
-import { Check, ExternalLink, Eye } from '@lucide/vue';
-import { ref } from 'vue';
+import { Check, ExternalLink, Eye, RotateCcw } from '@lucide/vue';
+import { computed, ref } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,11 +18,17 @@ type Theme = {
     label: string;
     description: string;
     color: string;
+    preset: string;
     sample_url: string;
     preview_url: string;
 };
 
-defineProps<{ themes: Theme[]; current: string }>();
+const props = defineProps<{
+    themes: Theme[];
+    current: string;
+    current_preset: string;
+    saved_presets: string[];
+}>();
 
 defineOptions({
     layout: {
@@ -34,19 +40,48 @@ const choosing = ref<Theme | null>(null);
 const dialogOpen = ref(false);
 const busy = ref(false);
 
+/** Templates sharing a page group, e.g. "Korporat, Modern, Minimalis". */
+function groupLabel(preset: string): string {
+    return props.themes
+        .filter((t) => t.preset === preset)
+        .map((t) => t.label)
+        .join(', ');
+}
+
+const changesPages = computed(
+    () =>
+        choosing.value !== null &&
+        choosing.value.preset !== props.current_preset,
+);
+
+const hasSavedPages = computed(
+    () =>
+        choosing.value !== null &&
+        props.saved_presets.includes(choosing.value.preset),
+);
+
 function choose(theme: Theme): void {
     choosing.value = theme;
     dialogOpen.value = true;
 }
 
-function apply(withContent: boolean): void {
+function apply(reset: boolean): void {
     if (!choosing.value) {
+        return;
+    }
+
+    if (
+        reset &&
+        !confirm(
+            'Halaman untuk template ini akan dihapus dan diganti isi contoh. Lanjutkan?',
+        )
+    ) {
         return;
     }
 
     router.put(
         update.url(),
-        { theme: choosing.value.key, with_content: withContent },
+        { theme: choosing.value.key, reset },
         {
             preserveScroll: true,
             onStart: () => (busy.value = true),
@@ -66,9 +101,10 @@ function apply(withContent: boolean): void {
         <div>
             <h1 class="text-xl font-semibold tracking-tight">Template</h1>
             <p class="text-sm text-muted-foreground">
-                Pilih tampilan website. Gambar kecil menunjukkan contoh isi
-                untuk tiap template. Saat mengganti template, Anda bisa
-                mempertahankan isi website atau memakai isi contohnya.
+                Pilih tampilan website. Halaman dan isinya ikut template: Spa
+                dan Kue & Bakery punya halaman sendiri, sedangkan Korporat,
+                Modern, dan Minimalis memakai halaman yang sama. Halaman Anda
+                tidak hilang saat berganti template.
             </p>
         </div>
 
@@ -119,7 +155,12 @@ function apply(withContent: boolean): void {
                                 Contoh
                             </a>
                         </Button>
-                        <Button as-child size="sm" variant="ghost">
+                        <Button
+                            v-if="theme.preset === current_preset"
+                            as-child
+                            size="sm"
+                            variant="ghost"
+                        >
                             <a
                                 :href="theme.preview_url"
                                 target="_blank"
@@ -139,38 +180,44 @@ function apply(withContent: boolean): void {
         <DialogContent>
             <DialogHeader>
                 <DialogTitle>Pakai template {{ choosing?.label }}?</DialogTitle>
-                <DialogDescription>
-                    Pilih apa yang terjadi dengan isi website Anda.
+                <DialogDescription v-if="!changesPages">
+                    Halaman dan isi Anda tetap sama, hanya tampilannya yang
+                    berubah.
+                </DialogDescription>
+                <DialogDescription v-else-if="hasSavedPages">
+                    Halaman akan berganti ke halaman yang dulu Anda buat untuk
+                    template {{ groupLabel(choosing!.preset) }}.
+                </DialogDescription>
+                <DialogDescription v-else>
+                    Halaman akan berganti ke halaman contoh template ini (foto,
+                    menu, harga) yang bisa langsung Anda ubah. Warna utama ikut
+                    disesuaikan.
                 </DialogDescription>
             </DialogHeader>
-            <div class="grid gap-3">
-                <button
-                    type="button"
-                    class="rounded-lg border p-4 text-left transition hover:bg-muted/60 disabled:opacity-50"
-                    :disabled="busy"
-                    @click="apply(false)"
-                >
-                    <div class="font-medium">Ganti tampilan saja</div>
-                    <div class="text-sm text-muted-foreground">
-                        Semua halaman dan tulisan Anda tetap, hanya tampilannya
-                        yang berubah.
-                    </div>
-                </button>
-                <button
-                    type="button"
-                    class="rounded-lg border p-4 text-left transition hover:bg-muted/60 disabled:opacity-50"
+            <p
+                v-if="changesPages"
+                class="rounded-lg bg-muted p-3 text-sm text-muted-foreground"
+            >
+                Halaman Anda sekarang tetap tersimpan dan muncul lagi saat Anda
+                kembali ke template {{ groupLabel(current_preset) }}.
+            </p>
+            <div
+                class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-between"
+            >
+                <Button
+                    v-if="hasSavedPages || !changesPages"
+                    variant="ghost"
+                    size="sm"
+                    class="text-muted-foreground"
                     :disabled="busy"
                     @click="apply(true)"
                 >
-                    <div class="font-medium">Pakai isi contoh template</div>
-                    <div class="text-sm text-muted-foreground">
-                        Halaman diganti dengan contoh lengkap untuk template ini
-                        (foto, menu, harga) dan warna utama ikut disesuaikan.
-                        <strong class="text-destructive"
-                            >Halaman lama akan dihapus.</strong
-                        >
-                    </div>
-                </button>
+                    <RotateCcw class="size-4" /> Mulai ulang dari isi contoh
+                </Button>
+                <span v-else />
+                <Button :disabled="busy" @click="apply(false)">
+                    <Check class="size-4" /> Pakai template
+                </Button>
             </div>
         </DialogContent>
     </Dialog>

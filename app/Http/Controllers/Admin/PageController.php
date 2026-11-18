@@ -76,7 +76,7 @@ class PageController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:100'],
-            'slug' => ['required', 'string', 'max:80', 'regex:/^[a-z0-9]+(-[a-z0-9]+)*$/', Rule::notIn(self::RESERVED_SLUGS), Rule::unique('pages', 'slug')->ignore($page->id)],
+            'slug' => ['required', 'string', 'max:80', 'regex:/^[a-z0-9]+(-[a-z0-9]+)*$/', Rule::notIn(self::RESERVED_SLUGS), Rule::unique('pages', 'slug')->where('preset', $page->preset)->ignore($page->id)],
             'in_menu' => ['boolean'],
             'published' => ['boolean'],
             'meta_title' => ['nullable', 'string', 'max:150'],

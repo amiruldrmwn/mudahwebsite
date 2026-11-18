@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Sections\DefaultContent;
 use App\Support\Site;
 use App\Support\Themes;
@@ -22,33 +23,42 @@ class ThemeController extends Controller
                 'label' => $t['label'],
                 'description' => $t['description'],
                 'color' => $t['color'],
+                'preset' => $t['preset'],
                 'sample_url' => url('/').'?preview_sample='.$key,
                 'preview_url' => url('/').'?preview_theme='.$key,
             ])->values(),
             'current' => Themes::current($site),
+            'current_preset' => Themes::currentPreset(),
+            'saved_presets' => Page::allPresets()->distinct()->pluck('preset'),
         ]);
     }
 
     /**
-     * Switches the template. With with_content, the pages are replaced by the template's sample
-     * content and the brand colour by the template's own.
+     * Switches the template. Pages follow it: a template of another group shows that group's
+     * pages (its sample content the first time) and brand colour, and the current pages are kept
+     * for when the owner switches back. With reset, the group starts over from its sample content.
      */
     public function update(Request $request, Site $site): RedirectResponse
     {
         $data = $request->validate([
             'theme' => ['required', Rule::in(array_keys(Themes::all()))],
-            'with_content' => ['boolean'],
+            'reset' => ['boolean'],
         ]);
 
         $theme = Themes::all()[$data['theme']];
-        $site->put(['theme' => $data['theme']]);
+        $from = Themes::currentPreset();
+        $to = $theme['preset'];
+        $reset = (bool) ($data['reset'] ?? false);
 
-        if ($data['with_content'] ?? false) {
-            DefaultContent::install((string) $site->get('site_name'), replace: true, preset: $theme['preset']);
-            $site->put(['primary_color' => $theme['color']]);
+        $site->put(['color_'.$from => $site->get('primary_color'), 'theme' => $data['theme']]);
+
+        $installed = DefaultContent::install((string) $site->get('site_name'), $reset, $to);
+
+        if ($from !== $to || $installed) {
+            $site->put(['primary_color' => $installed ? $theme['color'] : ($site->get('color_'.$to) ?: $theme['color'])]);
         }
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => 'Template '.$theme['label'].' dipakai'.(($data['with_content'] ?? false) ? ' beserta isi contohnya.' : '.')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Template '.$theme['label'].' dipakai'.($installed ? ' dengan halaman contohnya.' : '.')]);
 
         return back();
     }

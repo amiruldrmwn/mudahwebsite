@@ -70,6 +70,14 @@ class Themes
     }
 
     /**
+     * The page group of the template in use: its pages are the ones the site shows and edits.
+     */
+    public static function currentPreset(): string
+    {
+        return self::all()[self::current(app(Site::class))]['preset'];
+    }
+
+    /**
      * fonts.bunny.net stylesheet for a theme (privacy-friendly Google Fonts mirror).
      */
     public static function fontsUrl(string $theme): string

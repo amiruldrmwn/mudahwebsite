@@ -25,7 +25,7 @@ class PagesTest extends TestCase
 
     public function test_default_pages_render_in_every_theme()
     {
-        foreach (['korporat', 'modern', 'minimalis', 'spa', 'kue'] as $theme) {
+        foreach (['korporat', 'modern', 'minimalis'] as $theme) {
             app(Site::class)->put(['theme' => $theme]);
 
             $this->get('/')->assertOk()->assertSee('Solusi profesional untuk pertumbuhan bisnis Anda')->assertSee("theme-{$theme}", false)->assertSee('/storage/demo/hero-tower.jpg', false);
@@ -149,19 +149,18 @@ class PagesTest extends TestCase
         $this->put(route('themes.update'), ['theme' => 'tidak-ada'])->assertSessionHasErrors('theme');
     }
 
-    public function test_spa_and_cake_sample_content_render_in_every_theme()
+    public function test_spa_and_cake_templates_show_their_own_sample_pages()
     {
         Storage::fake('public');
 
-        foreach (['spa' => ['Daftar Perawatan', 'Rp250.000', '/perawatan'], 'kue' => ['Produk Favorit', 'Rp235.000', '/menu']] as $preset => [$heading, $price, $slug]) {
-            DefaultContent::install('Toko Uji', replace: true, preset: $preset);
-            Storage::disk('public')->assertExists($preset === 'spa' ? 'demo/spa-hero.jpg' : 'demo/cake-hero.jpg');
+        foreach (['spa' => ['Daftar Perawatan', 'Rp250.000', '/perawatan', 'demo/spa-hero.jpg'], 'kue' => ['Produk Favorit', 'Rp235.000', '/menu', 'demo/cake-hero.jpg']] as $theme => [$heading, $price, $slug, $photo]) {
+            DefaultContent::install('Toko Uji', preset: $theme);
+            Storage::disk('public')->assertExists($photo);
 
-            foreach (['korporat', 'spa', 'kue'] as $theme) {
-                app(Site::class)->put(['theme' => $theme]);
-                $this->get('/')->assertOk()->assertSee($heading)->assertSee($price);
-                $this->get($slug)->assertOk();
-            }
+            app(Site::class)->put(['theme' => $theme]);
+            $this->get('/')->assertOk()->assertSee("theme-{$theme}", false)->assertSee($heading)->assertSee($price);
+            $this->get($slug)->assertOk();
+            $this->get('/proyek')->assertNotFound();
         }
     }
 
@@ -173,18 +172,47 @@ class PagesTest extends TestCase
         $this->get('/')->assertSee('https://wa.me/628123456789?text='.rawurlencode('Halo, saya ingin memesan Black Forest'), false);
     }
 
-    public function test_switching_theme_can_install_its_sample_content()
+    public function test_pages_follow_the_template_and_come_back_when_switching_back()
     {
         $this->actingAs(User::factory()->create());
+        Page::where('slug', 'tentang')->update(['title' => 'Profil Kami']);
+        app(Site::class)->put(['primary_color' => '#ff0000']);
 
-        $this->put(route('themes.update'), ['theme' => 'spa'])->assertSessionHasNoErrors();
-        $this->assertTrue(Page::where('slug', 'proyek')->exists());
+        // Same group: same pages, same colour.
+        $this->put(route('themes.update'), ['theme' => 'modern'])->assertSessionHasNoErrors();
+        $this->get('/tentang')->assertOk()->assertSee('Profil Kami');
+        $this->assertSame('#ff0000', app(Site::class)->get('primary_color'));
 
-        $this->put(route('themes.update'), ['theme' => 'spa', 'with_content' => true]);
-        $this->assertFalse(Page::where('slug', 'proyek')->exists());
-        $this->assertTrue(Page::where('slug', 'perawatan')->exists());
-        $this->assertSame('#c9a45c', app(Site::class)->get('primary_color'));
+        // Another group: its own sample pages and colour.
+        $this->put(route('themes.update'), ['theme' => 'spa']);
         $this->get('/')->assertSee('theme-spa', false)->assertSee('Ruang tenang untuk tubuh dan pikiran');
+        $this->get('/perawatan')->assertOk();
+        $this->get('/proyek')->assertNotFound();
+        $this->assertSame('#c9a45c', app(Site::class)->get('primary_color'));
+        $this->get(route('pages.index'))->assertInertia(fn ($page) => $page->has('pages', 5)->where('pages.2.slug', 'perawatan'));
+
+        // Edits and slugs are per group.
+        Page::where('slug', 'tentang')->update(['title' => 'Tentang Spa']);
+        app(Site::class)->put(['primary_color' => '#aa8844']);
+
+        // Back: the earlier pages and colour return untouched.
+        $this->put(route('themes.update'), ['theme' => 'minimalis']);
+        $this->get('/tentang')->assertSee('Profil Kami')->assertDontSee('Tentang Spa');
+        $this->get('/perawatan')->assertNotFound();
+        $this->assertSame('#ff0000', app(Site::class)->get('primary_color'));
+
+        $this->put(route('themes.update'), ['theme' => 'spa']);
+        $this->get('/tentang')->assertSee('Tentang Spa');
+        $this->assertSame('#aa8844', app(Site::class)->get('primary_color'));
+    }
+
+    public function test_a_template_group_can_start_over_from_its_sample()
+    {
+        $this->actingAs(User::factory()->create());
+        Page::where('slug', 'tentang')->update(['title' => 'Profil Kami']);
+
+        $this->put(route('themes.update'), ['theme' => 'korporat', 'reset' => true]);
+        $this->get('/tentang')->assertDontSee('Profil Kami')->assertSee('Mengenal lebih dekat');
     }
 
     public function test_template_sample_preview_is_for_admins_and_saves_nothing()
