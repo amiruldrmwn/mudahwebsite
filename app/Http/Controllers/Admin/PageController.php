@@ -36,6 +36,7 @@ class PageController extends Controller
                 'updated_at' => $page->updated_at?->diffForHumans(),
             ]),
             'themeLabel' => Themes::all()[Themes::current(app(Site::class))]['label'],
+            'aiEnabled' => app(AiClient::class)->enabled(),
         ]);
     }
 

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
-use App\Sections\DefaultContent;
 use App\Support\Site;
 use App\Support\Themes;
+use App\Support\ThemeSwitcher;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -35,12 +35,7 @@ class ThemeController extends Controller
         ]);
     }
 
-    /**
-     * Switches the template. Pages follow it: a template of another group shows that group's
-     * pages (its sample content the first time) and brand colour, and the current pages are kept
-     * for when the owner switches back. With reset, the group starts over from its sample content.
-     */
-    public function update(Request $request, Site $site): RedirectResponse
+    public function update(Request $request, ThemeSwitcher $switcher): RedirectResponse
     {
         $data = $request->validate([
             'theme' => ['required', Rule::in(array_keys(Themes::all()))],
@@ -48,22 +43,7 @@ class ThemeController extends Controller
         ]);
 
         $theme = Themes::all()[$data['theme']];
-        $from = Themes::currentPreset();
-        $to = $theme['preset'];
-        $reset = (bool) ($data['reset'] ?? false);
-
-        $site->put(['color_'.$from => $site->get('primary_color'), 'theme' => $data['theme'], 'theme_chosen' => true]);
-
-        $installed = DefaultContent::install((string) $site->get('site_name'), $reset, $to);
-
-        if ($from !== $to || $installed) {
-            $site->put(['primary_color' => $installed ? $theme['color'] : ($site->get('color_'.$to) ?: $theme['color'])]);
-
-            // A sample logo follows the template group; an uploaded logo stays.
-            if (blank($site->get('logo')) || DefaultContent::isSampleLogo($site->get('logo'))) {
-                $site->put(['logo' => DefaultContent::sampleLogo($to)]);
-            }
-        }
+        $installed = $switcher->apply($data['theme'], (bool) ($data['reset'] ?? false));
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Template '.$theme['label'].' dipakai'.($installed ? ' dengan halaman contohnya.' : '.')]);
 

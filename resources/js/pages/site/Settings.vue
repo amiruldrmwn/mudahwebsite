@@ -25,6 +25,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { Textarea } from '@/components/ui/textarea';
+import { post } from '@/lib/http';
+import { siteCopy } from '@/routes/ai';
 import { edit, update } from '@/routes/site';
 
 type Settings = {
@@ -190,6 +192,38 @@ const sections = [
 
 // Kept in script: vue-tsc misreads "//" inside a static template attribute.
 const mapsPlaceholder = 'https://maps.app.goo.gl/...';
+// "Tulis dengan AI": tagline, description and footer from a short story. Not saved until Simpan.
+const copyOpen = ref(false);
+const copyStory = ref('');
+const copyBusy = ref(false);
+const copyError = ref('');
+
+async function writeCopy(): Promise<void> {
+    if (copyBusy.value || copyStory.value.trim().length < 10) {
+        return;
+    }
+
+    copyBusy.value = true;
+    copyError.value = '';
+
+    try {
+        const response = await post(siteCopy.url(), { story: copyStory.value });
+        const json = (await response.json()) as {
+            tagline: string;
+            description: string;
+            footer_text: string;
+        };
+        form.tagline = json.tagline || form.tagline;
+        form.description = json.description || form.description;
+        form.footer_text = json.footer_text || form.footer_text;
+        copyOpen.value = false;
+    } catch (e) {
+        copyError.value = (e as Error).message;
+    } finally {
+        copyBusy.value = false;
+    }
+}
+
 // AI model picker: search, provider filter, and the chosen model's details.
 const aiQuery = ref('');
 const aiProvider = ref('all');
@@ -283,6 +317,73 @@ function submit(): void {
                     </CardDescription>
                 </CardHeader>
                 <CardContent class="grid gap-5">
+                    <div
+                        v-if="s.ai_key_set"
+                        class="rounded-xl border border-primary/25 bg-primary/5 p-4"
+                    >
+                        <div
+                            class="flex flex-wrap items-center justify-between gap-3"
+                        >
+                            <p class="text-sm">
+                                <Sparkles
+                                    class="mr-1 inline size-4 text-primary"
+                                />
+                                Bingung menulis tagline dan deskripsi? Biar AI
+                                yang menuliskan.
+                            </p>
+                            <Button
+                                v-if="!copyOpen"
+                                type="button"
+                                size="sm"
+                                variant="outline"
+                                @click="copyOpen = true"
+                                >Tulis dengan AI</Button
+                            >
+                        </div>
+                        <div v-if="copyOpen" class="mt-3 grid gap-2">
+                            <Textarea
+                                v-model="copyStory"
+                                rows="3"
+                                :disabled="copyBusy"
+                                placeholder="Ceritakan singkat usaha Anda: jenis usaha, kota, layanan unggulan, dan keunggulannya."
+                                aria-label="Cerita usaha"
+                            />
+                            <p
+                                v-if="copyError"
+                                class="text-sm text-destructive"
+                            >
+                                {{ copyError }}
+                            </p>
+                            <div class="flex items-center gap-2">
+                                <Button
+                                    type="button"
+                                    size="sm"
+                                    :disabled="
+                                        copyBusy || copyStory.trim().length < 10
+                                    "
+                                    @click="writeCopy"
+                                >
+                                    <Spinner v-if="copyBusy" />
+                                    {{
+                                        copyBusy
+                                            ? 'Menulis…'
+                                            : 'Isi tagline, deskripsi & footer'
+                                    }}
+                                </Button>
+                                <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="ghost"
+                                    @click="copyOpen = false"
+                                    >Batal</Button
+                                >
+                            </div>
+                            <p class="text-xs text-muted-foreground">
+                                Hasilnya masuk ke kolom di bawah. Periksa, lalu
+                                klik Simpan pengaturan.
+                            </p>
+                        </div>
+                    </div>
                     <div class="grid gap-2">
                         <Label for="site_name">Nama perusahaan</Label>
                         <Input

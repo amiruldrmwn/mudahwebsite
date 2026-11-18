@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AiWriterController;
 use App\Http\Controllers\Admin\AssistantController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
@@ -29,6 +30,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('pages/{page}/preview', [AssistantController::class, 'preview'])->name('pages.preview');
 
     Route::post('media', [MediaController::class, 'store'])->name('media.store');
+
+    Route::middleware('throttle:20,1')->group(function () {
+        Route::post('ai/page', [AiWriterController::class, 'page'])->name('ai.page');
+        Route::post('ai/site-copy', [AiWriterController::class, 'siteCopy'])->name('ai.site-copy');
+        Route::post('ai/setup', [AiWriterController::class, 'setup'])->name('ai.setup');
+        Route::post('ai/setup/pages/{page}', [AiWriterController::class, 'rewritePage'])->name('pages.rewrite');
+    });
 
     Route::get('themes', [ThemeController::class, 'index'])->name('themes.index');
     Route::put('themes', [ThemeController::class, 'update'])->name('themes.update');

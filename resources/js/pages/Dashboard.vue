@@ -17,6 +17,7 @@ import {
     Sparkles,
 } from '@lucide/vue';
 import { computed, ref } from 'vue';
+import AiSetupWizard from '@/components/AiSetupWizard.vue';
 import { dashboard } from '@/routes';
 import { index as messagesIndex } from '@/routes/messages';
 import { edit as editPage, index as pagesIndex } from '@/routes/pages';
@@ -96,6 +97,8 @@ function hideSetup() {
 const showSetup = computed(
     () => !setupHidden.value && setupDone.value < props.setup.length,
 );
+
+const wizardOpen = ref(false);
 
 const maxViews = computed(() =>
     Math.max(1, ...props.visits.days.map((d) => d.views)),
@@ -214,6 +217,13 @@ const tiles = computed(() => [
                     </a>
                 </div>
                 <div class="flex shrink-0 flex-wrap gap-2">
+                    <button
+                        type="button"
+                        class="inline-flex h-10 items-center gap-2 rounded-full bg-amber-300 px-5 text-sm font-semibold text-[#1b2a5c] shadow-lg shadow-black/10 transition-colors hover:bg-amber-200"
+                        @click="wizardOpen = true"
+                    >
+                        <Sparkles class="size-4" />Buat dengan AI
+                    </button>
                     <Link
                         :href="homeEdit"
                         class="inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-sm font-medium text-[#2163f6] shadow-lg shadow-black/10 transition-colors hover:bg-white/90"
@@ -231,6 +241,13 @@ const tiles = computed(() => [
                 </div>
             </div>
         </section>
+
+        <AiSetupWizard
+            v-model:open="wizardOpen"
+            :enabled="stats.ai"
+            :site-name="siteName"
+            :site-url="siteUrl"
+        />
 
         <!-- Getting started -->
         <section

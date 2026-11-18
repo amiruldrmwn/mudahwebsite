@@ -3,6 +3,7 @@
 namespace App\Ai;
 
 use App\Http\Controllers\Admin\PageController;
+use App\Models\Page;
 use App\Sections\SectionTypes;
 use App\Support\Site;
 
@@ -43,6 +44,152 @@ class PageAssistant
             'message' => is_string($json['message'] ?? null) && $json['message'] !== '' ? $json['message'] : 'Berikut usulan perubahannya.',
             'sections' => $this->keepImages($current, $proposed),
         ];
+    }
+
+    /**
+     * A new page written from the owner's request. Photos can only be ones already used on the
+     * site's pages.
+     *
+     * @param  list<string>  $photos  Image paths already on the site
+     * @return array{title: string, sections: list<array{id: string, type: string, data: array<string, mixed>}>}
+     */
+    public function newPage(string $request, array $photos): array
+    {
+        $reply = $this->ai->chat([
+            ['role' => 'system', 'content' => $this->instructions()."\n\n".<<<PROMPT
+            Sekarang Anda membuat HALAMAN BARU. Jawab dengan JSON: {"title": "...", "message": "...", "sections": [...]}.
+            - "title": judul halaman singkat (maks 40 karakter), untuk menu website.
+            - Mulai dengan section "page_header", lalu 3-6 section yang paling cocok, dan akhiri dengan "cta" bila sesuai.
+            - Field "image" dan foto item boleh diisi HANYA dengan salah satu foto berikut, atau "": {$this->json($photos)}
+            PROMPT],
+            ['role' => 'user', 'content' => $request],
+        ]);
+
+        $json = $this->decode($reply);
+        $sections = $this->onlyPhotos(PageController::cleanSections(is_array($json['sections'] ?? null) ? $json['sections'] : []), $photos);
+        $title = is_string($json['title'] ?? null) ? trim(mb_substr($json['title'], 0, 100)) : '';
+
+        if ($sections === [] || $title === '') {
+            throw new AiException('AI belum bisa membuat halamannya. Coba jelaskan isi halaman yang Anda inginkan dengan lebih rinci.');
+        }
+
+        return ['title' => $title, 'sections' => $sections];
+    }
+
+    /**
+     * Tagline, search description and footer text written from a short story about the business.
+     *
+     * @return array{tagline: string, description: string, footer_text: string}
+     */
+    public function siteCopy(string $story): array
+    {
+        $json = $this->decode($this->ai->chat([
+            ['role' => 'system', 'content' => $this->copyInstructions()],
+            ['role' => 'user', 'content' => $story],
+        ], 800));
+
+        return $this->copyFrom($json);
+    }
+
+    /**
+     * The template that suits the business best, with tagline, description and footer text.
+     *
+     * @param  array<string, string>  $templates  key => label and description
+     * @return array{theme: string, tagline: string, description: string, footer_text: string}
+     */
+    public function setup(string $story, array $templates): array
+    {
+        $json = $this->decode($this->ai->chat([
+            ['role' => 'system', 'content' => $this->copyInstructions()."\n\n".<<<PROMPT
+            Pilih juga SATU template yang paling cocok untuk usaha ini dari daftar berikut (kunci => keterangan):
+            {$this->json($templates)}
+            Tambahkan "theme": kunci template yang dipilih, ke objek JSON jawaban Anda.
+            PROMPT],
+            ['role' => 'user', 'content' => $story],
+        ], 800));
+
+        $theme = is_string($json['theme'] ?? null) && array_key_exists($json['theme'], $templates) ? $json['theme'] : 'korporat';
+
+        return ['theme' => $theme, ...$this->copyFrom($json)];
+    }
+
+    private function copyInstructions(): string
+    {
+        return <<<'PROMPT'
+        Anda adalah penulis website untuk usaha kecil dan menengah di Indonesia.
+        Dari cerita pemilik tentang usahanya, tulis teks identitas website dalam bahasa Indonesia yang jelas dan meyakinkan.
+        Jawab HANYA dengan satu objek JSON:
+        {"tagline": "maks 80 karakter, singkat dan mudah diingat",
+         "description": "maks 160 karakter, untuk hasil pencarian Google, sebut jenis usaha dan kotanya bila ada",
+         "footer_text": "maks 200 karakter, 1-2 kalimat tentang usaha"}
+        Jangan mengarang angka, penghargaan, atau nama klien yang tidak disebutkan pemilik.
+        PROMPT;
+    }
+
+    /**
+     * @param  array<string, mixed>  $json
+     * @return array{tagline: string, description: string, footer_text: string}
+     */
+    private function copyFrom(array $json): array
+    {
+        $text = fn (string $key, int $max) => is_string($json[$key] ?? null) ? trim(mb_substr(strip_tags($json[$key]), 0, $max)) : '';
+
+        $copy = ['tagline' => $text('tagline', 150), 'description' => $text('description', 300), 'footer_text' => $text('footer_text', 500)];
+
+        if (implode('', $copy) === '') {
+            throw new AiException('AI belum memberi teks yang bisa dipakai. Ceritakan usaha Anda sedikit lebih lengkap.');
+        }
+
+        return $copy;
+    }
+
+    /**
+     * Drops any image that isn't one of the given photos.
+     *
+     * @param  list<array{id: string, type: string, data: array<string, mixed>}>  $sections
+     * @param  list<string>  $photos
+     * @return list<array{id: string, type: string, data: array<string, mixed>}>
+     */
+    private function onlyPhotos(array $sections, array $photos): array
+    {
+        return array_map(function (array $section) use ($photos) {
+            foreach (SectionTypes::all()[$section['type']]['fields'] as $key => $field) {
+                if ($field['type'] === 'image' && ! in_array($section['data'][$key] ?? '', $photos, true)) {
+                    $section['data'][$key] = '';
+                }
+
+                if ($field['type'] === 'items') {
+                    foreach ($section['data'][$key] as $i => $item) {
+                        foreach ($field['fields'] as $subKey => $sub) {
+                            if ($sub['type'] === 'image' && ! in_array($item[$subKey] ?? '', $photos, true)) {
+                                $section['data'][$key][$i][$subKey] = '';
+                            }
+                        }
+                    }
+                }
+            }
+
+            return $section;
+        }, $sections);
+    }
+
+    /**
+     * Every image path used on the site's current pages.
+     *
+     * @param  iterable<Page>  $pages
+     * @return list<string>
+     */
+    public function photosOn(iterable $pages): array
+    {
+        $photos = [];
+
+        foreach ($pages as $page) {
+            foreach ($page->sections as $section) {
+                $photos = [...$photos, ...$this->images($section['data'])];
+            }
+        }
+
+        return array_values(array_unique($photos));
     }
 
     private function instructions(): string

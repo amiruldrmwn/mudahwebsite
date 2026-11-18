@@ -9,10 +9,16 @@ import {
     Info,
     Pencil,
     Plus,
+    Sparkles,
     Trash2,
 } from '@lucide/vue';
 import { computed, ref } from 'vue';
 import DesktopPreview from '@/components/themes/DesktopPreview.vue';
+import { Spinner } from '@/components/ui/spinner';
+import { Textarea } from '@/components/ui/textarea';
+import { post } from '@/lib/http';
+import { page as aiPage } from '@/routes/ai';
+import { edit as editSite } from '@/routes/site';
 import InputError from '@/components/InputError.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -47,7 +53,35 @@ type PageRow = {
     updated_at: string | null;
 };
 
-const props = defineProps<{ pages: PageRow[]; themeLabel: string }>();
+const props = defineProps<{
+    pages: PageRow[];
+    themeLabel: string;
+    aiEnabled: boolean;
+}>();
+
+// New page with AI: the owner describes the page, AI writes it, then the editor opens.
+const createMode = ref<'blank' | 'ai'>('blank');
+const aiRequest = ref('');
+const aiBusy = ref(false);
+const aiError = ref('');
+
+async function createWithAi(): Promise<void> {
+    if (aiBusy.value || aiRequest.value.trim().length < 10) {
+        return;
+    }
+
+    aiBusy.value = true;
+    aiError.value = '';
+
+    try {
+        const response = await post(aiPage.url(), { request: aiRequest.value });
+        const json = (await response.json()) as { redirect: string };
+        router.visit(json.redirect);
+    } catch (e) {
+        aiError.value = (e as Error).message;
+        aiBusy.value = false;
+    }
+}
 
 const publishedCount = computed(
     () => props.pages.filter((p) => p.published).length,
@@ -237,14 +271,46 @@ function remove(page: PageRow): void {
     </div>
 
     <Dialog v-model:open="creating">
-        <DialogContent>
-            <form class="grid gap-4" @submit.prevent="create">
-                <DialogHeader>
-                    <DialogTitle>Halaman baru</DialogTitle>
-                    <DialogDescription>
-                        Beri judul, lalu isi section-nya di halaman berikutnya.
-                    </DialogDescription>
-                </DialogHeader>
+        <DialogContent class="sm:max-w-lg">
+            <DialogHeader>
+                <DialogTitle>Halaman baru</DialogTitle>
+                <DialogDescription>
+                    Mulai dari halaman kosong, atau biarkan AI menuliskannya
+                    untuk Anda.
+                </DialogDescription>
+            </DialogHeader>
+            <div class="grid grid-cols-2 gap-2 rounded-xl bg-muted p-1 text-sm">
+                <button
+                    type="button"
+                    class="rounded-lg px-3 py-2 font-medium transition"
+                    :class="
+                        createMode === 'blank'
+                            ? 'bg-background shadow-sm'
+                            : 'text-muted-foreground'
+                    "
+                    @click="createMode = 'blank'"
+                >
+                    Halaman kosong
+                </button>
+                <button
+                    type="button"
+                    class="inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 font-medium transition"
+                    :class="
+                        createMode === 'ai'
+                            ? 'bg-background shadow-sm'
+                            : 'text-muted-foreground'
+                    "
+                    @click="createMode = 'ai'"
+                >
+                    <Sparkles class="size-4" />Tulis dengan AI
+                </button>
+            </div>
+
+            <form
+                v-if="createMode === 'blank'"
+                class="grid gap-4"
+                @submit.prevent="create"
+            >
                 <div class="grid gap-2">
                     <Label for="new-title">Judul halaman</Label>
                     <Input
@@ -259,6 +325,51 @@ function remove(page: PageRow): void {
                     <Button type="submit" :disabled="form.processing"
                         >Buat halaman</Button
                     >
+                </DialogFooter>
+            </form>
+
+            <div
+                v-else-if="!aiEnabled"
+                class="rounded-xl border border-dashed p-4 text-sm text-muted-foreground"
+            >
+                Asisten AI belum aktif. Isi API key MudahCloud AI di
+                <a
+                    :href="`${editSite.url()}#ai`"
+                    class="font-medium text-primary underline"
+                    >Pengaturan Situs</a
+                >
+                terlebih dahulu.
+            </div>
+
+            <form v-else class="grid gap-4" @submit.prevent="createWithAi">
+                <div class="grid gap-2">
+                    <Label for="ai-request"
+                        >Halaman seperti apa yang Anda butuhkan?</Label
+                    >
+                    <Textarea
+                        id="ai-request"
+                        v-model="aiRequest"
+                        rows="4"
+                        :disabled="aiBusy"
+                        placeholder="Contoh: Halaman Karier dengan 3 lowongan (admin, sales, teknisi), syarat umum, dan cara melamar lewat email."
+                    />
+                    <p class="text-xs text-muted-foreground">
+                        AI menyusun section dan teksnya memakai foto yang sudah
+                        ada di website. Anda bisa mengubah semuanya setelahnya.
+                    </p>
+                    <p v-if="aiError" class="text-sm text-destructive">
+                        {{ aiError }}
+                    </p>
+                </div>
+                <DialogFooter>
+                    <Button
+                        type="submit"
+                        :disabled="aiBusy || aiRequest.trim().length < 10"
+                    >
+                        <Spinner v-if="aiBusy" />
+                        <Sparkles v-else class="size-4" />
+                        {{ aiBusy ? 'AI sedang menulis…' : 'Buat dengan AI' }}
+                    </Button>
                 </DialogFooter>
             </form>
         </DialogContent>
