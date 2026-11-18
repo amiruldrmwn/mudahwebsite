@@ -23,10 +23,14 @@
     @if ($site->url('logo'))
         <meta property="og:image" content="{{ $site->url('logo') }}">
     @endif
+    {{-- The site's favicon, else its own uploaded logo, else the MudahCloud mark. --}}
     @if ($site->url('favicon'))
         <link rel="icon" href="{{ $site->url('favicon') }}">
+    @elseif ($site->get('logo') && ! \App\Sections\DefaultContent::isSampleLogo($site->get('logo')))
+        <link rel="icon" href="{{ $site->url('logo') }}">
     @else
         <link rel="icon" href="/favicon.ico" sizes="any">
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     @endif
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="stylesheet" href="{{ \App\Support\Themes::fontsUrl($theme) }}">

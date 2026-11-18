@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Sections\DefaultContent;
 use App\Support\Site;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -74,5 +75,19 @@ class SiteSettingsTest extends TestCase
         $this->actingAs(User::factory()->create())
             ->post(route('site.update'), $this->valid(['site_name' => '', 'primary_color' => 'red', 'social_facebook' => 'javascript:alert(1)']))
             ->assertSessionHasErrors(['site_name', 'primary_color', 'social_facebook']);
+    }
+
+    public function test_the_favicon_falls_back_to_the_uploaded_logo_then_the_mudahcloud_mark()
+    {
+        $site = app(Site::class);
+        DefaultContent::install('PT Uji');
+
+        $this->get('/')->assertSee('href="/favicon.svg"', false);
+
+        $site->put(['logo' => 'site/logo-saya.png']);
+        $this->get('/')->assertSee('<link rel="icon" href="'.url('storage/site/logo-saya.png').'">', false);
+
+        $site->put(['favicon' => 'site/ikon.png']);
+        $this->get('/')->assertSee('<link rel="icon" href="'.url('storage/site/ikon.png').'">', false);
     }
 }
