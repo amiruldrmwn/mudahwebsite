@@ -161,6 +161,8 @@ return [
     */
 
     'features' => [
+        // "Forgot password" on the admin sign-in: a reset link by email (the site's SMTP sender).
+        Features::resetPasswords(),
         Features::twoFactorAuthentication([
             'confirm' => true,
             'confirmPassword' => true,

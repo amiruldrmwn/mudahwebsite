@@ -22,4 +22,7 @@ return [
     // pages with ?tema=<template>, without signing in. Nothing is saved.
     'demo' => (bool) env('DEMO_MODE', false),
 
+    // The key MudahCloud's client area uses to act for the owner (MudahCloudController). Empty: off.
+    'mudahcloud_key' => env('MUDAHCLOUD_KEY'),
+
 ];

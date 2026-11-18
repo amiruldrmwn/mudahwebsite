@@ -45,11 +45,35 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::loginView(fn (Request $request) => Inertia::render('auth/Login', [
             'status' => $request->session()->get('status'),
+            'forgotUrl' => route('password.request'),
         ]));
 
         Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/TwoFactorChallenge'));
 
         Fortify::confirmPasswordView(fn () => Inertia::render('auth/ConfirmPassword'));
+
+        Fortify::requestPasswordResetLinkView(fn (Request $request) => Inertia::render('auth/ForgotPassword', [
+            'status' => $request->session()->get('status'),
+            'action' => route('password.email'),
+            'loginUrl' => route('login'),
+        ]));
+
+        Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/ResetPassword', [
+            'token' => $request->route('token'),
+            'email' => (string) $request->query('email'),
+            'action' => route('password.update'),
+        ]));
+
+        Fortify::resetUserPasswordsUsing(\App\Actions\Fortify\ResetUserPassword::class);
+
+        // The reset email in the site's language, under its own name.
+        \Illuminate\Auth\Notifications\ResetPassword::toMailUsing(fn ($user, string $token) => (new \Illuminate\Notifications\Messages\MailMessage)
+            ->subject('Atur ulang kata sandi admin '.config('app.name'))
+            ->greeting('Halo,')
+            ->line('Kami menerima permintaan untuk membuat kata sandi baru bagi admin website '.config('app.name').'.')
+            ->action('Buat kata sandi baru', route('password.reset', ['token' => $token, 'email' => $user->getEmailForPasswordReset()]))
+            ->line('Link ini berlaku 60 menit. Abaikan email ini kalau Anda tidak memintanya; kata sandi lama tetap berlaku.')
+            ->salutation('Salam, '.config('app.name')));
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\ThemeController;
+use App\Http\Controllers\MudahCloudController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,17 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/settings.php';
+
+// MudahCloud's client area acting for the owner, with the site's key; the sign-in link is signed instead.
+Route::prefix('_mudahcloud')->withoutMiddleware(ValidateCsrfToken::class)->group(function () {
+    Route::middleware([\App\Http\Middleware\MudahCloudKey::class, 'throttle:60,1'])->group(function () {
+        Route::get('status', [MudahCloudController::class, 'status']);
+        Route::post('theme', [MudahCloudController::class, 'theme']);
+        Route::post('password', [MudahCloudController::class, 'password']);
+        Route::post('login', [MudahCloudController::class, 'login']);
+    });
+    Route::get('enter', [MudahCloudController::class, 'enter'])->middleware('signed')->name('mudahcloud.enter');
+});
 
 // Public website.
 Route::get('sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
