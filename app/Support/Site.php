@@ -73,6 +73,8 @@ class Site
         'color_mobil' => null,
         'color_biolink' => null,
         'color_laundry' => null,
+        'color_sepatu' => null,
+        'color_lawfirm' => null,
         'color_catering' => null,
         'color_bengkel' => null,
         'color_foto' => null,

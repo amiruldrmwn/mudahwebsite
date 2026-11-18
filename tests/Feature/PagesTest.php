@@ -317,6 +317,8 @@ class PagesTest extends TestCase
             'bimbel' => ['<em>seru</em>', ['program', 'galeri', 'daftar']],
             'apotek' => ['<em>tepat</em>', ['produk', 'layanan', 'kontak']],
             'petshop' => ['<em>bahagia</em>', ['layanan', 'galeri', 'booking']],
+            'sepatu' => ['<em>kinclong</em>', ['layanan', 'tentang', 'kontak']],
+            'lawfirm' => ['<em>bisnis</em>', ['bidang-praktik', 'tim', 'tentang', 'kontak']],
         ];
 
         foreach ($expect as $theme => [$text, $slugs]) {

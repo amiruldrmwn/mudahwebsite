@@ -3202,3 +3202,215 @@
     box-shadow: 4px 4px 0 color-mix(in oklab, var(--brand) 60%, black);
     @apply font-bold;
 }
+
+/* ---------- Cuci Sepatu: orange and black, bold, sporty ---------- */
+.theme-sepatu {
+    --font-body: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.25rem;
+    --surface: #ffffff;
+    --surface-alt: #fff7ed;
+    --line: #fde4cc;
+    --ink: #1c1917;
+    --muted: #57534e;
+}
+
+.theme-sepatu h1,
+.theme-sepatu h2,
+.theme-sepatu .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.theme-sepatu .sepatu-hero {
+    background:
+        radial-gradient(
+            40rem 22rem at 90% 15%,
+            color-mix(in oklab, var(--brand) 18%, white),
+            transparent 70%
+        ),
+        var(--surface-alt);
+}
+
+.theme-sepatu .hero-title em {
+    font-style: normal;
+    background: linear-gradient(
+        transparent 62%,
+        color-mix(in oklab, var(--brand) 45%, white) 62%
+    );
+    padding: 0 0.1em;
+}
+
+.theme-sepatu .sepatu-chip {
+    display: inline-block;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    @apply px-4 py-1.5 text-sm font-semibold;
+}
+
+.theme-sepatu .sepatu-tilt {
+    border-radius: 2rem;
+    background: var(--brand);
+    transform: rotate(4deg) translate(10px, 10px);
+}
+
+.theme-sepatu .sepatu-frame {
+    border-radius: 2rem;
+    border: 3px solid var(--ink);
+    box-shadow: 0 25px 50px -20px rgb(28 25 23 / 0.35);
+}
+
+.theme-sepatu .sepatu-badge {
+    border-radius: 999px;
+    background: #fff;
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    @apply px-4 py-2 text-sm font-bold;
+}
+
+.theme-sepatu .sepatu-head {
+    background: var(--ink);
+    color: #fff;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent 0 22px,
+        rgb(249 115 22 / 0.12) 22px 26px
+    );
+}
+
+.theme-sepatu .btn {
+    border-radius: 999px;
+    @apply font-bold;
+}
+
+.theme-sepatu .btn-outline {
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    background: transparent;
+}
+
+.theme-sepatu .card {
+    border: 2px solid var(--line);
+}
+
+.theme-sepatu .card img {
+    background: var(--surface-alt);
+}
+
+.theme-sepatu .step-num,
+.theme-sepatu .svc-num {
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+}
+
+/* ---------- Law Firm: deep navy, gold, classic serif ---------- */
+.theme-lawfirm {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Libre Baskerville', ui-serif, Georgia, serif;
+    --gold: #c9a24a;
+    --radius: 0.25rem;
+    --surface: #ffffff;
+    --surface-alt: #f6f4ef;
+    --line: #e7e2d6;
+    --ink: #13213a;
+    --muted: #5a6475;
+}
+
+.theme-lawfirm h1,
+.theme-lawfirm h2,
+.theme-lawfirm .sec-title {
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.theme-lawfirm .sec-title {
+    @apply text-3xl sm:text-4xl;
+}
+
+.theme-lawfirm .lawfirm-topbar {
+    background: #0f1d33;
+    color: rgb(255 255 255 / 0.75);
+}
+
+.theme-lawfirm .lawfirm-hero,
+.theme-lawfirm .lawfirm-head {
+    background: linear-gradient(135deg, #0f1d33, var(--brand));
+    color: #fff;
+}
+
+.theme-lawfirm .lawfirm-fade {
+    background: linear-gradient(
+        90deg,
+        #0f1d33 0%,
+        rgb(15 29 51 / 0.35) 45%,
+        transparent 100%
+    );
+}
+
+.theme-lawfirm .lawfirm-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--gold);
+    @apply text-xs font-semibold tracking-[0.25em] uppercase;
+}
+
+.theme-lawfirm .lawfirm-eyebrow::before {
+    content: '';
+    width: 2.5rem;
+    height: 1px;
+    background: var(--gold);
+}
+
+.theme-lawfirm .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+}
+
+.theme-lawfirm .btn {
+    border-radius: 0.125rem;
+    background: var(--gold);
+    color: #0f1d33;
+    @apply font-semibold tracking-wide;
+}
+
+.theme-lawfirm .btn:hover {
+    background: #b8913c;
+}
+
+.theme-lawfirm .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+}
+
+.theme-lawfirm .lawfirm-ghost {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgb(255 255 255 / 0.5);
+}
+
+.theme-lawfirm .lawfirm-ghost:hover {
+    background: rgb(255 255 255 / 0.1);
+}
+
+.theme-lawfirm .nav-link {
+    color: var(--ink);
+}
+
+.theme-lawfirm .card {
+    border-color: var(--line);
+    border-top: 3px solid var(--gold);
+}
+
+.theme-lawfirm .step-num,
+.theme-lawfirm .svc-num {
+    border-radius: 0;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    font-family: var(--font-head);
+}

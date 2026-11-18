@@ -96,6 +96,20 @@
                 <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
                 <path d="M14 12h20v24a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2z" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/><circle cx="24" cy="26" r="6" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4"/><circle cx="18.5" cy="16" r="1.4" style="fill: var(--on-brand)"/>
             </svg>
+        @elseif ($theme === 'sepatu')
+            {{-- Sneaker. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M9 30c0-5 1.6-9 6.4-10.6l7.8-2.6c2.4-.8 4.2 0 5.3 1.6l2.6 3.6c1.1 1.6 3 2.4 5.3 2.6L39 25c2 .4 3 1.6 3 3.6v1.4z" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M8.5 30h33.5v2.6a2 2 0 0 1-2 2H11a2.5 2.5 0 0 1-2.5-2.5z" style="fill: var(--on-brand)"/>
+            </svg>
+        @elseif ($theme === 'lawfirm')
+            {{-- Scales of justice. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="10" style="fill: var(--brand)"/>
+                <path d="M24 11v26M16 37h16M13 15h22M13 15l-5 10h10zM35 15l-5 10h10z" fill="none" stroke="#d4af37" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="24" cy="11" r="2" fill="#d4af37"/>
+            </svg>
         @elseif ($theme === 'catering')
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
                 <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>

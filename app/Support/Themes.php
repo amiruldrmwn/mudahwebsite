@@ -75,6 +75,13 @@ class Themes
                 'preset' => 'ac',
                 'color' => '#0369a1',
             ],
+            'lawfirm' => [
+                'label' => 'Law Firm',
+                'description' => 'Berwibawa dan tenang: navy gelap dengan aksen emas, judul serif klasik, bidang praktik, profil advokat, dan jadwal konsultasi. Cocok untuk firma hukum, kantor advokat, notaris, dan konsultan hukum.',
+                'fonts' => 'libre-baskerville:400,700,400i|inter:400,500,600',
+                'preset' => 'lawfirm',
+                'color' => '#1e3a5f',
+            ],
             'legal' => [
                 'label' => 'Jasa Legal & Perizinan',
                 'description' => 'Tepercaya dan modern: biru royal dengan aksen oranye, ringkasan syarat dan dokumen, alur 3 langkah, paket harga bertingkat, dan tim konsultan. Cocok untuk jasa pendirian PT/CV, perizinan, notaris, konsultan pajak, dan agensi.',
@@ -180,6 +187,13 @@ class Themes
                 'preset' => 'biolink',
                 'color' => '#6d28d9',
             ],
+            'sepatu' => [
+                'label' => 'Cuci Sepatu',
+                'description' => 'Sporty dan cerah: oranye dengan hitam, huruf tegas, ilustrasi sneaker, daftar treatment per pasang, dan alur antar jemput. Cocok untuk cuci sepatu, perawatan sneakers, reparasi sepatu, dan cuci tas.',
+                'fonts' => 'space-grotesk:400,500,600,700',
+                'preset' => 'sepatu',
+                'color' => '#ea580c',
+            ],
             'laundry' => [
                 'label' => 'Laundry',
                 'description' => 'Segar dan bersih: biru langit, sudut membulat, daftar harga per kilo, cara pesan antar jemput. Cocok untuk laundry kiloan, dry clean, dan cuci sepatu.',
@@ -262,12 +276,12 @@ class Themes
     public static function categories(): array
     {
         return [
-            'bisnis' => ['label' => 'Bisnis & Perusahaan', 'themes' => ['korporat', 'modern', 'minimalis', 'legal', 'tambang']],
+            'bisnis' => ['label' => 'Bisnis & Perusahaan', 'themes' => ['korporat', 'modern', 'minimalis', 'legal', 'lawfirm', 'tambang']],
             'kuliner' => ['label' => 'Kuliner', 'themes' => ['resto', 'kopi', 'kue', 'catering']],
             'toko' => ['label' => 'Toko & Fashion', 'themes' => ['hijab', 'kaos', 'apotek', 'petshop']],
             'kesehatan' => ['label' => 'Kesehatan & Kecantikan', 'themes' => ['gigi', 'kecantikan', 'spa', 'barber']],
             'otomotif' => ['label' => 'Otomotif & Transportasi', 'themes' => ['mobil', 'rental', 'motor', 'bengkel']],
-            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'foto', 'wedding']],
+            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'sepatu', 'foto', 'wedding']],
             'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['sekolah', 'sma', 'bimbel']],
             'properti' => ['label' => 'Properti, Wisata & Travel', 'themes' => ['properti', 'villa', 'umroh']],
             'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink', 'biolink2']],
