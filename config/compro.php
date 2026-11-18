@@ -13,6 +13,11 @@ return [
         'password' => env('ADMIN_PASSWORD'),
     ],
 
+    // The template a new site starts with (korporat, modern, minimalis, spa, kue, sekolah, sma,
+    // umroh, ac), with that template's sample pages. Only used on the first boot; afterwards the
+    // owner picks templates in the admin.
+    'theme' => env('SITE_THEME'),
+
     // MudahCloud AI Gateway (OpenAI compatible).
     'ai' => [
         'base_url' => env('AI_BASE_URL'),
