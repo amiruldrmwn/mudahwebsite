@@ -164,6 +164,30 @@ class PagesTest extends TestCase
         }
     }
 
+    public function test_school_template_has_its_pages_logo_and_news()
+    {
+        $this->actingAs(User::factory()->create());
+
+        $this->put(route('themes.update'), ['theme' => 'sekolah']);
+        $site = app(Site::class);
+        $this->assertSame('demo/logo-sd.png', $site->get('logo'));
+        $this->assertSame('#b3261e', $site->get('primary_color'));
+
+        $this->get('/')->assertOk()->assertSee('theme-sekolah', false)->assertSee('<em>gembira</em>', false)
+            ->assertSee('/storage/demo/logo-sd.png', false)->assertSee('Juara 1 Olimpiade Matematika tingkat kota')->assertSee('Daftar SPMB');
+        foreach (['tentang', 'program', 'fasilitas', 'guru', 'berita', 'spmb', 'kontak'] as $slug) {
+            $this->get("/{$slug}")->assertOk();
+        }
+
+        // Back to a corporate template: its own sample logo returns; an uploaded logo would stay.
+        $this->put(route('themes.update'), ['theme' => 'korporat']);
+        $this->assertSame(DefaultContent::LOGO, $site->get('logo'));
+
+        $site->put(['logo' => 'site/logo-saya.png']);
+        $this->put(route('themes.update'), ['theme' => 'sekolah']);
+        $this->assertSame('site/logo-saya.png', $site->get('logo'));
+    }
+
     public function test_price_list_order_buttons_open_whatsapp()
     {
         DefaultContent::install('Toko Uji', replace: true, preset: 'kue');

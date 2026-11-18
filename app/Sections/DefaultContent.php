@@ -19,7 +19,23 @@ class DefaultContent
     /** The sample logo a site shows until the owner uploads theirs. */
     public const LOGO = 'demo/logo.svg';
 
-    public const PRESETS = ['korporat', 'spa', 'kue'];
+    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah'];
+
+    /** Template groups whose sample logo is an emblem image instead of the drawn mark (LOGO). */
+    private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png'];
+
+    public static function sampleLogo(string $preset): string
+    {
+        return self::SAMPLE_LOGOS[$preset] ?? self::LOGO;
+    }
+
+    /**
+     * Whether a logo is one of the sample logos (not uploaded by the owner).
+     */
+    public static function isSampleLogo(mixed $logo): bool
+    {
+        return $logo === self::LOGO || in_array($logo, self::SAMPLE_LOGOS, true);
+    }
 
     public static function install(string $company, bool $replace = false, string $preset = 'korporat'): bool
     {
@@ -35,8 +51,8 @@ class DefaultContent
 
         $site = app(Site::class);
 
-        if (blank($site->get('logo'))) {
-            $site->put(['logo' => self::LOGO]);
+        if (blank($site->get('logo')) || self::isSampleLogo($site->get('logo'))) {
+            $site->put(['logo' => self::sampleLogo($preset)]);
         }
 
         foreach (self::pagesFor($preset, $company) as $position => $page) {
@@ -57,7 +73,7 @@ class DefaultContent
 
         $dir = base_path(self::PHOTOS_DIR);
 
-        foreach ([...(glob("{$dir}/*.jpg") ?: []), ...(glob("{$dir}/*.svg") ?: [])] as $file) {
+        foreach ([...(glob("{$dir}/*.jpg") ?: []), ...(glob("{$dir}/*.svg") ?: []), ...(glob("{$dir}/*.png") ?: [])] as $file) {
             $path = 'demo/'.basename($file);
 
             if (! $disk->exists($path)) {
@@ -76,6 +92,7 @@ class DefaultContent
         return match ($preset) {
             'spa' => SpaContent::pages($company),
             'kue' => CakeContent::pages($company),
+            'sekolah' => SchoolContent::pages($company),
             default => self::pages($company),
         };
     }

@@ -54,6 +54,13 @@ class Themes
                 'preset' => 'kue',
                 'color' => '#5b3423',
             ],
+            'sekolah' => [
+                'label' => 'Sekolah',
+                'description' => 'Ceria dan tepercaya: putih bersih dengan aksen merah, judul serif, sambutan kepala sekolah, guru, berita, dan info pendaftaran siswa baru. Cocok untuk SD, SMP, SMA, TK, dan lembaga kursus.',
+                'fonts' => 'dm-serif-display:400,400i|plus-jakarta-sans:400,500,600,700',
+                'preset' => 'sekolah',
+                'color' => '#b3261e',
+            ],
         ];
     }
 

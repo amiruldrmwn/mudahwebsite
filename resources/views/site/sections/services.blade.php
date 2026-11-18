@@ -18,7 +18,7 @@
                     </div>
                 @else
                     <div class="card">
-                        <div class="mb-5 flex size-12 items-center justify-center text-lg font-bold" style="border-radius: calc(var(--radius) * .75); background: var(--brand-soft); color: var(--brand)">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
+                        <div class="svc-num mb-5 flex size-12 items-center justify-center text-lg font-bold" style="border-radius: calc(var(--radius) * .75); background: var(--brand-soft); color: var(--brand)">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
                         <h3 class="text-xl font-semibold">{{ $item['title'] }}</h3>
                         @if ($item['text'])<p class="muted mt-2 leading-relaxed">{{ $item['text'] }}</p>@endif
                     </div>

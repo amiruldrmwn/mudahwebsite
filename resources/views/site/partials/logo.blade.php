@@ -1,5 +1,9 @@
+@php
+    // Template previews show the template's own sample logo while the site still has a sample one.
+    $logo = isset($sampleLogo) && \App\Sections\DefaultContent::isSampleLogo($site->get('logo')) ? $sampleLogo : $site->get('logo');
+@endphp
 <a href="{{ url('/') }}" class="flex items-center gap-3 {{ $class ?? '' }}">
-    @if ($site->get('logo') === \App\Sections\DefaultContent::LOGO)
+    @if ($logo === \App\Sections\DefaultContent::LOGO)
         {{-- Sample logo: drawn in the site's colour, next to the company name. --}}
         @if ($theme === 'spa')
             @include('site.partials.spa-ornament', ['class' => 'size-10 shrink-0'])
@@ -19,8 +23,15 @@
             </svg>
         @endif
         <span class="text-lg leading-tight font-bold" style="font-family: var(--font-head)">{{ $site->get('site_name') }}</span>
-    @elseif ($site->url('logo'))
-        <img src="{{ $site->url('logo') }}" alt="{{ $site->get('site_name') }}" class="h-10 w-auto max-w-[180px] object-contain">
+    @elseif (\App\Sections\DefaultContent::isSampleLogo($logo))
+        {{-- A template's sample emblem, next to the name until the owner uploads their logo. --}}
+        <img src="{{ $site->image($logo) }}" alt="" class="h-12 w-auto shrink-0 object-contain">
+        <span class="flex min-w-0 flex-col">
+            <span class="text-lg leading-tight font-bold" style="font-family: var(--font-head)">{{ $site->get('site_name') }}</span>
+            @if (($tagline ?? false) && $site->get('tagline'))<span class="muted truncate text-xs">{{ $site->get('tagline') }}</span>@endif
+        </span>
+    @elseif ($logo)
+        <img src="{{ $site->image($logo) }}" alt="{{ $site->get('site_name') }}" class="h-10 w-auto max-w-[180px] object-contain">
     @else
         <span class="text-lg font-bold" style="font-family: var(--font-head)">{{ $site->get('site_name') }}</span>
     @endif

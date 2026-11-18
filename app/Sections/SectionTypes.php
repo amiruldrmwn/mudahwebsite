@@ -92,6 +92,22 @@ class SectionTypes
                     'order_button' => ['type' => 'select', 'label' => 'Tombol pesan via WhatsApp', 'options' => ['yes' => 'Tampilkan', 'no' => 'Sembunyikan'], 'default' => 'yes'],
                 ],
             ],
+            'posts' => [
+                'label' => 'Berita / Kabar Terbaru',
+                'description' => 'Kartu berita, kegiatan, pengumuman, atau prestasi dengan foto, kategori, dan tanggal.',
+                'fields' => [
+                    'title' => ['type' => 'text', 'label' => 'Judul', 'max' => 150],
+                    'subtitle' => ['type' => 'textarea', 'label' => 'Subjudul', 'max' => 400],
+                    'items' => ['type' => 'items', 'label' => 'Berita', 'max_items' => 24, 'fields' => [
+                        'image' => ['type' => 'image', 'label' => 'Foto'],
+                        'category' => ['type' => 'text', 'label' => 'Kategori (mis. Prestasi)', 'max' => 30],
+                        'date' => ['type' => 'text', 'label' => 'Tanggal (mis. 18 Okt 2026)', 'max' => 30],
+                        'title' => ['type' => 'text', 'label' => 'Judul berita', 'max' => 150, 'required' => true],
+                        'text' => ['type' => 'textarea', 'label' => 'Ringkasan', 'max' => 400],
+                        'url' => ['type' => 'url', 'label' => 'Link baca selengkapnya (opsional)', 'max' => 255],
+                    ]],
+                ],
+            ],
             'stats' => [
                 'label' => 'Angka Pencapaian',
                 'description' => 'Angka penting, misalnya jumlah klien atau tahun berdiri.',

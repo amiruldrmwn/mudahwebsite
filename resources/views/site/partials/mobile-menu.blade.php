@@ -1,5 +1,5 @@
 {{-- Collapsible menu for small screens, no JavaScript needed. --}}
-<details class="relative md:hidden">
+<details class="relative {{ ($breakpoint ?? 'md') === 'lg' ? 'lg:hidden' : 'md:hidden' }}">
     <summary class="flex cursor-pointer list-none items-center rounded p-2 [&::-webkit-details-marker]:hidden" aria-label="Menu">
         <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
     </summary>

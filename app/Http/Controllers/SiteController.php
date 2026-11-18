@@ -62,7 +62,7 @@ class SiteController extends Controller
                 'sections' => array_map(fn (array $s) => SectionTypes::clean($s), $p['sections']),
             ]));
 
-        return view('site.page', ['page' => $pages->first(), 'menu' => $pages, 'theme' => $theme, 'brand' => Themes::all()[$theme]['color']]);
+        return view('site.page', ['page' => $pages->first(), 'menu' => $pages, 'theme' => $theme, 'brand' => Themes::all()[$theme]['color'], 'sampleLogo' => DefaultContent::sampleLogo(Themes::all()[$theme]['preset'])]);
     }
 
     public function contact(Request $request): RedirectResponse

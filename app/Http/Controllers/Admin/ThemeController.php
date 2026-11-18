@@ -56,6 +56,11 @@ class ThemeController extends Controller
 
         if ($from !== $to || $installed) {
             $site->put(['primary_color' => $installed ? $theme['color'] : ($site->get('color_'.$to) ?: $theme['color'])]);
+
+            // A sample logo follows the template group; an uploaded logo stays.
+            if (blank($site->get('logo')) || DefaultContent::isSampleLogo($site->get('logo'))) {
+                $site->put(['logo' => DefaultContent::sampleLogo($to)]);
+            }
         }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Template '.$theme['label'].' dipakai'.($installed ? ' dengan halaman contohnya.' : '.')]);
