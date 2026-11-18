@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AiCreditNotice from '@/components/AiCreditNotice.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import {
     ArrowRight,
@@ -241,6 +242,8 @@ const tiles = computed(() => [
                 </div>
             </div>
         </section>
+
+        <AiCreditNotice v-if="stats.ai" />
 
         <AiSetupWizard
             v-model:open="wizardOpen"

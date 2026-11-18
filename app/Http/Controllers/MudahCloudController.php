@@ -15,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -67,6 +68,17 @@ class MudahCloudController extends Controller
         $installed = $switcher->apply($data['theme'], (bool) ($data['reset'] ?? false));
 
         return response()->json(['theme' => $data['theme'], 'installed' => $installed]);
+    }
+
+    /**
+     * The AI assistant's key, made by MudahCloud for the owner ("Connect the AI assistant").
+     */
+    public function aiKey(Request $request, Site $site): JsonResponse
+    {
+        $data = $request->validate(['key' => ['required', 'string', 'max:500']]);
+        $site->put(['ai_api_key' => Crypt::encryptString($data['key'])]);
+
+        return response()->json(['ai' => true]);
     }
 
     public function password(Request $request): JsonResponse

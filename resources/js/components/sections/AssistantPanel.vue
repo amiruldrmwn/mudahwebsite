@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AiCreditNotice from '@/components/AiCreditNotice.vue';
 import { Check, Eye, SendHorizontal, Sparkles, X } from '@lucide/vue';
 import { nextTick, ref } from 'vue';
 import PreviewDialog from '@/components/sections/PreviewDialog.vue';
@@ -147,6 +148,7 @@ function onKeydown(event: KeyboardEvent): void {
             </div>
 
             <template v-else>
+                <AiCreditNotice compact class="mx-4 mt-4" />
                 <div ref="list" class="flex-1 space-y-4 overflow-y-auto p-4">
                     <div v-if="turns.length === 0" class="space-y-2">
                         <p class="text-sm text-muted-foreground">

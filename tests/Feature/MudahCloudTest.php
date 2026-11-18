@@ -53,6 +53,11 @@ class MudahCloudTest extends TestCase
         $this->mc('POST', 'theme', ['theme' => 'kopi'])->assertOk()->assertJsonPath('theme', 'kopi');
         $this->assertSame('kopi', app(Site::class)->get('theme'));
 
+        // "Connect the AI assistant": the key MudahCloud made, kept encrypted.
+        $this->mc('POST', 'ai-key', ['key' => 'sk-mudah-123'])->assertOk();
+        $this->assertSame('sk-mudah-123', app(Site::class)->aiApiKey());
+        $this->mc('GET', 'status')->assertJsonPath('setup.3.done', true);
+
         $this->mc('POST', 'password', ['password' => 'short'])->assertUnprocessable();
         $this->mc('POST', 'password', ['password' => 'rahasia-baru-123'])->assertOk();
         $this->assertTrue(Hash::check('rahasia-baru-123', $admin->fresh()->password));

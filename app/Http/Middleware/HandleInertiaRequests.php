@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => app(Site::class)->get('site_name'),
+            'mudahcloudAiUrl' => config('compro.ai_topup_url'),
             'auth' => [
                 'user' => $request->user(),
             ],

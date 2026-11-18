@@ -56,6 +56,7 @@ Route::prefix('_mudahcloud')->group(function () {
         Route::get('status', [MudahCloudController::class, 'status']);
         Route::post('theme', [MudahCloudController::class, 'theme']);
         Route::post('password', [MudahCloudController::class, 'password']);
+        Route::post('ai-key', [MudahCloudController::class, 'aiKey']);
         Route::post('login', [MudahCloudController::class, 'login']);
     });
     Route::get('enter', [MudahCloudController::class, 'enter'])->middleware('signed')->name('mudahcloud.enter');

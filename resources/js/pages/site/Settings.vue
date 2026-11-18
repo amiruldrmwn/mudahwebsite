@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AiCreditNotice from '@/components/AiCreditNotice.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import {
     Building2,
@@ -692,6 +693,7 @@ function submit(): void {
                     </CardDescription>
                 </CardHeader>
                 <CardContent class="grid gap-6">
+                    <AiCreditNotice />
                     <div class="grid gap-2">
                         <Label for="ai_api_key">API key MudahCloud AI</Label>
                         <Input

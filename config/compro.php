@@ -25,4 +25,7 @@ return [
     // The key MudahCloud's client area uses to act for the owner (MudahCloudController). Empty: off.
     'mudahcloud_key' => env('MUDAHCLOUD_KEY'),
 
+    // Where the owner tops up their MudahCloud AI credit (the AI assistant runs on it).
+    'ai_topup_url' => env('MUDAHCLOUD_AI_URL', 'https://mudahcloud.com/ai'),
+
 ];
