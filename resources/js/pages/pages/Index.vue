@@ -4,12 +4,15 @@ import {
     ArrowDown,
     ArrowUp,
     ExternalLink,
+    FileText,
     House,
+    Info,
     Pencil,
     Plus,
     Trash2,
 } from '@lucide/vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import DesktopPreview from '@/components/themes/DesktopPreview.vue';
 import InputError from '@/components/InputError.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -44,7 +47,11 @@ type PageRow = {
     updated_at: string | null;
 };
 
-const props = defineProps<{ pages: PageRow[] }>();
+const props = defineProps<{ pages: PageRow[]; themeLabel: string }>();
+
+const publishedCount = computed(
+    () => props.pages.filter((p) => p.published).length,
+);
 
 defineOptions({
     layout: {
@@ -84,12 +91,13 @@ function remove(page: PageRow): void {
 <template>
     <Head title="Halaman" />
 
-    <div class="mx-auto flex w-full max-w-4xl flex-col gap-6 p-4">
-        <div class="flex flex-wrap items-center justify-between gap-4">
+    <div class="mx-auto flex w-full max-w-5xl flex-col gap-6 p-4 md:p-6">
+        <div class="flex flex-wrap items-end justify-between gap-4">
             <div>
                 <h1 class="text-xl font-semibold tracking-tight">Halaman</h1>
                 <p class="text-sm text-muted-foreground">
-                    Atur halaman website dan urutannya di menu.
+                    {{ pages.length }} halaman · {{ publishedCount }} tayang ·
+                    template {{ themeLabel }}
                 </p>
             </div>
             <Button @click="creating = true">
@@ -98,47 +106,63 @@ function remove(page: PageRow): void {
             </Button>
         </div>
 
-        <div class="divide-y rounded-xl border bg-card">
-            <div
+        <p
+            class="flex items-start gap-2 rounded-xl border bg-muted/40 px-4 py-3 text-sm text-muted-foreground"
+        >
+            <Info class="mt-0.5 size-4 shrink-0 text-primary" />
+            Urutan di sini sama dengan urutan menu di website. Gunakan panah
+            untuk memindahkan halaman.
+        </p>
+
+        <ol class="flex flex-col gap-3">
+            <li
                 v-for="(page, index) in pages"
                 :key="page.id"
-                class="flex flex-wrap items-center gap-3 p-4"
+                class="group flex flex-col gap-4 rounded-2xl border bg-card p-3 transition hover:border-primary/30 hover:shadow-md sm:flex-row sm:items-center"
             >
-                <div class="flex flex-col">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        class="size-6"
-                        :disabled="index === 0"
-                        aria-label="Naikkan"
-                        @click="move(index, -1)"
-                    >
-                        <ArrowUp class="size-3.5" />
-                    </Button>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        class="size-6"
-                        :disabled="index === pages.length - 1"
-                        aria-label="Turunkan"
-                        @click="move(index, 1)"
-                    >
-                        <ArrowDown class="size-3.5" />
-                    </Button>
-                </div>
-                <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-3">
+                    <div class="flex flex-col">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            class="size-7"
+                            :disabled="index === 0"
+                            aria-label="Naikkan"
+                            @click="move(index, -1)"
+                        >
+                            <ArrowUp class="size-4" />
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            class="size-7"
+                            :disabled="index === pages.length - 1"
+                            aria-label="Turunkan"
+                            @click="move(index, 1)"
+                        >
+                            <ArrowDown class="size-4" />
+                        </Button>
+                    </div>
                     <Link
                         :href="edit(page.id)"
-                        class="font-medium hover:underline"
-                        >{{ page.title }}</Link
+                        class="relative block aspect-[16/10] w-full shrink-0 overflow-hidden rounded-xl border sm:w-44"
+                        :aria-label="`Edit ${page.title}`"
                     >
-                    <div
-                        class="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground"
-                    >
-                        <span>{{ page.is_home ? '/' : `/${page.slug}` }}</span>
-                        <span>· {{ page.sections }} section</span>
-                        <Badge v-if="page.is_home" variant="secondary"
-                            >Beranda</Badge
+                        <DesktopPreview
+                            :src="page.url"
+                            :title="`Pratinjau ${page.title}`"
+                        />
+                    </Link>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <Link
+                            :href="edit(page.id)"
+                            class="text-base font-semibold hover:underline"
+                            >{{ page.title }}</Link
+                        >
+                        <Badge v-if="page.is_home"
+                            ><House class="size-3" />Beranda</Badge
                         >
                         <Badge v-if="!page.published" variant="outline"
                             >Draf</Badge
@@ -147,46 +171,69 @@ function remove(page: PageRow): void {
                             >Tidak di menu</Badge
                         >
                     </div>
+                    <div
+                        class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground"
+                    >
+                        <span class="font-mono">{{
+                            page.is_home ? '/' : `/${page.slug}`
+                        }}</span>
+                        <span class="inline-flex items-center gap-1"
+                            ><FileText class="size-3" />{{
+                                page.sections
+                            }}
+                            section</span
+                        >
+                        <span v-if="page.updated_at"
+                            >Diubah {{ page.updated_at }}</span
+                        >
+                    </div>
                 </div>
-                <div class="flex gap-1">
-                    <Button as-child variant="ghost" size="icon" class="size-8">
+                <div class="flex flex-wrap items-center gap-1.5">
+                    <Button as-child size="sm">
+                        <Link :href="edit(page.id)"
+                            ><Pencil class="size-4" />Edit</Link
+                        >
+                    </Button>
+                    <Button
+                        as-child
+                        variant="outline"
+                        size="icon"
+                        class="size-9"
+                        title="Lihat halaman"
+                    >
                         <a
                             :href="page.url"
                             target="_blank"
                             rel="noopener"
-                            aria-label="Lihat"
+                            aria-label="Lihat halaman"
                             ><ExternalLink class="size-4"
                         /></a>
                     </Button>
                     <Button
                         v-if="!page.is_home"
-                        variant="ghost"
+                        variant="outline"
                         size="icon"
-                        class="size-8"
+                        class="size-9"
                         aria-label="Jadikan beranda"
                         title="Jadikan beranda"
                         @click="makeHome(page)"
                     >
                         <House class="size-4" />
                     </Button>
-                    <Button as-child variant="ghost" size="icon" class="size-8">
-                        <Link :href="edit(page.id)" aria-label="Edit"
-                            ><Pencil class="size-4"
-                        /></Link>
-                    </Button>
                     <Button
                         v-if="!page.is_home"
-                        variant="ghost"
+                        variant="outline"
                         size="icon"
-                        class="size-8"
+                        class="size-9 text-muted-foreground hover:text-destructive"
                         aria-label="Hapus"
+                        title="Hapus halaman"
                         @click="remove(page)"
                     >
                         <Trash2 class="size-4" />
                     </Button>
                 </div>
-            </div>
-        </div>
+            </li>
+        </ol>
     </div>
 
     <Dialog v-model:open="creating">

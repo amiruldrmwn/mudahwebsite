@@ -35,6 +35,7 @@ class PageController extends Controller
                 'sections' => count($page->sections),
                 'updated_at' => $page->updated_at?->diffForHumans(),
             ]),
+            'themeLabel' => Themes::all()[Themes::current(app(Site::class))]['label'],
         ]);
     }
 
