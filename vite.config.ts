@@ -16,8 +16,9 @@ export default defineConfig({
             ],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
+                // Same typeface as the MudahCloud dashboard.
+                bunny('Figtree', {
+                    weights: [400, 500, 600, 700],
                 }),
             ],
         }),
