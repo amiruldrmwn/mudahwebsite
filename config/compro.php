@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mudah Company Profile settings that come from the container's environment. On MudahCloud
+ * Mudah Website settings that come from the container's environment. On MudahCloud
  * these are set by the app template on Easypanel when a customer buys the app.
  */
 return [

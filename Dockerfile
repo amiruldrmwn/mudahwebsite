@@ -1,4 +1,4 @@
-# Mudah Company Profile: one container per customer, run by MudahCloud on Easypanel.
+# Mudah Website: one container per customer, run by MudahCloud on Easypanel.
 # Web (FrankenPHP), queue worker and scheduler run together under supervisord.
 # Everything the site keeps (SQLite database, uploads) lives in the /data volume.
 

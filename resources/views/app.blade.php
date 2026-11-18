@@ -38,7 +38,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
         <x-inertia::head>
-            <title>Mudah Web</title>
+            <title>Mudah Website</title>
         </x-inertia::head>
     </head>
     <body class="font-sans antialiased">

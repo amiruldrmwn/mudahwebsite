@@ -53,7 +53,7 @@ const siteName = computed(() => String(usePage().props.name ?? ''));
                 <a :href="home().url" class="hover:text-foreground"
                     >&larr; Kembali ke website</a
                 >
-                <span>Mudah Web &middot; dikelola oleh MudahCloud</span>
+                <span>Mudah Website &middot; dikelola oleh MudahCloud</span>
             </div>
         </div>
     </div>

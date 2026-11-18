@@ -5,8 +5,8 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { initializeFlashToast } from '@/lib/flashToast';
 
-// Admin pages are titled "<page> - Mudah Web", e.g. "PT Maju Login - Mudah Web".
-const appName = 'Mudah Web';
+// Admin pages are titled "<page> - Mudah Website", e.g. "PT Maju Login - Mudah Website".
+const appName = 'Mudah Website';
 
 void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
