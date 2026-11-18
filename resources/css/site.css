@@ -1052,3 +1052,135 @@
 .theme-ac .team-photo {
     border-radius: 1.25rem;
 }
+
+/* ---------- Jasa Legal & Perizinan: royal blue, orange accents, grid backdrop ---------- */
+.theme-legal {
+    --font-body: 'Onest', ui-sans-serif, system-ui, sans-serif;
+    --accent: #f97316;
+    --radius: 1.25rem;
+    --surface-alt: #f3f5ff;
+    --line: #e1e5f5;
+    --ink: #111735;
+    --muted: #535b78;
+}
+
+.theme-legal .legal-hero {
+    background: linear-gradient(
+        140deg,
+        var(--brand) 0%,
+        color-mix(in oklab, var(--brand) 55%, #0e1433) 100%
+    );
+}
+
+.theme-legal .legal-grid {
+    background-image:
+        linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 75%);
+}
+
+.theme-legal .hero-title mark {
+    background: linear-gradient(
+        transparent 62%,
+        color-mix(in oklab, var(--accent) 85%, transparent) 62%
+    );
+    color: inherit;
+    padding: 0 0.1em;
+}
+
+.theme-legal .sec-title {
+    @apply font-extrabold;
+    letter-spacing: -0.03em;
+}
+
+.theme-legal .eyebrow {
+    @apply rounded-full px-3 py-1 text-xs font-bold;
+    background: var(--brand-soft);
+}
+
+.theme-legal .nav-link {
+    color: var(--ink);
+}
+
+.theme-legal .btn {
+    @apply font-bold;
+    border-radius: 999px;
+}
+
+.theme-legal .btn-accent {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 10px 24px -12px var(--accent);
+}
+
+.theme-legal .btn-accent:hover {
+    background: color-mix(in oklab, var(--accent) 85%, black);
+}
+
+.theme-legal .btn-outline {
+    color: var(--brand);
+    box-shadow: inset 0 0 0 1.5px var(--brand);
+}
+
+.theme-legal .card {
+    border-color: var(--line);
+    box-shadow: 0 16px 36px -28px rgb(17 23 53 / 0.5);
+}
+
+.theme-legal .svc-num {
+    border-radius: 0.875rem !important;
+    background: var(--brand) !important;
+    color: var(--on-brand) !important;
+}
+
+.theme-legal .step-num {
+    border-radius: 1rem;
+    background: var(--brand);
+    color: var(--on-brand);
+}
+
+.theme-legal .step:last-child .step-num {
+    background: var(--accent);
+}
+
+.theme-legal .plan-badge {
+    background: var(--accent);
+    color: #fff;
+}
+
+.theme-legal .plan-check {
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+
+.theme-legal .plan-hot {
+    border: 2px solid var(--brand);
+    box-shadow: 0 24px 50px -24px
+        color-mix(in oklab, var(--brand) 60%, transparent);
+}
+
+.theme-legal .price-info {
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+
+.theme-legal .team-photo {
+    border-radius: 1.25rem;
+}
+
+/* Plan cards in every template */
+.plan-badge {
+    background: var(--brand);
+    color: var(--on-brand);
+}
+
+.plan-check {
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+
+.plan-hot {
+    border-color: var(--brand) !important;
+    box-shadow: 0 20px 40px -24px var(--brand);
+}

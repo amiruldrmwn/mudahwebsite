@@ -15,6 +15,13 @@
                 <path d="M24 20v-5" style="stroke: var(--on-brand)" stroke-width="2.2" stroke-linecap="round"/>
                 <circle cx="24" cy="12.5" r="2" style="fill: #f59e0b"/>
             </svg>
+        @elseif ($theme === 'legal')
+            {{-- Shield with a check mark. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M24 10l11 4v9c0 7-4.7 12.3-11 15-6.3-2.7-11-8-11-15v-9z" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M18.5 24l4 4 7.5-8" fill="none" style="stroke: #fb923c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
         @elseif ($theme === 'ac')
             {{-- Snowflake. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">

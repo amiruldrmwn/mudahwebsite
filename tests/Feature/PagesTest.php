@@ -231,6 +231,22 @@ class PagesTest extends TestCase
         }
     }
 
+    public function test_legal_template_shows_plans_and_check_lists()
+    {
+        $this->actingAs(User::factory()->create());
+        app(Site::class)->put(['whatsapp' => '0812 3456 789']);
+
+        $this->put(route('themes.update'), ['theme' => 'legal']);
+
+        $this->get('/')->assertOk()->assertSee('theme-legal', false)->assertSee('<mark>cepat</mark>', false)
+            ->assertSee('Paling Populer')->assertSee('Rp3,95jt')->assertSee('NIB &amp; akun OSS RBA', false)
+            ->assertSee('https://wa.me/628123456789?text='.rawurlencode('Halo, saya tertarik dengan paket Lengkap'), false);
+        $this->get('/pendirian-cv')->assertOk()->assertSee('card-check', false)->assertSee('KTP &amp; NPWP minimal 2 sekutu', false);
+        foreach (['layanan', 'tentang', 'kontak'] as $slug) {
+            $this->get("/{$slug}")->assertOk();
+        }
+    }
+
     public function test_price_list_order_buttons_open_whatsapp()
     {
         DefaultContent::install('Toko Uji', replace: true, preset: 'kue');

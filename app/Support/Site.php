@@ -43,6 +43,7 @@ class Site
         'color_sma' => null,
         'color_umroh' => null,
         'color_ac' => null,
+        'color_legal' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

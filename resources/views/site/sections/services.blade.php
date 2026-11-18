@@ -13,14 +13,14 @@
                         <img src="{{ $site->image($item['image']) }}" alt="{{ $item['title'] }}" class="aspect-[16/10] w-full object-cover transition duration-500 hover:scale-105" loading="lazy">
                         <div class="flex-1 p-6">
                             <h3 class="text-xl font-semibold">{{ $item['title'] }}</h3>
-                            @if ($item['text'])<p class="muted mt-2 leading-relaxed">{{ $item['text'] }}</p>@endif
+                            @include('site.partials.card-text', ['text' => $item['text']])
                         </div>
                     </div>
                 @else
                     <div class="card">
                         <div class="svc-num mb-5 flex size-12 items-center justify-center text-lg font-bold" style="border-radius: calc(var(--radius) * .75); background: var(--brand-soft); color: var(--brand)">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
                         <h3 class="text-xl font-semibold">{{ $item['title'] }}</h3>
-                        @if ($item['text'])<p class="muted mt-2 leading-relaxed">{{ $item['text'] }}</p>@endif
+                        @include('site.partials.card-text', ['text' => $item['text']])
                     </div>
                 @endif
             @endforeach

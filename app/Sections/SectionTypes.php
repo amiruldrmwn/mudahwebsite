@@ -113,6 +113,24 @@ class SectionTypes
                     'button_url' => ['type' => 'url', 'label' => 'Link tombol di bawah', 'max' => 255],
                 ],
             ],
+            'plans' => [
+                'label' => 'Paket Harga',
+                'description' => 'Pilihan paket bertingkat: harga, harga coret, label (mis. Paling Populer), dan daftar yang didapat, dengan tombol pilih via WhatsApp.',
+                'fields' => [
+                    'title' => ['type' => 'text', 'label' => 'Judul', 'max' => 150],
+                    'subtitle' => ['type' => 'textarea', 'label' => 'Subjudul', 'max' => 400],
+                    'items' => ['type' => 'items', 'label' => 'Paket', 'max_items' => 4, 'fields' => [
+                        'name' => ['type' => 'text', 'label' => 'Nama paket', 'max' => 60, 'required' => true],
+                        'badge' => ['type' => 'text', 'label' => 'Label (mis. Paling Populer)', 'max' => 30],
+                        'price' => ['type' => 'text', 'label' => 'Harga (mis. Rp1,95jt)', 'max' => 40],
+                        'old_price' => ['type' => 'text', 'label' => 'Harga coret (opsional)', 'max' => 40],
+                        'info' => ['type' => 'text', 'label' => 'Info singkat (mis. ±2 hari kerja)', 'max' => 60],
+                        'features' => ['type' => 'textarea', 'label' => 'Yang didapat (satu per baris)', 'max' => 1500],
+                        'highlight' => ['type' => 'select', 'label' => 'Tonjolkan paket ini', 'options' => ['no' => 'Tidak', 'yes' => 'Ya'], 'default' => 'no'],
+                    ]],
+                    'note' => ['type' => 'text', 'label' => 'Catatan kecil di bawah', 'max' => 200],
+                ],
+            ],
             'posts' => [
                 'label' => 'Berita / Kabar Terbaru',
                 'description' => 'Kartu berita, kegiatan, pengumuman, atau prestasi dengan foto, kategori, dan tanggal.',

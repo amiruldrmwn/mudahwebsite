@@ -75,6 +75,13 @@ class Themes
                 'preset' => 'ac',
                 'color' => '#0369a1',
             ],
+            'legal' => [
+                'label' => 'Jasa Legal & Perizinan',
+                'description' => 'Tepercaya dan modern: biru royal dengan aksen oranye, ringkasan syarat dan dokumen, alur 3 langkah, paket harga bertingkat, dan tim konsultan. Cocok untuk jasa pendirian PT/CV, perizinan, notaris, konsultan pajak, dan agensi.',
+                'fonts' => 'onest:400,500,600,700,800',
+                'preset' => 'legal',
+                'color' => '#3048e8',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',
