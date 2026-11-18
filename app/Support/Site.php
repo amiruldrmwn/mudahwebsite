@@ -54,6 +54,8 @@ class Site
         'color_gigi' => null,
         'color_kecantikan' => null,
         'color_villa' => null,
+        'color_hijab' => null,
+        'color_kaos' => null,
     ];
 
     public const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube', 'tiktok', 'x'];

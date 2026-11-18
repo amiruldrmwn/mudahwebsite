@@ -152,6 +152,20 @@ class Themes
                 'preset' => 'villa',
                 'color' => '#8a6a46',
             ],
+            'hijab' => [
+                'label' => 'Hijab & Fashion Muslim',
+                'description' => 'Lembut dan elegan: warna krem dan terakota, logo di tengah, huruf serif tipis, kategori bulat, kartu produk dengan diskon, dan lookbook. Cocok untuk toko hijab, busana muslim, dan butik.',
+                'fonts' => 'italiana:400|work-sans:300,400,500',
+                'preset' => 'hijab',
+                'color' => '#a4532f',
+            ],
+            'kaos' => [
+                'label' => 'Jualan Kaos & Konveksi',
+                'description' => 'Tegas dan energik: huruf tebal kapital, ubin kategori, kartu produk dengan warna dan ukuran, harga cetak, serta cara order custom. Cocok untuk toko kaos, sablon, konveksi, dan merchandise.',
+                'fonts' => 'archivo:500,700,800,900|dm-sans:400,500,700',
+                'preset' => 'kaos',
+                'color' => '#e4572e',
+            ],
             'sma' => [
                 'label' => 'SMP & SMA',
                 'description' => 'Modern dan berwibawa: hitam-putih elegan, foto besar, judul serif, program unggulan berlatar gelap, guru, berita, dan info PPDB. Cocok untuk SMP, SMA, SMK, dan madrasah.',

@@ -63,6 +63,19 @@
                 <circle cx="24" cy="20" r="6" fill="#f6d9a8"/>
                 <path d="M9 33l15-9 15 9M14 30v8M34 30v8" fill="none" style="stroke: var(--on-brand)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
+        @elseif ($theme === 'hijab')
+            {{-- Crescent and a small flower. --}}
+            <svg viewBox="0 0 48 48" class="size-9 shrink-0" aria-hidden="true">
+                <circle cx="24" cy="24" r="24" style="fill: var(--brand)"/>
+                <path d="M27 11a13 13 0 1 0 10 21 11 11 0 1 1-10-21z" style="fill: var(--on-brand)"/>
+                <circle cx="31" cy="20" r="2.2" style="fill: var(--on-brand)"/>
+            </svg>
+        @elseif ($theme === 'kaos')
+            {{-- T-shirt. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="12" style="fill: var(--brand)"/>
+                <path d="M18 11l-9 5 3 7 4-2v16h16V21l4 2 3-7-9-5c-1 3-3 4-6 4s-5-1-6-4z" style="fill: var(--on-brand)"/>
+            </svg>
         @elseif ($theme === 'tambang')
             {{-- Mountain with a pickaxe peak. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">

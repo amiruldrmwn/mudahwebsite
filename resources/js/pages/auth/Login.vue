@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { store } from '@/routes/login';
-import PasskeyVerify from '@/components/PasskeyVerify.vue';
 
 defineOptions({
     layout: {
@@ -33,12 +32,6 @@ const siteName = String(usePage().props.name ?? '');
     >
         {{ status }}
     </div>
-
-    <PasskeyVerify
-        label="Masuk dengan passkey"
-        loading-label="Memeriksa passkey..."
-        separator="atau masuk dengan email"
-    />
 
     <Form
         v-bind="store.form()"

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -17,7 +18,15 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Logging out from the admin returns to the login page, not the public site:
+        // the site is a Blade page, which Inertia would show inside an error modal.
+        $this->app->singleton(LogoutResponse::class, fn () => new class implements LogoutResponse
+        {
+            public function toResponse($request)
+            {
+                return redirect()->route('login');
+            }
+        });
     }
 
     /**
