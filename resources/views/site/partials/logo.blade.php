@@ -134,6 +134,48 @@
         @elseif ($theme === 'cv')
             {{-- Monogram. --}}
             <span class="flex size-10 shrink-0 items-center justify-center rounded-full text-lg font-semibold" style="background: var(--brand); color: var(--on-brand)">{{ mb_substr($site->get('site_name') ?: 'A', 0, 1) }}</span>
+        @elseif ($theme === 'travel')
+            {{-- Sun over a wave. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="24" style="fill: var(--brand)"/>
+                <circle cx="24" cy="21" r="6" fill="#fdba74"/>
+                <path d="M9 31c4-3 7-3 10 0s6 3 10 0 7-3 10 0M12 37c3-2 6-2 9 0s6 2 9 0 5-2 6-1" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'kontraktor')
+            {{-- House frame under a crane hook. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="8" style="fill: var(--brand)"/>
+                <path d="M10 26l14-12 14 12M14 23v13h20V23M21 36v-8h6v8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'umkm')
+            {{-- Shopping bag with a heart. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="16" style="fill: var(--brand)"/>
+                <path d="M13 18h22l-2 18H15zM19 18v-3a5 5 0 0 1 10 0v3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M24 32s-5-3-5-6a2.5 2.5 0 0 1 5-1 2.5 2.5 0 0 1 5 1c0 3-5 6-5 6z" fill="#fde68a"/>
+            </svg>
+        @elseif ($theme === 'lpk')
+            {{-- Red sun with a rising arrow. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="12" style="fill: var(--brand)"/>
+                <circle cx="24" cy="24" r="10" fill="#ef4444"/>
+                <path d="M14 34l10-10 4 4 7-7M30 21h5v5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'ekspedisi')
+            {{-- Parcel with speed lines. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="10" style="fill: var(--brand)"/>
+                <path d="M20 16l12-4 10 4v14l-10 5-12-5zM20 16l12 5 10-5M32 21v14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/>
+                <path d="M6 20h9M8 26h8M10 32h7" stroke="#facc15" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'desa2')
+            {{-- Shield with a tree. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <path d="M24 3l17 6v13c0 11-7 19-17 23C14 41 7 33 7 22V9z" fill="#fff"/>
+                <path d="M24 7l13 4.6V22c0 8.6-5.4 15-13 18.4C16.4 37 11 30.6 11 22V11.6z" style="fill: var(--brand)"/>
+                <circle cx="24" cy="19" r="6" fill="#86efac"/>
+                <path d="M24 22v11M18 33h12" stroke="#fde047" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
         @elseif ($theme === 'pesantren')
             {{-- Mosque dome inside an eight-point star. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">

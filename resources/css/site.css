@@ -4529,3 +4529,728 @@
 .theme-bangunan .price {
     color: #b45309;
 }
+
+/* ---------- Tour & Travel: ocean blue with sunset orange ---------- */
+.theme-travel {
+    --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.25rem;
+    --surface: #ffffff;
+    --surface-alt: #f0f9fb;
+    --line: #d7eef3;
+    --ink: #0b2a33;
+    --muted: #4b6670;
+}
+
+.theme-travel h1,
+.theme-travel h2,
+.theme-travel .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.theme-travel .travel-bar {
+    background: rgb(255 255 255 / 0.95);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.theme-travel .travel-shade {
+    background: linear-gradient(
+        100deg,
+        rgb(8 51 68 / 0.85) 0%,
+        rgb(8 51 68 / 0.45) 55%,
+        rgb(8 51 68 / 0.1) 100%
+    );
+}
+
+.theme-travel .travel-script {
+    font-family: 'Caveat', cursive;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fdba74;
+}
+
+.theme-travel .hero-title em {
+    font-style: normal;
+    color: #fdba74;
+}
+
+.theme-travel .travel-ghost {
+    background: rgb(255 255 255 / 0.12);
+    border: 1px solid rgb(255 255 255 / 0.6);
+    color: #fff;
+}
+
+.theme-travel .travel-tripbar {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -20px rgb(8 51 68 / 0.35);
+    @apply p-6 sm:p-8;
+}
+
+.theme-travel .travel-tripbar > div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.85rem;
+    align-items: center;
+}
+
+.theme-travel .travel-ico {
+    grid-row: span 2;
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--surface-alt);
+    font-size: 1.35rem;
+}
+
+.theme-travel .btn {
+    border-radius: 999px;
+    @apply font-semibold;
+}
+
+.theme-travel .card {
+    border-color: var(--line);
+    box-shadow: 0 12px 30px -20px rgb(8 51 68 / 0.3);
+}
+
+.theme-travel .price {
+    color: #ea580c;
+}
+
+/* ---------- Kontraktor & Renovasi: slate blueprint with orange ---------- */
+.theme-kontraktor {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.25rem;
+    --surface: #ffffff;
+    --surface-alt: #f4f5f7;
+    --line: #e2e5ea;
+    --ink: #111827;
+    --muted: #4b5563;
+}
+
+.theme-kontraktor h1,
+.theme-kontraktor h2,
+.theme-kontraktor .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.theme-kontraktor .kontraktor-bar {
+    background: #0f172a;
+}
+
+.theme-kontraktor .kontraktor-bar .nav-link {
+    color: rgb(255 255 255 / 0.75);
+}
+
+.theme-kontraktor .kontraktor-bar .nav-link[aria-current='page'],
+.theme-kontraktor .kontraktor-bar .nav-link:hover {
+    color: #fff;
+}
+
+.theme-kontraktor .kontraktor-hero {
+    background: #0f172a;
+}
+
+.theme-kontraktor .kontraktor-grid {
+    background-image:
+        linear-gradient(rgb(148 163 184 / 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(148 163 184 / 0.09) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+
+.theme-kontraktor .kontraktor-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--brand);
+    font-family: var(--font-head);
+    @apply text-sm font-semibold tracking-[0.12em] uppercase;
+}
+
+.theme-kontraktor .kontraktor-tag::before {
+    content: '';
+    width: 2rem;
+    height: 2px;
+    background: var(--brand);
+}
+
+.theme-kontraktor .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-kontraktor .kontraktor-frame::before,
+.theme-kontraktor .kontraktor-frame::after {
+    content: '';
+    position: absolute;
+    width: 4.5rem;
+    height: 4.5rem;
+    border: 4px solid var(--brand);
+}
+
+.theme-kontraktor .kontraktor-frame::before {
+    top: 0;
+    left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.theme-kontraktor .kontraktor-frame::after {
+    right: 0;
+    bottom: 0;
+    border-left: 0;
+    border-top: 0;
+}
+
+.theme-kontraktor .kontraktor-card {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: #fff;
+    box-shadow: 0 20px 40px -15px rgb(0 0 0 / 0.5);
+    @apply px-5 py-4;
+}
+
+.theme-kontraktor .kontraktor-card-num {
+    font-family: var(--font-head);
+    color: var(--brand);
+    @apply text-4xl leading-none font-bold;
+}
+
+.theme-kontraktor .btn {
+    @apply font-semibold;
+}
+
+.theme-kontraktor .kontraktor-ghost {
+    background: transparent;
+    border: 1px solid rgb(255 255 255 / 0.35);
+    color: #fff;
+}
+
+.theme-kontraktor .card {
+    border-color: var(--line);
+    border-top: 3px solid var(--brand);
+}
+
+.theme-kontraktor .step-num,
+.theme-kontraktor .svc-num {
+    background: #0f172a;
+    color: #fff;
+}
+
+/* ---------- Toko Online UMKM: cream and chilli red, friendly ---------- */
+.theme-umkm {
+    --font-body: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.5rem;
+    --surface: #ffffff;
+    --surface-alt: #fff4e6;
+    --line: #f3e3cf;
+    --ink: #3b1d14;
+    --muted: #7a5a4c;
+}
+
+.site.theme-umkm {
+    background: #fffaf3;
+}
+
+.theme-umkm h1,
+.theme-umkm h2,
+.theme-umkm .sec-title {
+    font-weight: 600;
+}
+
+.theme-umkm .umkm-announce {
+    background: var(--brand);
+    color: var(--on-brand);
+}
+
+.theme-umkm .umkm-bar {
+    background: rgb(255 250 243 / 0.95);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.theme-umkm .umkm-hero {
+    background-color: #fff4e6;
+    background-image: radial-gradient(
+        color-mix(in oklab, var(--brand) 14%, transparent) 2px,
+        transparent 2px
+    );
+    background-size: 26px 26px;
+}
+
+.theme-umkm .umkm-pill {
+    display: inline-block;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--brand);
+    box-shadow: 0 4px 14px -6px rgb(59 29 20 / 0.25);
+    @apply px-4 py-1.5 text-sm font-bold;
+}
+
+.theme-umkm .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-umkm .umkm-blob {
+    border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%;
+    border: 8px solid #fff;
+    box-shadow: 0 30px 60px -25px rgb(59 29 20 / 0.45);
+}
+
+.theme-umkm .umkm-sticker {
+    display: flex;
+    width: 6.5rem;
+    height: 6.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #facc15;
+    color: #3b1d14;
+    transform: rotate(12deg);
+    font-family: var(--font-head);
+    box-shadow: 0 10px 25px -10px rgb(0 0 0 / 0.35);
+    @apply text-sm font-semibold;
+}
+
+.theme-umkm .umkm-sticker span {
+    @apply text-2xl leading-none font-bold;
+}
+
+.theme-umkm .umkm-chip {
+    border-radius: 999px;
+    background: #fff;
+    transform: rotate(-4deg);
+    box-shadow: 0 10px 25px -10px rgb(59 29 20 / 0.35);
+    @apply px-4 py-2 text-sm font-bold;
+}
+
+.theme-umkm .btn {
+    border-radius: 999px;
+    @apply font-bold;
+}
+
+.theme-umkm .card {
+    border-color: var(--line);
+    box-shadow: 0 12px 30px -22px rgb(59 29 20 / 0.4);
+}
+
+.theme-umkm .price {
+    color: var(--brand);
+}
+
+.theme-umkm .step-num,
+.theme-umkm .svc-num {
+    border-radius: 999px;
+    background: #facc15;
+    color: #3b1d14;
+}
+
+/* ---------- LPK & Kursus Kerja: white, blue, and a red sun ---------- */
+.theme-lpk {
+    --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #f5f7fb;
+    --line: #e3e8f2;
+    --ink: #0f172a;
+    --muted: #4b5568;
+}
+
+.theme-lpk h1,
+.theme-lpk h2,
+.theme-lpk .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.035em;
+}
+
+.theme-lpk .lpk-bar {
+    background: rgb(255 255 255 / 0.95);
+    border-top: 4px solid #dc2626;
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.theme-lpk .lpk-hero {
+    background: #fff;
+}
+
+.theme-lpk .lpk-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--brand);
+    @apply text-sm font-bold tracking-wide uppercase;
+}
+
+.theme-lpk .lpk-eyebrow::before {
+    content: '';
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 999px;
+    background: #dc2626;
+}
+
+.theme-lpk .hero-title em {
+    font-style: normal;
+    color: #dc2626;
+}
+
+.theme-lpk .lpk-sun {
+    top: 8%;
+    right: 2%;
+    width: 72%;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: #dc2626;
+}
+
+.theme-lpk .lpk-sun-sm {
+    top: -6rem;
+    right: -4rem;
+    width: 18rem;
+    opacity: 0.1;
+}
+
+.theme-lpk .lpk-photo {
+    border-radius: 1.25rem;
+    box-shadow: 0 30px 60px -25px rgb(15 23 42 / 0.5);
+}
+
+.theme-lpk .lpk-badge {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px -15px rgb(15 23 42 / 0.35);
+    @apply px-5 py-3 text-xs;
+}
+
+.theme-lpk .lpk-badge strong {
+    color: var(--brand);
+    @apply text-3xl leading-none font-extrabold;
+}
+
+.theme-lpk .btn {
+    border-radius: 0.75rem;
+    @apply font-bold;
+}
+
+.theme-lpk .card {
+    border-color: var(--line);
+}
+
+.theme-lpk .step-num,
+.theme-lpk .svc-num {
+    border-radius: 999px;
+    background: #dc2626;
+    color: #fff;
+}
+
+/* ---------- Ekspedisi & Logistik: violet with a yellow speed stripe ---------- */
+.theme-ekspedisi {
+    --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.85rem;
+    --surface: #ffffff;
+    --surface-alt: #f6f3fd;
+    --line: #e6e0f5;
+    --ink: #1e1035;
+    --muted: #57506a;
+}
+
+.theme-ekspedisi h1,
+.theme-ekspedisi h2,
+.theme-ekspedisi .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.theme-ekspedisi .ekspedisi-topbar {
+    background: #1e1035;
+    color: rgb(255 255 255 / 0.85);
+}
+
+.theme-ekspedisi .ekspedisi-hero {
+    background: linear-gradient(
+        135deg,
+        color-mix(in oklab, var(--brand) 85%, black),
+        var(--brand)
+    );
+}
+
+.theme-ekspedisi .ekspedisi-stripe {
+    top: -20%;
+    right: 18%;
+    width: 5rem;
+    height: 160%;
+    background: repeating-linear-gradient(
+        0deg,
+        #facc15 0 24px,
+        transparent 24px 36px
+    );
+    transform: rotate(24deg);
+    opacity: 0.85;
+}
+
+.theme-ekspedisi .ekspedisi-tag {
+    display: inline-block;
+    border-radius: 0.4rem;
+    background: #facc15;
+    color: #1e1035;
+    @apply px-3 py-1 text-xs font-extrabold tracking-wider uppercase;
+}
+
+.theme-ekspedisi .hero-title em {
+    font-style: normal;
+    color: #facc15;
+}
+
+.theme-ekspedisi .ekspedisi-ghost {
+    background: transparent;
+    border: 1px solid rgb(255 255 255 / 0.5);
+    color: #fff;
+}
+
+.theme-ekspedisi .ekspedisi-photo {
+    border-radius: 1.25rem;
+    border: 6px solid rgb(255 255 255 / 0.15);
+}
+
+.theme-ekspedisi .ekspedisi-track {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -20px rgb(30 16 53 / 0.6);
+    @apply p-4;
+}
+
+.theme-ekspedisi .ekspedisi-input {
+    border: 1px solid var(--line);
+    border-radius: 0.6rem;
+    color: var(--muted);
+    @apply px-3 py-2 text-sm;
+}
+
+.theme-ekspedisi .btn {
+    @apply font-bold;
+}
+
+.theme-ekspedisi .card {
+    border-color: var(--line);
+}
+
+.theme-ekspedisi .step-num,
+.theme-ekspedisi .svc-num {
+    background: #facc15;
+    color: #1e1035;
+}
+
+/* ---------- Portal Desa: mint green village portal ---------- */
+.theme-desa2 {
+    --font-body: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.5rem;
+    --surface: #ffffff;
+    --surface-alt: #f5f6f6;
+    --line: #e5e9e8;
+    --ink: #111827;
+    --muted: #4b5563;
+    --desa2-light: color-mix(in oklab, var(--brand) 70%, white);
+    --desa2-deep: color-mix(in oklab, var(--brand) 85%, black);
+}
+
+.site.theme-desa2 {
+    background: #f6f7f7;
+}
+
+.theme-desa2 h1,
+.theme-desa2 h2,
+.theme-desa2 .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.theme-desa2 .sec-head {
+    @apply text-left;
+    margin-left: 0;
+    max-width: 48rem;
+}
+
+.theme-desa2 .sec .sec-title,
+.theme-desa2 .desa2-big {
+    color: var(--desa2-light);
+    text-transform: uppercase;
+    @apply text-4xl sm:text-5xl;
+}
+
+.theme-desa2 .sec-sub {
+    color: var(--ink);
+}
+
+.theme-desa2 .desa2-bar {
+    background: var(--brand);
+}
+
+.theme-desa2 .desa2-bar .nav-link {
+    color: rgb(255 255 255 / 0.85);
+}
+
+.theme-desa2 .desa2-bar .nav-link[aria-current='page'],
+.theme-desa2 .desa2-bar .nav-link:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+.theme-desa2 .desa2-shade {
+    background: linear-gradient(180deg, rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.45));
+}
+
+.theme-desa2 .desa2-hero .hero-title {
+    text-shadow: 0 3px 0 rgb(0 0 0 / 0.35);
+}
+
+.theme-desa2 .desa2-eyebrow {
+    color: #fff;
+    letter-spacing: 0.25em;
+    @apply text-sm font-semibold uppercase;
+}
+
+.theme-desa2 .desa2-ghost {
+    background: rgb(255 255 255 / 0.15);
+    border: 1px solid rgb(255 255 255 / 0.7);
+    color: #fff;
+}
+
+.theme-desa2 .desa2-tile {
+    display: block;
+    height: 100%;
+    background: #fff;
+    border-radius: 0.5rem;
+    color: var(--brand);
+    text-align: center;
+    box-shadow: 0 6px 18px -10px rgb(0 0 0 / 0.25);
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    @apply px-4 py-7;
+}
+
+.theme-desa2 .desa2-tile svg {
+    margin-inline: auto;
+}
+
+.theme-desa2 a.desa2-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -12px rgb(0 0 0 / 0.3);
+}
+
+.theme-desa2 .desa2-tile span,
+.theme-desa2 .desa2-tile h3 {
+    color: var(--ink);
+}
+
+.theme-desa2 .desa2-num {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--brand-soft);
+    color: var(--brand) !important;
+    @apply font-bold;
+}
+
+.theme-desa2 .desa2-round {
+    border-radius: 999px;
+    box-shadow: 0 25px 50px -25px rgb(0 0 0 / 0.45);
+}
+
+.theme-desa2 .desa2-person {
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 8px 22px -12px rgb(0 0 0 / 0.3);
+}
+
+.theme-desa2 .desa2-namebar {
+    background: var(--desa2-light);
+    color: #fff;
+    text-align: center;
+    @apply px-3 py-4;
+}
+
+.theme-desa2 .desa2-stat {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    overflow: hidden;
+    border-radius: 0.35rem;
+    background: #fff;
+    box-shadow: 0 4px 14px -8px rgb(0 0 0 / 0.25);
+}
+
+.theme-desa2 .desa2-stat-num {
+    background: linear-gradient(
+        90deg,
+        var(--desa2-light),
+        color-mix(in oklab, var(--brand) 25%, white)
+    );
+    color: #fff;
+    text-align: center;
+    @apply py-3 text-3xl font-bold sm:text-4xl;
+}
+
+.theme-desa2 .desa2-stat-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #374151;
+    text-align: center;
+    @apply px-3 text-lg font-bold sm:text-xl;
+}
+
+.theme-desa2 .desa2-news {
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 8px 22px -14px rgb(0 0 0 / 0.3);
+}
+
+.theme-desa2 .desa2-cat {
+    color: var(--brand);
+    @apply text-xs font-bold tracking-wide uppercase;
+}
+
+.theme-desa2 .desa2-date {
+    background: linear-gradient(
+        90deg,
+        var(--desa2-light),
+        color-mix(in oklab, var(--brand) 35%, white)
+    );
+    color: #fff;
+    border-top-left-radius: 0.6rem;
+    @apply px-3 py-2 text-xs font-bold;
+}
+
+.theme-desa2 .card {
+    border: 0;
+    box-shadow: 0 6px 18px -10px rgb(0 0 0 / 0.25);
+}
+
+.theme-desa2 .price {
+    color: var(--brand);
+}
+
+.theme-desa2 .btn {
+    @apply font-semibold;
+}

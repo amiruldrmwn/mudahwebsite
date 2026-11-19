@@ -159,6 +159,48 @@ class Themes
                 'preset' => 'cv',
                 'color' => '#4f46e5',
             ],
+            'travel' => [
+                'label' => 'Tour & Travel',
+                'description' => 'Segar dan bikin ingin liburan: foto destinasi penuh layar, biru laut dengan aksen oranye senja, paket trip, itinerary, dan galeri destinasi. Cocok untuk open trip, tour & travel, agen wisata, dan penyewaan kapal.',
+                'fonts' => 'outfit:400,500,600,700|caveat:600,700',
+                'preset' => 'travel',
+                'color' => '#0891b2',
+            ],
+            'kontraktor' => [
+                'label' => 'Kontraktor & Renovasi',
+                'description' => 'Profesional dan meyakinkan: abu gelap dengan garis blueprint dan aksen oranye, estimasi biaya per m², portofolio sebelum-sesudah, dan alur kerja. Cocok untuk kontraktor, jasa renovasi, arsitek, dan interior.',
+                'fonts' => 'space-grotesk:500,600,700|inter:400,500,600',
+                'preset' => 'kontraktor',
+                'color' => '#ea580c',
+            ],
+            'umkm' => [
+                'label' => 'Toko Online UMKM',
+                'description' => 'Hangat dan menggugah selera: krem dengan merah cabai, foto produk membulat, katalog dengan tombol pesan WhatsApp, cara pesan, dan program reseller. Cocok untuk frozen food, sambal, kue kering, oleh-oleh, dan sembako.',
+                'fonts' => 'fredoka:500,600,700|nunito:400,600,700',
+                'preset' => 'umkm',
+                'color' => '#be123c',
+            ],
+            'lpk' => [
+                'label' => 'LPK & Kursus Kerja',
+                'description' => 'Bersih dan bersemangat: putih dengan matahari merah dan biru, program pelatihan, biaya, alur sampai berangkat, dan cerita alumni. Cocok untuk LPK Jepang/Korea, lembaga pelatihan kerja, kursus bahasa, dan BLK.',
+                'fonts' => 'plus-jakarta-sans:400,500,600,700,800',
+                'preset' => 'lpk',
+                'color' => '#1d4ed8',
+            ],
+            'ekspedisi' => [
+                'label' => 'Ekspedisi & Logistik',
+                'description' => 'Cepat dan tepercaya: ungu dengan garis kuning, kartu lacak resi, tarif per kota, armada pindahan, dan cara kirim. Cocok untuk ekspedisi, kargo, jasa pindahan, kurir, dan pergudangan.',
+                'fonts' => 'manrope:400,500,600,700,800',
+                'preset' => 'ekspedisi',
+                'color' => '#6d28d9',
+            ],
+            'desa2' => [
+                'label' => 'Portal Desa',
+                'description' => 'Portal desa lengkap: banner pemandangan penuh layar, menu Jelajahi Desa, sambutan kepala desa, SOTK, administrasi penduduk, APB Desa, berita, potensi, produk UMKM, dan galeri. Cocok untuk pemerintah desa, kelurahan, dan nagari.',
+                'fonts' => 'lexend:400,500,600,700',
+                'preset' => 'desa2',
+                'color' => '#2f7d62',
+            ],
             'legal' => [
                 'label' => 'Jasa Legal & Perizinan',
                 'description' => 'Tepercaya dan modern: biru royal dengan aksen oranye, ringkasan syarat dan dokumen, alur 3 langkah, paket harga bertingkat, dan tim konsultan. Cocok untuk jasa pendirian PT/CV, perizinan, notaris, konsultan pajak, dan agensi.',
@@ -362,14 +404,14 @@ class Themes
         return [
             'bisnis' => ['label' => 'Bisnis & Perusahaan', 'themes' => ['korporat', 'modern', 'minimalis', 'legal', 'lawfirm', 'tambang']],
             'kuliner' => ['label' => 'Kuliner', 'themes' => ['resto', 'kopi', 'kue', 'catering']],
-            'toko' => ['label' => 'Toko & Fashion', 'themes' => ['hijab', 'kaos', 'apotek', 'petshop', 'bangunan']],
+            'toko' => ['label' => 'Toko & Fashion', 'themes' => ['umkm', 'hijab', 'kaos', 'apotek', 'petshop', 'bangunan']],
             'kesehatan' => ['label' => 'Kesehatan & Kecantikan', 'themes' => ['klinik', 'gigi', 'kecantikan', 'spa', 'barber', 'gym']],
             'otomotif' => ['label' => 'Otomotif & Transportasi', 'themes' => ['mobil', 'rental', 'motor', 'bengkel']],
-            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'sepatu', 'cleaning', 'satpam', 'percetakan', 'eo', 'foto', 'wedding']],
-            'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['sekolah', 'sma', 'pesantren', 'bimbel']],
-            'properti' => ['label' => 'Properti, Wisata & Travel', 'themes' => ['properti', 'villa', 'umroh']],
+            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'sepatu', 'cleaning', 'satpam', 'percetakan', 'eo', 'kontraktor', 'ekspedisi', 'foto', 'wedding']],
+            'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['sekolah', 'sma', 'pesantren', 'bimbel', 'lpk']],
+            'properti' => ['label' => 'Properti, Wisata & Travel', 'themes' => ['properti', 'villa', 'umroh', 'travel']],
             'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink', 'biolink2', 'biolink3', 'cv']],
-            'komunitas' => ['label' => 'Organisasi & Desa', 'themes' => ['masjid', 'desa']],
+            'komunitas' => ['label' => 'Organisasi & Desa', 'themes' => ['masjid', 'desa', 'desa2']],
         ];
     }
 
