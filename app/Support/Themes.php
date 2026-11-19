@@ -201,6 +201,41 @@ class Themes
                 'preset' => 'desa2',
                 'color' => '#2f7d62',
             ],
+            'servis' => [
+                'label' => 'Servis HP & Laptop',
+                'description' => 'Modern dan teknis: latar gelap dengan titik sirkuit dan hijau menyala, daftar harga servis, garansi, cek status servis, dan alur perbaikan. Cocok untuk servis HP, laptop, komputer, dan konter gadget.',
+                'fonts' => 'sora:400,500,600,700',
+                'preset' => 'servis',
+                'color' => '#16a34a',
+            ],
+            'paud' => [
+                'label' => 'Daycare & PAUD/TK',
+                'description' => 'Ceria dan lembut: biru langit dengan bentuk warna-warni seperti krayon, program per usia, kegiatan harian, biaya, galeri, dan pendaftaran. Cocok untuk daycare, PAUD, kelompok bermain, dan TK.',
+                'fonts' => 'baloo-2:500,600,700,800|nunito:400,600,700',
+                'preset' => 'paud',
+                'color' => '#0284c7',
+            ],
+            'gereja' => [
+                'label' => 'Gereja',
+                'description' => 'Khidmat dan hangat: biru tua dengan aksen emas, judul serif, jadwal ibadah, ayat minggu ini, pelayanan, warta jemaat, dan persembahan. Cocok untuk gereja, paroki, persekutuan, dan yayasan Kristen.',
+                'fonts' => 'playfair-display:600,700|source-sans-3:400,600,700',
+                'preset' => 'gereja',
+                'color' => '#1e3a5f',
+            ],
+            'koperasi' => [
+                'label' => 'Koperasi & BUMDes',
+                'description' => 'Terbuka dan tepercaya: hijau toska dengan kuning, unit usaha, simpanan dan pinjaman, laporan RAT, pengurus, dan pendaftaran anggota. Cocok untuk koperasi, KSP, BUMDes, dan koperasi desa.',
+                'fonts' => 'work-sans:400,500,600,700',
+                'preset' => 'koperasi',
+                'color' => '#0f766e',
+            ],
+            'caleg' => [
+                'label' => 'Caleg & Profil Tokoh',
+                'description' => 'Tegas seperti poster kampanye: biru tua dengan pita warna, nama besar, foto, nomor urut, visi dan program, agenda, relawan, dan aspirasi warga. Cocok untuk calon legislatif, kepala daerah, dan tokoh masyarakat.',
+                'fonts' => 'anton:400|inter:400,500,600,700',
+                'preset' => 'caleg',
+                'color' => '#dc2626',
+            ],
             'legal' => [
                 'label' => 'Jasa Legal & Perizinan',
                 'description' => 'Tepercaya dan modern: biru royal dengan aksen oranye, ringkasan syarat dan dokumen, alur 3 langkah, paket harga bertingkat, dan tim konsultan. Cocok untuk jasa pendirian PT/CV, perizinan, notaris, konsultan pajak, dan agensi.',
@@ -407,11 +442,11 @@ class Themes
             'toko' => ['label' => 'Toko & Fashion', 'themes' => ['umkm', 'hijab', 'kaos', 'apotek', 'petshop', 'bangunan']],
             'kesehatan' => ['label' => 'Kesehatan & Kecantikan', 'themes' => ['klinik', 'gigi', 'kecantikan', 'spa', 'barber', 'gym']],
             'otomotif' => ['label' => 'Otomotif & Transportasi', 'themes' => ['mobil', 'rental', 'motor', 'bengkel']],
-            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'sepatu', 'cleaning', 'satpam', 'percetakan', 'eo', 'kontraktor', 'ekspedisi', 'foto', 'wedding']],
-            'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['sekolah', 'sma', 'pesantren', 'bimbel', 'lpk']],
+            'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'sepatu', 'cleaning', 'satpam', 'percetakan', 'eo', 'kontraktor', 'ekspedisi', 'servis', 'foto', 'wedding']],
+            'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['paud', 'sekolah', 'sma', 'pesantren', 'bimbel', 'lpk']],
             'properti' => ['label' => 'Properti, Wisata & Travel', 'themes' => ['properti', 'villa', 'umroh', 'travel']],
-            'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink', 'biolink2', 'biolink3', 'cv']],
-            'komunitas' => ['label' => 'Organisasi & Desa', 'themes' => ['masjid', 'desa', 'desa2']],
+            'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink', 'biolink2', 'biolink3', 'cv', 'caleg']],
+            'komunitas' => ['label' => 'Organisasi & Desa', 'themes' => ['masjid', 'gereja', 'desa', 'desa2', 'koperasi']],
         ];
     }
 

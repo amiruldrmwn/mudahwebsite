@@ -337,6 +337,11 @@ class PagesTest extends TestCase
             'lpk' => ['<em>Jepang &amp; Korea</em>', ['program', 'alumni', 'pendaftaran']],
             'ekspedisi' => ['<em>aman sampai tujuan</em>', ['layanan', 'tarif', 'kontak']],
             'desa2' => ['desa2-stat', ['profil', 'infografis', 'layanan', 'berita', 'belanja']],
+            'servis' => ['<em>Beres hari ini</em>', ['harga', 'status', 'kontak']],
+            'paud' => ['<em>tumbuh ceria</em>', ['program', 'galeri', 'pendaftaran']],
+            'gereja' => ['<em>iman, pengharapan, dan kasih</em>', ['ibadah', 'tentang', 'persembahan', 'kontak']],
+            'koperasi' => ['<em>untuk kesejahteraan bersama</em>', ['usaha', 'laporan', 'keanggotaan']],
+            'caleg' => ['<em>bekerja nyata</em>', ['profil', 'program', 'relawan', 'aspirasi']],
         ];
 
         foreach ($expect as $theme => [$text, $slugs]) {

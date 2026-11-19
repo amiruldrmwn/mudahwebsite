@@ -176,6 +176,41 @@
                 <circle cx="24" cy="19" r="6" fill="#86efac"/>
                 <path d="M24 22v11M18 33h12" stroke="#fde047" stroke-width="2.4" stroke-linecap="round"/>
             </svg>
+        @elseif ($theme === 'servis')
+            {{-- Phone with a wrench. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#0b1120"/>
+                <rect x="15" y="9" width="15" height="27" rx="3" fill="none" style="stroke: var(--brand)" stroke-width="2.4"/>
+                <path d="M30 30l7 7M34.5 26.5a4 4 0 0 0-5 5l-1.5 1.5 3 3 1.5-1.5a4 4 0 0 0 5-5l-2 2-2-1-1-2z" fill="#fff"/>
+            </svg>
+        @elseif ($theme === 'paud')
+            {{-- Stacked play blocks. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect x="6" y="24" width="17" height="17" rx="4" fill="#f472b6"/>
+                <rect x="25" y="24" width="17" height="17" rx="4" fill="#facc15"/>
+                <rect x="15.5" y="7" width="17" height="17" rx="4" style="fill: var(--brand)"/>
+                <path d="M21 17c1.8 2 4.2 2 6 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'gereja')
+            {{-- Cross in an arch. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <path d="M8 44V22a16 16 0 0 1 32 0v22z" style="fill: var(--brand)"/>
+                <path d="M24 13v22M17 20h14" stroke="#e8c96a" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'koperasi')
+            {{-- Linked hands around a coin. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <circle cx="24" cy="24" r="24" style="fill: var(--brand)"/>
+                <circle cx="24" cy="24" r="8" fill="#facc15"/>
+                <path d="M10 26c4-6 9-6 14 0s10 6 14 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+            </svg>
+        @elseif ($theme === 'caleg')
+            {{-- Star on a ribbon badge. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <path d="M14 30l-4 14 7-3 4 6 3-15zM34 30l4 14-7-3-4 6-3-15z" fill="#fff" opacity=".85"/>
+                <circle cx="24" cy="20" r="16" style="fill: var(--brand)"/>
+                <path d="M24 10l2.9 6.2 6.6.7-5 4.5 1.4 6.6L24 24.6l-5.9 3.4 1.4-6.6-5-4.5 6.6-.7z" fill="#fff"/>
+            </svg>
         @elseif ($theme === 'pesantren')
             {{-- Mosque dome inside an eight-point star. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">

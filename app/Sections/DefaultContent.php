@@ -19,7 +19,7 @@ class DefaultContent
     /** The sample logo a site shows until the owner uploads theirs. */
     public const LOGO = 'demo/logo.svg';
 
-    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa', 'hijab', 'kaos', 'mobil', 'biolink', 'laundry', 'catering', 'bengkel', 'foto', 'wedding', 'bimbel', 'apotek', 'petshop', 'biolink2', 'sepatu', 'lawfirm', 'pesantren', 'cleaning', 'satpam', 'biolink3', 'masjid', 'gym', 'klinik', 'bangunan', 'percetakan', 'eo', 'desa', 'cv', 'travel', 'kontraktor', 'umkm', 'lpk', 'ekspedisi', 'desa2'];
+    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa', 'hijab', 'kaos', 'mobil', 'biolink', 'laundry', 'catering', 'bengkel', 'foto', 'wedding', 'bimbel', 'apotek', 'petshop', 'biolink2', 'sepatu', 'lawfirm', 'pesantren', 'cleaning', 'satpam', 'biolink3', 'masjid', 'gym', 'klinik', 'bangunan', 'percetakan', 'eo', 'desa', 'cv', 'travel', 'kontraktor', 'umkm', 'lpk', 'ekspedisi', 'desa2', 'servis', 'paud', 'gereja', 'koperasi', 'caleg'];
 
     /** Template groups whose sample logo is an emblem image instead of the drawn mark (LOGO). */
     private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png', 'sma' => 'demo/logo-osis.png'];
@@ -140,6 +140,11 @@ class DefaultContent
             'lpk' => JobTrainingContent::pages($company),
             'ekspedisi' => CourierContent::pages($company),
             'desa2' => VillagePortalContent::pages($company),
+            'servis' => GadgetRepairContent::pages($company),
+            'paud' => PreschoolContent::pages($company),
+            'gereja' => ChurchContent::pages($company),
+            'koperasi' => CooperativeContent::pages($company),
+            'caleg' => CandidateContent::pages($company),
             default => self::pages($company),
         };
     }

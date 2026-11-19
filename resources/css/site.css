@@ -5254,3 +5254,545 @@
 .theme-desa2 .btn {
     @apply font-semibold;
 }
+
+/* ---------- Servis HP & Laptop: dark tech with neon green ---------- */
+.theme-servis {
+    --font-body: 'Sora', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Sora', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.85rem;
+    --surface: #ffffff;
+    --surface-alt: #f3f6f9;
+    --line: #e2e8f0;
+    --ink: #0b1120;
+    --muted: #475569;
+}
+
+.theme-servis h1,
+.theme-servis h2,
+.theme-servis .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.theme-servis .servis-bar {
+    background: #0b1120;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+}
+
+.theme-servis .servis-bar .nav-link {
+    color: rgb(255 255 255 / 0.7);
+}
+
+.theme-servis .servis-bar .nav-link[aria-current='page'],
+.theme-servis .servis-bar .nav-link:hover {
+    color: #fff;
+}
+
+.theme-servis .servis-hero {
+    background: radial-gradient(
+        60% 80% at 80% 30%,
+        color-mix(in oklab, var(--brand) 22%, #0b1120),
+        #0b1120
+    );
+}
+
+.theme-servis .servis-dots {
+    background-image: radial-gradient(
+        rgb(148 163 184 / 0.18) 1px,
+        transparent 1px
+    );
+    background-size: 22px 22px;
+}
+
+.theme-servis .servis-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgb(255 255 255 / 0.15);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.06);
+    color: #e2e8f0;
+    @apply px-3.5 py-1.5 text-sm font-medium;
+}
+
+.theme-servis .servis-led {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: var(--brand);
+    box-shadow:
+        0 0 0 4px color-mix(in oklab, var(--brand) 30%, transparent),
+        0 0 12px var(--brand);
+}
+
+.theme-servis .hero-title em {
+    font-style: normal;
+    color: color-mix(in oklab, var(--brand) 70%, white);
+}
+
+.theme-servis .servis-photo {
+    border-radius: 1.25rem;
+    box-shadow:
+        0 0 0 1px rgb(255 255 255 / 0.1),
+        0 30px 80px -20px color-mix(in oklab, var(--brand) 60%, transparent);
+}
+
+.theme-servis .servis-status {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 0.9rem;
+    box-shadow: 0 20px 40px -15px rgb(0 0 0 / 0.5);
+    @apply px-4 py-3;
+}
+
+.theme-servis .servis-ghost {
+    background: transparent;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    color: #fff;
+}
+
+.theme-servis .btn {
+    @apply font-semibold;
+}
+
+.theme-servis .card {
+    border-color: var(--line);
+}
+
+.theme-servis .price {
+    color: var(--brand);
+}
+
+.theme-servis .step-num,
+.theme-servis .svc-num {
+    background: #0b1120;
+    color: color-mix(in oklab, var(--brand) 70%, white);
+}
+
+/* ---------- Daycare & PAUD/TK: sky blue with crayon colours ---------- */
+.theme-paud {
+    --font-body: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Baloo 2', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1.5rem;
+    --surface: #ffffff;
+    --surface-alt: #f0f9ff;
+    --line: #dbeefa;
+    --ink: #1e3a5f;
+    --muted: #4f6782;
+}
+
+.theme-paud h1,
+.theme-paud h2,
+.theme-paud .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.theme-paud .paud-bar {
+    background: rgb(255 255 255 / 0.95);
+    border-bottom: 4px dotted #fde68a;
+    backdrop-filter: blur(10px);
+}
+
+.theme-paud .paud-hero {
+    background: linear-gradient(180deg, #e0f2fe, #f0f9ff);
+}
+
+.theme-paud .paud-blob {
+    border-radius: 999px;
+    filter: blur(2px);
+    opacity: 0.55;
+}
+
+.theme-paud .paud-blob-1 {
+    top: 2rem;
+    left: -3rem;
+    width: 9rem;
+    height: 9rem;
+    background: #fde68a;
+}
+
+.theme-paud .paud-blob-2 {
+    top: 40%;
+    right: 45%;
+    width: 4rem;
+    height: 4rem;
+    background: #f9a8d4;
+}
+
+.theme-paud .paud-blob-3 {
+    right: -2rem;
+    bottom: 3rem;
+    width: 11rem;
+    height: 11rem;
+    background: #bbf7d0;
+}
+
+.theme-paud .paud-pill {
+    display: inline-block;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--brand);
+    box-shadow: 0 4px 14px -6px rgb(30 58 95 / 0.25);
+    @apply px-4 py-1.5 text-sm font-bold;
+}
+
+.theme-paud .hero-title em {
+    font-style: normal;
+    color: #ec4899;
+}
+
+.theme-paud .paud-frame {
+    overflow: hidden;
+    border: 4px dashed #f9a8d4;
+    border-radius: 2.5rem;
+    background: #fff;
+    padding: 0.6rem;
+    transform: rotate(-2deg);
+}
+
+.theme-paud .paud-frame img {
+    border-radius: 2rem;
+}
+
+.theme-paud .paud-star {
+    display: flex;
+    width: 3.5rem;
+    height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #facc15;
+    color: #fff;
+    font-size: 1.75rem;
+    transform: rotate(-12deg);
+}
+
+.theme-paud .paud-tag {
+    border-radius: 999px;
+    background: #22c55e;
+    color: #fff;
+    transform: rotate(3deg);
+    box-shadow: 0 10px 25px -10px rgb(0 0 0 / 0.3);
+    @apply px-4 py-2 text-sm font-bold;
+}
+
+.theme-paud .btn {
+    border-radius: 999px;
+    @apply font-bold;
+}
+
+.theme-paud .card {
+    border: 2px solid var(--line);
+}
+
+.theme-paud .step-num,
+.theme-paud .svc-num {
+    border-radius: 999px;
+    background: #fde68a;
+    color: #1e3a5f;
+}
+
+/* ---------- Gereja: deep navy and gold, serif ---------- */
+.theme-gereja {
+    --font-body: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Playfair Display', Georgia, serif;
+    --radius: 0.5rem;
+    --surface: #ffffff;
+    --surface-alt: #f7f5f0;
+    --line: #e9e4d8;
+    --ink: #13233b;
+    --muted: #535d6c;
+}
+
+.theme-gereja h1,
+.theme-gereja h2,
+.theme-gereja .sec-title {
+    font-weight: 600;
+}
+
+.theme-gereja .gereja-bar {
+    background: rgb(255 255 255 / 0.96);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.theme-gereja .gereja-veil {
+    background: linear-gradient(
+        180deg,
+        rgb(15 31 54 / 0.7),
+        rgb(15 31 54 / 0.85)
+    );
+}
+
+.theme-gereja .gereja-rule {
+    display: flex;
+    max-width: 14rem;
+    align-items: center;
+    gap: 0.9rem;
+    color: #e8c96a;
+}
+
+.theme-gereja .gereja-rule::before,
+.theme-gereja .gereja-rule::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: #e8c96a;
+    opacity: 0.7;
+}
+
+.theme-gereja .gereja-eyebrow {
+    color: #e8c96a;
+    letter-spacing: 0.3em;
+    @apply text-sm font-semibold uppercase;
+}
+
+.theme-gereja .hero-title em {
+    color: #e8c96a;
+}
+
+.theme-gereja .gereja-ghost {
+    background: transparent;
+    border: 1px solid rgb(232 201 106 / 0.7);
+    color: #fff;
+}
+
+.theme-gereja .btn {
+    @apply font-semibold tracking-wide;
+}
+
+.theme-gereja .card {
+    border-color: var(--line);
+}
+
+.theme-gereja .price {
+    color: var(--brand);
+    font-family: var(--font-head);
+}
+
+.theme-gereja blockquote {
+    border-left: 3px solid #c9a227;
+    font-family: var(--font-head);
+    font-size: 1.35rem;
+    font-style: italic;
+}
+
+.theme-gereja .step-num,
+.theme-gereja .svc-num {
+    background: var(--brand);
+    color: #e8c96a;
+}
+
+/* ---------- Koperasi & BUMDes: teal and yellow ---------- */
+.theme-koperasi {
+    --font-body: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.9rem;
+    --surface: #ffffff;
+    --surface-alt: #f0f8f6;
+    --line: #d9ebe6;
+    --ink: #0b2b27;
+    --muted: #4a625e;
+}
+
+.theme-koperasi h1,
+.theme-koperasi h2,
+.theme-koperasi .sec-title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.theme-koperasi .koperasi-topbar {
+    background: var(--brand);
+    color: rgb(255 255 255 / 0.9);
+}
+
+.theme-koperasi .koperasi-hero {
+    background:
+        radial-gradient(50% 70% at 90% 20%, #fef9c3, transparent),
+        var(--surface-alt);
+}
+
+.theme-koperasi .koperasi-tag {
+    display: inline-block;
+    border-radius: 999px;
+    background: #facc15;
+    color: #0b2b27;
+    @apply px-3.5 py-1 text-sm font-bold;
+}
+
+.theme-koperasi .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+    background: linear-gradient(transparent 70%, #fde047 70%);
+}
+
+.theme-koperasi .koperasi-photo {
+    border-radius: 1.5rem;
+    box-shadow: 0 30px 60px -25px rgb(11 43 39 / 0.45);
+}
+
+.theme-koperasi .koperasi-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px -15px rgb(11 43 39 / 0.35);
+    @apply px-4 py-3;
+}
+
+.theme-koperasi .koperasi-coin {
+    display: flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #facc15;
+    color: #0b2b27;
+    @apply text-sm font-bold;
+}
+
+.theme-koperasi .btn {
+    @apply font-semibold;
+}
+
+.theme-koperasi .card {
+    border-color: var(--line);
+}
+
+.theme-koperasi .price {
+    color: var(--brand);
+}
+
+.theme-koperasi .step-num,
+.theme-koperasi .svc-num {
+    background: #facc15;
+    color: #0b2b27;
+}
+
+/* ---------- Caleg & Profil Tokoh: campaign poster, navy and red ---------- */
+.theme-caleg {
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.5rem;
+    --surface: #ffffff;
+    --surface-alt: #f4f6fb;
+    --line: #e1e6f0;
+    --ink: #0b1530;
+    --muted: #4b5568;
+}
+
+.theme-caleg h1,
+.theme-caleg h2,
+.theme-caleg .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.theme-caleg .sec-title {
+    font-family: 'Anton', Impact, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+}
+
+.theme-caleg .caleg-bar {
+    background: #0b1530;
+}
+
+.theme-caleg .caleg-bar .nav-link {
+    color: rgb(255 255 255 / 0.75);
+}
+
+.theme-caleg .caleg-bar .nav-link[aria-current='page'],
+.theme-caleg .caleg-bar .nav-link:hover {
+    color: #fff;
+}
+
+.theme-caleg .caleg-hero {
+    background: #13235a;
+}
+
+.theme-caleg .caleg-band {
+    top: -30%;
+    right: 8%;
+    width: 38%;
+    height: 170%;
+    background: var(--brand);
+    transform: rotate(14deg);
+}
+
+.theme-caleg .caleg-eyebrow {
+    display: inline-block;
+    background: #fff;
+    color: #0b1530;
+    @apply px-3 py-1 text-xs font-extrabold tracking-wider uppercase;
+}
+
+.theme-caleg .caleg-name {
+    font-family: 'Anton', Impact, sans-serif;
+    line-height: 0.95;
+    text-transform: uppercase;
+    @apply text-5xl sm:text-7xl;
+}
+
+.theme-caleg .hero-title em {
+    font-style: normal;
+    color: #fde047;
+}
+
+.theme-caleg .caleg-photo {
+    border-radius: 1rem 1rem 0 0;
+    filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.4));
+}
+
+.theme-caleg .caleg-number {
+    display: flex;
+    width: 6rem;
+    height: 6rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #fff;
+    border-radius: 999px;
+    background: #fde047;
+    color: #0b1530;
+    font-family: 'Anton', Impact, sans-serif;
+    box-shadow: 0 15px 30px -10px rgb(0 0 0 / 0.5);
+    @apply text-5xl leading-none;
+}
+
+.theme-caleg .caleg-number span {
+    font-family: var(--font-body);
+    @apply text-xs font-bold;
+}
+
+.theme-caleg .caleg-ghost {
+    background: transparent;
+    border: 2px solid rgb(255 255 255 / 0.6);
+    color: #fff;
+}
+
+.theme-caleg .btn {
+    @apply font-bold tracking-wide uppercase;
+}
+
+.theme-caleg .card {
+    border-color: var(--line);
+    border-bottom: 4px solid var(--brand);
+}
+
+.theme-caleg .step-num,
+.theme-caleg .svc-num {
+    background: #0b1530;
+    color: #fde047;
+}
+
+.theme-gereja .gereja-hero .btn:not(.gereja-ghost) {
+    background: #e8c96a;
+    color: #13233b;
+}
