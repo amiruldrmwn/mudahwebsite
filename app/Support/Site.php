@@ -37,6 +37,11 @@ class Site
         'maps_embed' => '',
         // Google Search Console ownership code, printed as a meta tag.
         'google_verification' => '',
+        // Visitor tracking for owners who advertise: IDs only, the tags are written by the site.
+        'ga_id' => '',
+        'gtm_id' => '',
+        'meta_pixel_id' => '',
+        'tiktok_pixel_id' => '',
         // AI assistant on MudahCloud AI. The key is stored encrypted.
         'ai_api_key' => '',
         'ai_model' => '',
@@ -157,6 +162,7 @@ class Site
         }
 
         Cache::forget(self::CACHE_KEY);
+        PageCache::flush();
         $this->values = null;
     }
 

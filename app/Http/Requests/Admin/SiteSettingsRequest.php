@@ -15,6 +15,18 @@ class SiteSettingsRequest extends FormRequest
     }
 
     /**
+     * Tracking IDs as the owner copies them: spaces trimmed, letters in capitals.
+     */
+    protected function prepareForValidation(): void
+    {
+        foreach (['ga_id', 'gtm_id', 'meta_pixel_id', 'tiktok_pixel_id'] as $key) {
+            if (is_string($this->input($key))) {
+                $this->merge([$key => strtoupper(trim($this->input($key)))]);
+            }
+        }
+    }
+
+    /**
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
@@ -41,6 +53,10 @@ class SiteSettingsRequest extends FormRequest
             'show_map' => ['nullable', 'in:yes,no'],
             'maps_embed' => ['nullable', 'string', 'max:3000'],
             'google_verification' => ['nullable', 'string', 'max:255'],
+            'ga_id' => ['nullable', 'string', 'regex:/^G-[A-Z0-9]{4,15}$/'],
+            'gtm_id' => ['nullable', 'string', 'regex:/^GTM-[A-Z0-9]{4,12}$/'],
+            'meta_pixel_id' => ['nullable', 'string', 'regex:/^[0-9]{8,20}$/'],
+            'tiktok_pixel_id' => ['nullable', 'string', 'regex:/^[A-Z0-9]{10,30}$/'],
             'ai_api_key' => ['nullable', 'string', 'max:500'],
             'ai_model' => ['nullable', 'string', 'max:100', function (string $attribute, mixed $value, \Closure $fail) {
                 // One of the three choices, or the model already saved (picked before there were choices).
@@ -74,6 +90,10 @@ class SiteSettingsRequest extends FormRequest
             'maps_url' => 'link Google Maps',
             'maps_embed' => 'kode sematan peta',
             'google_verification' => 'kode verifikasi Google',
+            'ga_id' => 'ID Google Analytics',
+            'gtm_id' => 'ID Google Tag Manager',
+            'meta_pixel_id' => 'ID Meta Pixel',
+            'tiktok_pixel_id' => 'ID TikTok Pixel',
             'ai_api_key' => 'API key AI',
             'ai_model' => 'model AI',
             'footer_text' => 'teks footer',

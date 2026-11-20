@@ -9,6 +9,7 @@ use App\Models\SiteVisit;
 use App\Models\User;
 use App\Sections\DefaultContent;
 use App\Sections\SectionTypes;
+use App\Support\PageCache;
 use App\Support\Site;
 use App\Support\Themes;
 use Illuminate\Http\RedirectResponse;
@@ -56,8 +57,10 @@ class SiteController extends Controller
         }
 
         $this->countVisit();
+        $render = fn () => view('site.page', ['page' => $page, 'theme' => Themes::current($site)])->render();
 
-        return view('site.page', ['page' => $page, 'theme' => Themes::current($site)]);
+        // Admins always see the page as it is now (and their unpublished pages are never kept).
+        return response(auth()->check() ? $render() : PageCache::remember(url()->current(), $render));
     }
 
     /**

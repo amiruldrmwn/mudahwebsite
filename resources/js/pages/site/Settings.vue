@@ -3,6 +3,7 @@ import AiCreditNotice from '@/components/AiCreditNotice.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import {
     Building2,
+    ChartColumn,
     Check,
     MapPin,
     Palette,
@@ -46,6 +47,10 @@ type Settings = {
     show_map: string;
     maps_embed: string;
     google_verification: string;
+    ga_id: string;
+    gtm_id: string;
+    meta_pixel_id: string;
+    tiktok_pixel_id: string;
     ai_model: string;
     ai_key_set: boolean;
     social_instagram: string;
@@ -113,6 +118,10 @@ const form = useForm<SettingsForm>({
     show_map: s.show_map ?? 'yes',
     maps_embed: s.maps_embed ?? '',
     google_verification: s.google_verification ?? '',
+    ga_id: s.ga_id ?? '',
+    gtm_id: s.gtm_id ?? '',
+    meta_pixel_id: s.meta_pixel_id ?? '',
+    tiktok_pixel_id: s.tiktok_pixel_id ?? '',
     ai_api_key: '',
     remove_ai_key: false,
     ai_model: s.ai_model ?? '',
@@ -187,9 +196,37 @@ const sections = [
     { id: 'warna', label: 'Warna', icon: Palette },
     { id: 'kontak', label: 'Kontak & Lokasi', icon: MapPin },
     { id: 'google', label: 'Google', icon: Search },
+    { id: 'analitik', label: 'Analitik & Pixel', icon: ChartColumn },
     { id: 'ai', label: 'Asisten AI', icon: Sparkles },
     { id: 'sosial', label: 'Sosial Media', icon: Share2 },
     { id: 'footer', label: 'Footer', icon: PanelBottom },
+] as const;
+
+const trackers = [
+    {
+        key: 'ga_id',
+        label: 'Google Analytics 4',
+        placeholder: 'G-XXXXXXXXXX',
+        hint: 'Admin → Aliran data → ID pengukuran.',
+    },
+    {
+        key: 'gtm_id',
+        label: 'Google Tag Manager',
+        placeholder: 'GTM-XXXXXXX',
+        hint: 'Opsional, untuk yang mengatur tag sendiri di GTM.',
+    },
+    {
+        key: 'meta_pixel_id',
+        label: 'Meta Pixel (Facebook & Instagram)',
+        placeholder: '123456789012345',
+        hint: 'Events Manager → Sumber data → ID Pixel.',
+    },
+    {
+        key: 'tiktok_pixel_id',
+        label: 'TikTok Pixel',
+        placeholder: 'CXXXXXXXXXXXXXXXXXXX',
+        hint: 'TikTok Ads Manager → Aset → Peristiwa → ID Pixel.',
+    },
 ] as const;
 
 // Kept in script: vue-tsc misreads "//" inside a static template attribute.
@@ -660,6 +697,33 @@ function submit(): void {
                         tag-nya, lalu tempel di sini.
                     </p>
                     <InputError :message="form.errors.google_verification" />
+                </CardContent>
+            </Card>
+
+            <Card id="analitik" class="scroll-mt-6">
+                <CardHeader>
+                    <CardTitle>Analitik & Pixel</CardTitle>
+                    <CardDescription>
+                        Untuk mengukur pengunjung dan iklan. Cukup tempel
+                        ID-nya, kode pelacaknya dipasang otomatis. Klik tombol
+                        WhatsApp ikut tercatat sebagai konversi "Contact".
+                    </CardDescription>
+                </CardHeader>
+                <CardContent class="grid gap-5 sm:grid-cols-2">
+                    <div v-for="t in trackers" :key="t.key" class="grid gap-2">
+                        <Label :for="t.key">{{ t.label }}</Label>
+                        <Input
+                            :id="t.key"
+                            v-model="form[t.key]"
+                            :placeholder="t.placeholder"
+                            autocomplete="off"
+                            spellcheck="false"
+                        />
+                        <p class="text-xs text-muted-foreground">
+                            {{ t.hint }}
+                        </p>
+                        <InputError :message="form.errors[t.key]" />
+                    </div>
                 </CardContent>
             </Card>
 

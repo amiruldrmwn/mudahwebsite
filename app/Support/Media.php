@@ -54,6 +54,10 @@ class Media
             throw ValidationException::withMessages([$field => 'Gambar gagal disimpan, coba lagi.']);
         }
 
+        if ($dir === self::DIR) {
+            ImageSizes::ensure($path);
+        }
+
         return $path;
     }
 
@@ -128,6 +132,7 @@ class Media
         }
 
         Storage::disk('public')->delete($old);
+        ImageSizes::forget($old);
 
         return $new;
     }
@@ -138,6 +143,7 @@ class Media
     public function delete(string $path): void
     {
         Storage::disk('public')->delete($path);
+        ImageSizes::forget($path);
         MediaMeta::query()->whereKey($path)->delete();
     }
 

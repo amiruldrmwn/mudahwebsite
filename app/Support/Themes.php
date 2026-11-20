@@ -568,11 +568,26 @@ class Themes
         return self::all()[self::current(app(Site::class))]['preset'];
     }
 
+    /** Where `compro:fonts` keeps each theme's fonts, under public/. */
+    public const FONTS_DIR = 'fonts';
+
     /**
      * fonts.bunny.net stylesheet for a theme (privacy-friendly Google Fonts mirror).
      */
-    public static function fontsUrl(string $theme): string
+    public static function remoteFontsUrl(string $theme): string
     {
         return 'https://fonts.bunny.net/css?family='.self::all()[$theme]['fonts'].'&display=swap';
+    }
+
+    /**
+     * The theme's @font-face rules pointing at the site's own copies (fetched into the image by
+     * `compro:fonts`), to inline in the page: no extra request and no outside font host. Null
+     * when they haven't been fetched (local development), so the page links fonts.bunny.net.
+     */
+    public static function localFonts(string $theme): ?string
+    {
+        $path = public_path(self::FONTS_DIR."/{$theme}.css");
+
+        return is_file($path) ? (string) file_get_contents($path) : null;
     }
 }

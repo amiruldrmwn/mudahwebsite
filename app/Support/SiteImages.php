@@ -6,8 +6,9 @@ use App\Models\MediaMeta;
 
 /**
  * Finishes the images of a rendered section: the first section's load at once (the first one
- * with high priority), later ones only when scrolled near, and a library image without alt text
- * gets the description the owner wrote in Media, else one made from its file name.
+ * with high priority), later ones only when scrolled near; photos with smaller copies get a
+ * srcset; and a library image without alt text gets the description the owner wrote in Media,
+ * else one made from its file name.
  */
 class SiteImages
 {
@@ -27,6 +28,11 @@ class SiteImages
 
             if (! preg_match('/\sdecoding=/i', $tag)) {
                 $tag = self::attr($tag, 'decoding="async"');
+            }
+
+            // A phone picks a smaller copy (ImageSizes); the widths say how wide the image shows.
+            if (! preg_match('/\ssrcset=/i', $tag) && preg_match('#\ssrc="[^"]*/storage/((?:demo|'.Media::DIR.')/[^"/?]+)"#i', $tag, $src) && ($srcset = ImageSizes::srcset($src[1]))) {
+                $tag = self::attr($tag, 'srcset="'.e($srcset).'" sizes="100vw"');
             }
 
             if (preg_match('/\salt=""/i', $tag) && preg_match('#\ssrc="[^"]*/storage/('.Media::DIR.'/[^"/?]+)"#i', $tag, $src)) {

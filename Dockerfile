@@ -22,6 +22,7 @@ COPY --from=vendor /app /app
 RUN cp .env.example .env && php artisan key:generate --force \
     && npm ci --no-audit --no-fund \
     && npm run build \
+    && php artisan compro:fonts \
     && rm -rf node_modules .env
 
 # --- Runtime ---

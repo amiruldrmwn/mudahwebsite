@@ -37,9 +37,17 @@
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     @endif
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link rel="stylesheet" href="{{ \App\Support\Themes::fontsUrl($theme) }}">
+    @if ($fonts = \App\Support\Themes::localFonts($theme))
+        <style>{!! $fonts !!}</style>
+    @else
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link rel="stylesheet" href="{{ \App\Support\Themes::remoteFontsUrl($theme) }}">
+    @endif
     @vite('resources/css/site.css')
+    @include('site.partials.analytics')
+    @unless (isset($sampleLogo))
+    {!! \App\Support\StructuredData::render(\App\Support\StructuredData::for($site, $page ?? null, $theme)) !!}
+    @endunless
     <style>
         body.site { --brand: {{ $brand ?? $site->get('primary_color') }}; --on-brand: {{ $site->onBrand($brand ?? null) }}; }
     </style>
@@ -62,7 +70,13 @@
     <script>
         // Counts WhatsApp button clicks for the dashboard (no personal data is sent).
         document.addEventListener('click', (e) => {
-            if (e.target.closest('a[href^="https://wa.me/"]') && navigator.sendBeacon) navigator.sendBeacon(@json(route('stats.whatsapp')));
+            if (! e.target.closest('a[href^="https://wa.me/"]')) return;
+            if (navigator.sendBeacon) navigator.sendBeacon(@json(route('stats.whatsapp')));
+            // The same click as a conversion for the owner's analytics and ad pixels.
+            window.gtag?.('event', 'generate_lead', { method: 'whatsapp' });
+            window.dataLayer?.push({ event: 'whatsapp_click' });
+            window.fbq?.('track', 'Contact');
+            window.ttq?.track('Contact');
         });
     </script>
 </body>
