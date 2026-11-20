@@ -8,9 +8,8 @@ use App\Models\Page;
 use App\Models\Post;
 use App\Models\SiteVisit;
 use App\Models\User;
-use App\Sections\DefaultContent;
-use App\Sections\SectionTypes;
 use App\Support\PageCache;
+use App\Support\SampleSite;
 use App\Support\Site;
 use App\Support\Themes;
 use Illuminate\Http\RedirectResponse;
@@ -54,7 +53,7 @@ class SiteController extends Controller
         if (request()->user() && Themes::has(request('preview_theme'))) {
             $theme = (string) request('preview_theme');
 
-            return response($this->keepPreviewLinks(view('site.page', ['page' => $page, 'theme' => $theme])->render(), 'preview_theme', $theme));
+            return response(SampleSite::keepLinks(view('site.page', ['page' => $page, 'theme' => $theme])->render(), 'preview_theme', $theme));
         }
 
         $this->countVisit();
@@ -99,63 +98,11 @@ class SiteController extends Controller
      */
     private function sample(Site $site, string $theme, ?string $slug, string $key = 'preview_sample'): Response
     {
-        DefaultContent::ensurePhotos();
-
-        $pages = collect(DefaultContent::pagesFor(Themes::all()[$theme]['preset'], (string) $site->get('site_name')))
-            ->map(fn (array $p, int $i) => (new Page)->forceFill([
-                'id' => $i + 1,
-                'title' => $p['title'],
-                'slug' => $p['slug'],
-                'is_home' => $p['is_home'] ?? false,
-                'in_menu' => true,
-                'published' => true,
-                'sections' => array_map(fn (array $s) => SectionTypes::clean($s), $p['sections']),
-            ]));
-
+        $pages = SampleSite::pages($site, $theme);
         $page = $slug === null ? $pages->firstWhere('is_home', true) : $pages->first(fn (Page $p) => $p->slug === $slug && ! $p->is_home);
         abort_if($page === null, 404);
 
-        $html = view('site.page', [
-            'page' => $page,
-            'menu' => $pages,
-            'theme' => $theme,
-            'brand' => Themes::all()[$theme]['color'],
-            'sampleLogo' => DefaultContent::sampleLogo(Themes::all()[$theme]['preset']),
-        ])->render();
-
-        // The same sample pages on every demo address: kept out of search results.
-        return response($this->keepPreviewLinks($html, $key, $theme))->header('X-Robots-Tag', 'noindex');
-    }
-
-    /**
-     * Adds ?<key>=<theme> to the links that point to pages of this site.
-     */
-    private function keepPreviewLinks(string $html, string $key, string $theme): string
-    {
-        $base = rtrim(url('/'), '/');
-
-        return (string) preg_replace_callback('/href="([^"]*)"/', function (array $m) use ($base, $key, $theme) {
-            $url = html_entity_decode($m[1]);
-
-            if (str_starts_with($url, $base)) {
-                $path = substr($url, strlen($base));
-            } elseif (str_starts_with($url, '/') && ! str_starts_with($url, '//')) {
-                $path = $url;
-            } else {
-                return $m[0];
-            }
-
-            $path = $path === '' ? '/' : $path;
-
-            if (preg_match('#^/(storage|build|admin|kirim-pesan|favicon)#', $path)) {
-                return $m[0];
-            }
-
-            [$path, $fragment] = array_pad(explode('#', $path, 2), 2, null);
-            $path .= (str_contains($path, '?') ? '&' : '?').$key.'='.$theme;
-
-            return 'href="'.e($base.$path.($fragment !== null ? '#'.$fragment : '')).'"';
-        }, $html);
+        return SampleSite::response(view('site.page', ['page' => $page, ...SampleSite::viewData($site, $theme, $pages)])->render(), $key, $theme);
     }
 
     public function contact(Request $request): RedirectResponse

@@ -5,23 +5,43 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\SiteVisit;
+use App\Sections\SamplePosts;
+use App\Support\SampleSite;
 use App\Support\Site;
 use App\Support\Themes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 /**
  * The public blog: the list of posts (/blog) and a post (/blog/{slug}), inside the site's template.
  * Only live posts are public; a signed-in admin can open drafts and scheduled posts to preview them.
+ * A demo site's template demos (?tema=) show sample posts written for the template's kind of business.
  */
 class BlogController extends Controller
 {
     private const PER_PAGE = 9;
 
-    public function index(Request $request, Site $site): View
+    public function index(Request $request, Site $site): View|Response
     {
         $category = trim((string) $request->query('kategori'));
+
+        if ($theme = $this->demoTheme($request)) {
+            $all = SamplePosts::for($theme);
+            $shown = $all->when($category !== '', fn (Collection $posts) => $posts->where('category', $category))->values();
+
+            return SampleSite::response(view('site.blog.index', [
+                ...SampleSite::viewData($site, $theme),
+                'page' => self::pageFor(self::blogTitle($site)),
+                'posts' => new LengthAwarePaginator($shown, $shown->count(), self::PER_PAGE, 1, ['path' => route('blog.index')]),
+                'blogTitle' => self::blogTitle($site),
+                'category' => $category,
+                'categories' => $all->pluck('category')->unique()->values()->all(),
+            ])->render(), 'tema', $theme);
+        }
 
         $posts = Post::query()->published()
             ->when($category !== '', fn (Builder $q) => $q->where('category', $category))
@@ -41,8 +61,27 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show(Request $request, Site $site, string $slug): View
+    public function show(Request $request, Site $site, string $slug): View|Response
     {
+        if ($theme = $this->demoTheme($request)) {
+            $all = SamplePosts::for($theme);
+            $index = $all->search(fn (Post $p) => $p->slug === $slug);
+            abort_if($index === false, 404);
+            $post = $all[$index];
+
+            return SampleSite::response(view('site.blog.show', [
+                ...SampleSite::viewData($site, $theme),
+                'page' => self::pageFor($post->title, null, $post->summary(160)),
+                'post' => $post,
+                'blogTitle' => self::blogTitle($site),
+                'newer' => $all[$index - 1] ?? null,
+                'older' => $all[$index + 1] ?? null,
+                'related' => $all->except([$index])->values(),
+                'ogType' => 'article',
+                'ogImage' => $post->coverUrl(),
+            ])->render(), 'tema', $theme);
+        }
+
         $post = Post::query()->where('slug', $slug)->first();
 
         abort_if($post === null || (! $post->isLive() && ! $request->user()), 404);
@@ -120,6 +159,16 @@ class BlogController extends Controller
         }
 
         return ['theme' => Themes::current($site)];
+    }
+
+    /**
+     * A demo site's template demo (?tema=), shown with sample posts.
+     */
+    private function demoTheme(Request $request): ?string
+    {
+        $theme = $request->query('tema');
+
+        return config('compro.demo') && Themes::has($theme) ? (string) $theme : null;
     }
 
     private function countVisit(): void

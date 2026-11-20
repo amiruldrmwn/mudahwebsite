@@ -332,4 +332,31 @@ class BlogTest extends TestCase
         $new = $media->replace($inline, UploadedFile::fake()->image('baru.jpg', 50, 50));
         $this->assertStringContainsString('/storage/'.$new.'"', $post->fresh()->body);
     }
+
+    public function test_template_demos_show_sample_posts_for_their_kind_of_business()
+    {
+        config(['compro.demo' => true]);
+
+        // The demo's menu links the blog, keeping the template.
+        $this->get('/?tema=klinik')->assertOk()->assertSee('/blog?tema=klinik', false);
+
+        $list = $this->get('/blog?tema=klinik')->assertOk()->assertHeader('X-Robots-Tag', 'noindex');
+        $list->assertSee('Kapan Sebaiknya Periksa Kesehatan Rutin?')->assertSee('theme-klinik', false)
+            ->assertSee('/blog/kapan-harus-periksa-rutin?tema=klinik', false);
+        $this->get('/blog?tema=klinik&kategori=Tips')->assertSee('Tips Tetap Sehat di Musim Hujan')->assertDontSee('Kapan Sebaiknya Periksa');
+
+        $this->get('/blog/kapan-harus-periksa-rutin?tema=klinik')->assertOk()
+            ->assertSee('Jadwal yang kami sarankan')
+            ->assertSee('"@type":"BlogPosting"', false)
+            ->assertDontSee('Pratinjau:');
+        $this->get('/blog/tidak-ada?tema=klinik')->assertNotFound();
+
+        // Other kinds of business get their own posts; a template with its own news page keeps its menu.
+        $this->get('/blog?tema=resto')->assertSee('Menu Baru Bulan Ini');
+        $this->get('/?tema=instansi')->assertDontSee('/blog?tema=instansi', false);
+
+        // Without demo mode the sample posts aren't there.
+        config(['compro.demo' => false]);
+        $this->get('/blog/kapan-harus-periksa-rutin?tema=klinik')->assertNotFound();
+    }
 }
