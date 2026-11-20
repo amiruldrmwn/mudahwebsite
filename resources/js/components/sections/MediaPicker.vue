@@ -21,7 +21,7 @@ import type { MediaItem } from '@/lib/upload';
  */
 const props = defineProps<{ current?: string }>();
 const open = defineModel<boolean>('open', { required: true });
-const emit = defineEmits<{ select: [path: string] }>();
+const emit = defineEmits<{ select: [path: string, url: string] }>();
 
 const items = ref<MediaItem[]>([]);
 const loading = ref(false);
@@ -87,7 +87,11 @@ async function upload(event: Event): Promise<void> {
 
 function confirm(): void {
     if (chosen.value) {
-        emit('select', chosen.value);
+        emit(
+            'select',
+            chosen.value,
+            items.value.find((m) => m.path === chosen.value)?.url ?? '',
+        );
         open.value = false;
     }
 }

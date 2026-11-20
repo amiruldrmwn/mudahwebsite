@@ -29,6 +29,8 @@ class SiteSettingsRequest extends FormRequest
             'logo' => ['nullable', 'image:allow_svg', 'mimes:png,jpg,jpeg,webp,svg', 'max:10240'],
             'favicon' => ['nullable', 'image:allow_svg', 'mimes:png,ico,svg', 'max:2048'],
             'remove_logo' => ['boolean'],
+            // A logo picked from the media library instead of uploaded.
+            'logo_path' => ['nullable', 'string', 'max:255'],
             'show_name' => ['nullable', 'in:yes,no'],
             'remove_favicon' => ['boolean'],
             'contact_email' => ['nullable', 'email', 'max:150'],

@@ -1,5 +1,5 @@
 import { post } from '@/lib/http';
-import { destroy, index, store } from '@/routes/media';
+import { describe, destroy, index, replace, store } from '@/routes/media';
 
 /** An image in the media library (media/ on the site's storage). */
 export type MediaItem = {
@@ -10,6 +10,7 @@ export type MediaItem = {
     width: number | null;
     height: number | null;
     modified: number;
+    alt: string;
     used_in: { label: string; href: string }[];
 };
 
@@ -44,6 +45,25 @@ export async function listMedia(): Promise<MediaItem[]> {
     }
 
     return ((await response.json()) as { media: MediaItem[] }).media;
+}
+
+/**
+ * Put a new file in place of a library image, everywhere it is used.
+ * Resolves to the new path.
+ */
+export async function replaceMedia(path: string, file: File): Promise<string> {
+    const body = new FormData();
+    body.append('path', path);
+    body.append('file', file);
+
+    return (
+        (await (await post(replace.url(), body)).json()) as { path: string }
+    ).path;
+}
+
+/** Save the description (alt text) the website shows for an image. */
+export async function describeMedia(path: string, alt: string): Promise<void> {
+    await post(describe.url(), { path, alt });
 }
 
 /** Delete an unused image; throws with where it is still used. */

@@ -36,23 +36,27 @@ class SiteSettingsController extends Controller
     public function update(SiteSettingsRequest $request, Site $site, Media $media): RedirectResponse
     {
         $values = collect($request->validated())
-            ->except(['logo', 'favicon', 'remove_logo', 'remove_favicon', 'ai_api_key', 'remove_ai_key'])
+            ->except(['logo', 'favicon', 'logo_path', 'remove_logo', 'remove_favicon', 'ai_api_key', 'remove_ai_key'])
             ->map(fn ($value) => $value ?? '')
             ->all();
 
         foreach (['logo', 'favicon'] as $file) {
             $old = $site->get($file);
+            $picked = $file === 'logo' ? (string) $request->input('logo_path') : '';
 
             if ($request->hasFile($file)) {
                 // A logo is shown at most a few hundred pixels wide; a favicon as a small icon.
                 $values[$file] = $media->store($request->file($file), 'site', $file === 'logo' ? 1024 : 512, $file, webp: false);
+            } elseif ($picked !== '' && $media->isLibraryPath($picked)) {
+                $values[$file] = $picked;
             } elseif ($request->boolean("remove_{$file}")) {
                 $values[$file] = null;
             } else {
                 continue;
             }
 
-            if (is_string($old) && $old !== '') {
+            // Only an uploaded logo goes; one picked from the library stays there.
+            if (is_string($old) && str_starts_with($old, 'site/') && $old !== ($values[$file] ?? null)) {
                 Storage::disk('public')->delete($old);
             }
         }

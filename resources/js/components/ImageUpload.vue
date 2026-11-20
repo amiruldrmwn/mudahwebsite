@@ -1,35 +1,54 @@
 <script setup lang="ts">
-import { ImagePlus, Trash2 } from '@lucide/vue';
+import { ImagePlus, Images, Trash2 } from '@lucide/vue';
 import { computed, onBeforeUnmount, ref, useId } from 'vue';
+import MediaPicker from '@/components/sections/MediaPicker.vue';
 import { Button } from '@/components/ui/button';
 
 const props = defineProps<{
     currentUrl: string | null;
     accept: string;
     hint: string;
+    // Offer the media library as well as a new file.
+    pickable?: boolean;
 }>();
 
 const file = defineModel<File | null>('file', { required: true });
 const removed = defineModel<boolean>('removed', { required: true });
+// The library image picked instead of a file ('' for none).
+const picked = defineModel<string>('picked', { default: '' });
+const pickedUrl = ref<string | null>(null);
+const picking = ref(false);
 
 const id = useId();
 const input = ref<HTMLInputElement | null>(null);
 const preview = ref<string | null>(null);
 
 const shown = computed(
-    () => preview.value ?? (removed.value ? null : props.currentUrl),
+    () =>
+        preview.value ??
+        pickedUrl.value ??
+        (removed.value ? null : props.currentUrl),
 );
 
 function pick(event: Event): void {
-    const picked = (event.target as HTMLInputElement).files?.[0] ?? null;
+    const chosen = (event.target as HTMLInputElement).files?.[0] ?? null;
 
     if (preview.value) {
         URL.revokeObjectURL(preview.value);
     }
 
-    file.value = picked;
-    preview.value = picked ? URL.createObjectURL(picked) : null;
+    file.value = chosen;
+    preview.value = chosen ? URL.createObjectURL(chosen) : null;
     removed.value = false;
+    picked.value = '';
+    pickedUrl.value = null;
+}
+
+function fromLibrary(path: string, url: string): void {
+    clear();
+    removed.value = false;
+    picked.value = path;
+    pickedUrl.value = url;
 }
 
 function clear(): void {
@@ -40,6 +59,8 @@ function clear(): void {
     preview.value = null;
     file.value = null;
     removed.value = true;
+    picked.value = '';
+    pickedUrl.value = null;
 
     if (input.value) {
         input.value.value = '';
@@ -81,6 +102,16 @@ onBeforeUnmount(() => {
                     <label :for="id" class="cursor-pointer">Pilih gambar</label>
                 </Button>
                 <Button
+                    v-if="pickable"
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    @click="picking = true"
+                >
+                    <Images class="size-4" />
+                    Galeri
+                </Button>
+                <Button
                     v-if="shown"
                     type="button"
                     variant="ghost"
@@ -93,5 +124,11 @@ onBeforeUnmount(() => {
             </div>
             <p class="text-xs text-muted-foreground">{{ hint }}</p>
         </div>
+        <MediaPicker
+            v-if="pickable"
+            v-model:open="picking"
+            :current="picked"
+            @select="fromLibrary"
+        />
     </div>
 </template>

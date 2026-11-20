@@ -88,6 +88,7 @@ type SettingsForm = Omit<
     ai_api_key: string;
     remove_ai_key: boolean;
     logo: File | null;
+    logo_path: string;
     remove_logo: boolean;
     favicon: File | null;
     remove_favicon: boolean;
@@ -99,6 +100,7 @@ const form = useForm<SettingsForm>({
     description: s.description ?? '',
     primary_color: s.primary_color ?? '#2563eb',
     logo: null,
+    logo_path: '',
     remove_logo: false,
     show_name: s.show_name ?? 'yes',
     favicon: null,
@@ -260,7 +262,13 @@ function submit(): void {
         forceFormData: true,
         preserveScroll: true,
         onSuccess: () =>
-            form.reset('logo', 'favicon', 'ai_api_key', 'remove_ai_key'),
+            form.reset(
+                'logo',
+                'logo_path',
+                'favicon',
+                'ai_api_key',
+                'remove_ai_key',
+            ),
     });
 }
 </script>
@@ -405,9 +413,11 @@ function submit(): void {
                             <ImageUpload
                                 v-model:file="form.logo"
                                 v-model:removed="form.remove_logo"
+                                v-model:picked="form.logo_path"
+                                pickable
                                 :current-url="s.logo_url"
                                 accept="image/png,image/jpeg,image/webp,image/svg+xml"
-                                hint="PNG, JPG, WEBP, atau SVG. Maks 2 MB."
+                                hint="PNG, JPG, WEBP, atau SVG. Maks 10 MB, dikecilkan otomatis."
                             />
                             <InputError :message="form.errors.logo" />
                             <Label

@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Models\MediaMeta;
 use App\Models\Page;
 use enshrined\svgSanitize\Sanitizer;
 use Illuminate\Http\UploadedFile;
@@ -59,16 +60,17 @@ class Media
     /**
      * Every image in the library, newest first, with where it is used.
      *
-     * @return list<array{path: string, url: string, name: string, size: int, width: int|null, height: int|null, modified: int, used_in: list<array{label: string, href: string}>}>
+     * @return list<array{path: string, url: string, name: string, size: int, width: int|null, height: int|null, modified: int, alt: string, used_in: list<array{label: string, href: string}>}>
      */
     public function all(): array
     {
         $disk = Storage::disk('public');
         $usage = $this->usage();
+        $alts = MediaMeta::query()->pluck('alt', 'path')->all();
 
         $files = collect($disk->files(self::DIR))
             ->filter(fn (string $path) => preg_match('/\.(jpe?g|png|webp|gif|svg|avif)$/i', $path) === 1)
-            ->map(function (string $path) use ($disk, $usage) {
+            ->map(function (string $path) use ($disk, $usage, $alts) {
                 $size = @getimagesize($disk->path($path)) ?: null;
 
                 return [
@@ -79,11 +81,72 @@ class Media
                     'width' => $size[0] ?? null,
                     'height' => $size[1] ?? null,
                     'modified' => $disk->lastModified($path),
+                    'alt' => (string) ($alts[$path] ?? ''),
                     'used_in' => $usage[$path] ?? [],
                 ];
             });
 
         return array_values($files->sortByDesc('modified')->all());
+    }
+
+    /**
+     * Put a new file in place of a library image: every page (of every template group) and setting
+     * that used it now uses the new one, its description carries over, and the old file goes.
+     * Returns the new path (its name, and often its format, differ from the old one).
+     */
+    public function replace(string $old, UploadedFile $file): string
+    {
+        $new = $this->store($file);
+
+        Page::allPresets()->get()->each(function (Page $page) use ($old, $new) {
+            $sections = $page->sections ?? [];
+            $changed = false;
+
+            array_walk_recursive($sections, function (&$value) use ($old, $new, &$changed) {
+                if ($value === $old) {
+                    $value = $new;
+                    $changed = true;
+                }
+            });
+
+            if ($changed) {
+                $page->update(['sections' => $sections]);
+            }
+        });
+
+        $site = app(Site::class);
+
+        foreach (['logo', 'favicon'] as $key) {
+            if ($site->get($key) === $old) {
+                $site->put([$key => $new]);
+            }
+        }
+
+        if ($meta = MediaMeta::query()->find($old)) {
+            MediaMeta::query()->updateOrCreate(['path' => $new], ['alt' => $meta->alt]);
+            $meta->delete();
+        }
+
+        Storage::disk('public')->delete($old);
+
+        return $new;
+    }
+
+    /**
+     * Delete a library image and what was written about it.
+     */
+    public function delete(string $path): void
+    {
+        Storage::disk('public')->delete($path);
+        MediaMeta::query()->whereKey($path)->delete();
+    }
+
+    /**
+     * Whether $path is an image directly in the library (never a template photo or a path outside it).
+     */
+    public function isLibraryPath(string $path): bool
+    {
+        return preg_match('#^'.self::DIR.'/[A-Za-z0-9._-]+$#', $path) === 1 && Storage::disk('public')->exists($path);
     }
 
     /**

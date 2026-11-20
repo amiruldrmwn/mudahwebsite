@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Models\MediaMeta;
 use App\Models\Page;
 use App\Models\User;
+use App\Sections\DefaultContent;
 use App\Support\Site;
+use App\Support\SiteImages;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -122,5 +125,86 @@ class MediaTest extends TestCase
         $logo = app(Site::class)->get('logo');
         $this->assertStringEndsWith('.png', $logo);
         $this->assertSame([1024, 341], array_slice(getimagesize(Storage::disk('public')->path($logo)), 0, 2));
+    }
+
+    public function test_replacing_a_file_updates_every_page_and_the_logo()
+    {
+        $this->actingAs(User::factory()->create());
+        $old = $this->postJson(route('media.store'), ['file' => $this->photo('lama.jpg', 400, 300)])->json('path');
+        $page = Page::query()->create(['title' => 'Galeri', 'slug' => 'galeri', 'sections' => [['id' => 'a', 'type' => 'gallery', 'data' => ['items' => [['image' => $old], ['image' => 'demo/x.jpg']]]]]]);
+        app(Site::class)->put(['logo' => $old]);
+        MediaMeta::query()->create(['path' => $old, 'alt' => 'Toko kami']);
+
+        $new = $this->postJson(route('media.replace'), ['path' => $old, 'file' => $this->photo('baru.png', 300, 200, 'png')])->assertOk()->json('path');
+
+        $this->assertStringStartsWith('media/baru-', $new);
+        $this->assertSame([$new, 'demo/x.jpg'], array_column($page->fresh()->sections[0]['data']['items'], 'image'));
+        $this->assertSame($new, app(Site::class)->get('logo'));
+        $this->assertSame('Toko kami', MediaMeta::query()->find($new)?->alt);
+        $this->assertNull(MediaMeta::query()->find($old));
+        Storage::disk('public')->assertMissing($old);
+        Storage::disk('public')->assertExists($new);
+        $this->postJson(route('media.replace'), ['path' => 'demo/x.jpg', 'file' => $this->photo('b.jpg', 10, 10)])->assertNotFound();
+    }
+
+    public function test_descriptions_are_saved_and_listed()
+    {
+        $this->actingAs(User::factory()->create());
+        $path = $this->postJson(route('media.store'), ['file' => $this->photo('foto.jpg', 100, 100)])->json('path');
+
+        $this->postJson(route('media.describe'), ['path' => $path, 'alt' => '  Ruang tunggu klinik  '])->assertOk();
+
+        $this->assertSame('Ruang tunggu klinik', MediaMeta::query()->find($path)?->alt);
+        $this->assertSame('Ruang tunggu klinik', $this->getJson(route('media.index'))->json('media.0.alt'));
+        $this->postJson(route('media.describe'), ['path' => 'media/../.env', 'alt' => 'x'])->assertNotFound();
+    }
+
+    public function test_section_images_load_lazily_after_the_first_section_and_get_alt_text()
+    {
+        MediaMeta::query()->create(['path' => 'media/toko-abc123.webp', 'alt' => 'Depan toko "Maju"']);
+        SiteImages::flush();
+        $html = '<img src="/storage/media/toko-abc123.webp" alt="" class="a"><img src="/storage/media/servis-hp-x1y2z3.webp" alt=""><img src="/storage/media/IMG_2024-q1w2e3.jpg" alt=""><img src="/storage/demo/a.jpg" alt="Judul" loading="eager">';
+
+        $first = SiteImages::section($html, 0);
+        $later = SiteImages::section($html, 2);
+
+        $this->assertStringContainsString('fetchpriority="high" src="/storage/media/toko-abc123.webp"', $first);
+        $this->assertSame(1, substr_count($first, 'fetchpriority'));
+        $this->assertStringNotContainsString('loading="lazy"', $first);
+        $this->assertSame(3, substr_count($later, 'loading="lazy"'));
+        $this->assertStringContainsString('loading="eager"', $later);
+        $this->assertStringContainsString('alt="Depan toko &quot;Maju&quot;"', $later);
+        $this->assertStringContainsString('alt="Servis hp"', $later);
+        $this->assertStringContainsString('IMG_2024-q1w2e3.jpg" alt=""', $later);
+        $this->assertStringContainsString('alt="Judul"', $later);
+        $this->assertSame(4, substr_count($later, 'decoding="async"'));
+    }
+
+    public function test_the_live_site_renders_with_finished_images()
+    {
+        DefaultContent::install('PT Maju');
+
+        $this->get('/')->assertOk()->assertSee('decoding="async"', false)->assertSee('loading="lazy"', false);
+    }
+
+    public function test_a_logo_can_be_picked_from_the_library()
+    {
+        $this->actingAs(User::factory()->create());
+        $settings = ['site_name' => 'PT Maju', 'primary_color' => '#112233'];
+        $this->post(route('site.update'), [...$settings, 'logo' => $this->photo('logo.png', 300, 100, 'png')]);
+        $uploaded = app(Site::class)->get('logo');
+        $library = $this->postJson(route('media.store'), ['file' => $this->photo('logo-baru.jpg', 300, 100)])->json('path');
+
+        $this->post(route('site.update'), [...$settings, 'logo_path' => $library])->assertSessionHasNoErrors();
+        $this->assertSame($library, app(Site::class)->get('logo'));
+        Storage::disk('public')->assertMissing($uploaded);
+
+        // Replacing a library logo with an upload keeps the library image.
+        $this->post(route('site.update'), [...$settings, 'logo' => $this->photo('lagi.png', 300, 100, 'png')]);
+        Storage::disk('public')->assertExists($library);
+
+        // A path outside the library is ignored.
+        $this->post(route('site.update'), [...$settings, 'logo_path' => '../.env'])->assertSessionHasNoErrors();
+        $this->assertStringStartsWith('site/', app(Site::class)->get('logo'));
     }
 }

@@ -33,6 +33,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::get('media', [MediaController::class, 'index'])->name('media.index');
     Route::post('media', [MediaController::class, 'store'])->middleware('throttle:60,1')->name('media.store');
+    Route::post('media/replace', [MediaController::class, 'replace'])->middleware('throttle:60,1')->name('media.replace');
+    Route::post('media/describe', [MediaController::class, 'describe'])->name('media.describe');
     Route::post('media/delete', [MediaController::class, 'destroy'])->name('media.destroy');
 
     Route::middleware('throttle:20,1')->group(function () {

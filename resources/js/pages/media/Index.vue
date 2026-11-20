@@ -7,6 +7,7 @@ import {
     Download,
     ExternalLink,
     FileText,
+    RefreshCw,
     ImageOff,
     ImageUp,
     Search,
@@ -18,6 +19,7 @@ import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
     Sheet,
     SheetContent,
@@ -28,7 +30,12 @@ import {
 import { Spinner } from '@/components/ui/spinner';
 import { post } from '@/lib/http';
 import { cn } from '@/lib/utils';
-import { deleteMedia, fileSize } from '@/lib/upload';
+import {
+    deleteMedia,
+    describeMedia,
+    fileSize,
+    replaceMedia,
+} from '@/lib/upload';
 import type { MediaItem } from '@/lib/upload';
 import { index as mediaIndex, store } from '@/routes/media';
 
@@ -259,6 +266,64 @@ watch(
         );
     },
 );
+
+// Description (alt text), saved when it changes
+const alt = ref('');
+const savingAlt = ref(false);
+
+watch(current, (m, before) => {
+    if (m?.path !== before?.path) {
+        alt.value = m?.alt ?? '';
+    }
+});
+
+async function saveAlt(m: MediaItem): Promise<void> {
+    savingAlt.value = true;
+
+    try {
+        await describeMedia(m.path, alt.value);
+        toast.success('Deskripsi gambar disimpan.');
+        router.reload({ only: ['media'] });
+    } catch (e) {
+        toast.error((e as Error).message);
+    } finally {
+        savingAlt.value = false;
+    }
+}
+
+// Replacing the file everywhere it is used
+const replaceId = useId();
+const replacing = ref(false);
+
+async function replaceFile(event: Event, m: MediaItem): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+
+    if (!file) {
+        return;
+    }
+
+    replacing.value = true;
+
+    try {
+        const path = await replaceMedia(m.path, file);
+        const places = m.used_in.length;
+        toast.success(
+            places
+                ? `Gambar diganti di ${places} tempat.`
+                : 'File gambar diganti.',
+        );
+        router.reload({
+            only: ['media'],
+            onSuccess: () => (openPath.value = path),
+        });
+    } catch (e) {
+        toast.error((e as Error).message);
+    } finally {
+        replacing.value = false;
+    }
+}
 
 const copied = ref(false);
 
@@ -706,6 +771,40 @@ async function remove(items: MediaItem[]): Promise<void> {
                     </dl>
 
                     <div class="grid grid-cols-[minmax(0,1fr)] gap-1.5">
+                        <label
+                            for="media-alt"
+                            class="text-xs font-medium text-muted-foreground"
+                        >
+                            Deskripsi gambar
+                        </label>
+                        <Textarea
+                            id="media-alt"
+                            v-model="alt"
+                            rows="2"
+                            maxlength="250"
+                            placeholder="Contoh: Teknisi memperbaiki HP di meja servis"
+                        />
+                        <div class="flex items-start justify-between gap-3">
+                            <p class="text-xs text-muted-foreground">
+                                Dibaca Google dan pembaca layar. Dipakai di
+                                semua halaman yang memakai gambar ini.
+                            </p>
+                            <Button
+                                size="sm"
+                                variant="secondary"
+                                class="shrink-0"
+                                :disabled="
+                                    savingAlt || alt.trim() === current.alt
+                                "
+                                @click="saveAlt(current)"
+                            >
+                                <Spinner v-if="savingAlt" />
+                                Simpan
+                            </Button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-[minmax(0,1fr)] gap-1.5">
                         <p class="text-xs font-medium text-muted-foreground">
                             Link gambar
                         </p>
@@ -767,6 +866,25 @@ async function remove(items: MediaItem[]): Promise<void> {
                     </div>
 
                     <div class="flex flex-wrap gap-2">
+                        <input
+                            :id="replaceId"
+                            type="file"
+                            :accept="ACCEPT"
+                            class="sr-only"
+                            @change="replaceFile($event, current)"
+                        />
+                        <Button
+                            as-child
+                            variant="outline"
+                            size="sm"
+                            :disabled="replacing"
+                        >
+                            <label :for="replaceId" class="cursor-pointer">
+                                <Spinner v-if="replacing" />
+                                <RefreshCw v-else class="size-4" />
+                                Ganti file
+                            </label>
+                        </Button>
                         <Button as-child variant="outline" size="sm">
                             <a
                                 :href="current.url"
