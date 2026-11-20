@@ -4,6 +4,7 @@
  * --brand and --on-brand come from the site's chosen colour (layout.blade.php).
  */
 @import 'tailwindcss' source(none);
+@import './site-blog.css';
 
 @source '../views/site';
 

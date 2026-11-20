@@ -19,7 +19,7 @@ use Inertia\Response;
 class PageController extends Controller
 {
     /** Addresses taken by the app itself. */
-    public const RESERVED_SLUGS = ['admin', 'login', 'logout', 'kirim-pesan', 'klik-wa', 'sitemap', 'robots', 'storage', 'build', 'brand', 'up', 'user', 'two-factor-challenge'];
+    public const RESERVED_SLUGS = ['admin', 'login', 'logout', 'kirim-pesan', 'klik-wa', 'sitemap', 'robots', 'storage', 'build', 'brand', 'up', 'user', 'two-factor-challenge', 'blog'];
 
     public function index(): Response
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\NewContactMessage;
 use App\Models\Message;
 use App\Models\Page;
+use App\Models\Post;
 use App\Models\SiteVisit;
 use App\Models\User;
 use App\Sections\DefaultContent;
@@ -206,7 +207,29 @@ class SiteController extends Controller
             $xml .= '<url><loc>'.e($page->url()).'</loc><lastmod>'.$page->updated_at?->toAtomString().'</lastmod></url>';
         }
 
+        $xml .= $this->blogSitemap();
+
         return response($xml.'</urlset>', 200, ['Content-Type' => 'application/xml']);
+    }
+
+    /**
+     * The blog and its live posts, once there is one.
+     */
+    private function blogSitemap(): string
+    {
+        $posts = Post::query()->published()->latestFirst()->get(['slug', 'updated_at', 'published_at']);
+
+        if ($posts->isEmpty()) {
+            return '';
+        }
+
+        $xml = '<url><loc>'.e(route('blog.index')).'</loc><lastmod>'.$posts->max('updated_at')?->toAtomString().'</lastmod></url>';
+
+        foreach ($posts as $post) {
+            $xml .= '<url><loc>'.e($post->url()).'</loc><lastmod>'.$post->updated_at?->toAtomString().'</lastmod></url>';
+        }
+
+        return $xml;
     }
 
     public function robots(): Response

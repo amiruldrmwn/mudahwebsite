@@ -193,6 +193,17 @@ class SectionTypes
                     ]],
                 ],
             ],
+            'latest_posts' => [
+                'label' => 'Berita Terbaru (dari Blog)',
+                'description' => 'Tulisan terbaru dari menu Blog, tampil otomatis dan selalu terbaru.',
+                'fields' => [
+                    'title' => ['type' => 'text', 'label' => 'Judul', 'max' => 150, 'default' => 'Berita terbaru'],
+                    'subtitle' => ['type' => 'textarea', 'label' => 'Subjudul', 'max' => 400],
+                    'count' => ['type' => 'select', 'label' => 'Jumlah tulisan', 'options' => ['3' => '3 tulisan', '6' => '6 tulisan', '9' => '9 tulisan'], 'default' => '3'],
+                    'category' => ['type' => 'text', 'label' => 'Hanya kategori (opsional, mis. Pengumuman)', 'max' => 50],
+                    'button_label' => ['type' => 'text', 'label' => 'Teks tombol (kosongkan untuk "Lihat semua tulisan")', 'max' => 40],
+                ],
+            ],
             'stats' => [
                 'label' => 'Angka Pencapaian',
                 'description' => 'Angka penting, misalnya jumlah klien atau tahun berdiri.',
