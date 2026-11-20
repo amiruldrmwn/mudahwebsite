@@ -47,6 +47,7 @@ ENV APP_ENV=production \
     DB_CONNECTION=sqlite \
     DB_DATABASE=/data/database.sqlite \
     SESSION_DRIVER=database \
+    SESSION_SECURE_COOKIE=true \
     CACHE_STORE=database \
     QUEUE_CONNECTION=database \
     FILESYSTEM_DISK=public \

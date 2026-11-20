@@ -2,19 +2,22 @@
 
 namespace App\Actions\Fortify;
 
+use App\Concerns\PasswordValidationRules;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\ResetsUserPasswords;
 
 class ResetUserPassword implements ResetsUserPasswords
 {
+    use PasswordValidationRules;
+
     /**
      * @param  array<string, string>  $input
      */
     public function reset(User $user, array $input): void
     {
         Validator::make($input, [
-            'password' => ['required', 'string', 'min:8', 'max:100', 'confirmed'],
+            'password' => [...$this->passwordRules(), 'max:100'],
         ], [], ['password' => 'kata sandi'])->validate();
 
         $user->forceFill(['password' => $input['password']])->save();

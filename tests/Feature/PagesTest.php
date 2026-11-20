@@ -64,7 +64,7 @@ class PagesTest extends TestCase
 
         $this->post(route('contact.send'), ['name' => 'Andi', 'email' => 'andi@example.com', 'body' => 'Minta penawaran.']);
 
-        Mail::assertSent(NewContactMessage::class, fn (NewContactMessage $mail) => $mail->hasTo('owner@maju.test') && $mail->hasReplyTo('andi@example.com'));
+        Mail::assertQueued(NewContactMessage::class, fn (NewContactMessage $mail) => $mail->hasTo('owner@maju.test') && $mail->hasReplyTo('andi@example.com'));
     }
 
     public function test_contact_form_drops_bots()

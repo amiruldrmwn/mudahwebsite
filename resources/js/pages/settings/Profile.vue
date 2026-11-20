@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form, Head, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -32,6 +32,14 @@ const initials = computed(() =>
         .slice(0, 2)
         .map((w) => w[0]?.toUpperCase())
         .join(''),
+);
+
+// Changing the login email asks for the password.
+const email = ref(String(user.value.email ?? ''));
+const changesEmail = computed(
+    () =>
+        email.value.trim().toLowerCase() !==
+        String(user.value.email ?? '').toLowerCase(),
 );
 </script>
 
@@ -90,12 +98,27 @@ const initials = computed(() =>
                         id="email"
                         type="email"
                         name="email"
-                        :default-value="user.email"
+                        v-model="email"
                         required
                         autocomplete="username"
                         placeholder="nama@perusahaan.com"
                     />
                     <InputError :message="errors.email" />
+                </div>
+
+                <div v-if="changesEmail" class="grid gap-2">
+                    <Label for="current_password">Kata sandi saat ini</Label>
+                    <Input
+                        id="current_password"
+                        type="password"
+                        name="current_password"
+                        required
+                        autocomplete="current-password"
+                    />
+                    <p class="text-sm text-muted-foreground">
+                        Untuk mengganti email login, masukkan kata sandi Anda.
+                    </p>
+                    <InputError :message="errors.current_password" />
                 </div>
 
                 <div class="flex items-center gap-3">

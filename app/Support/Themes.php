@@ -548,7 +548,7 @@ class Themes
         return 'lainnya';
     }
 
-    public static function has(?string $theme): bool
+    public static function has(mixed $theme): bool
     {
         return is_string($theme) && array_key_exists($theme, self::all());
     }

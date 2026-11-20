@@ -23,6 +23,13 @@ return [
         'numeric' => ':Attribute minimal :min.',
         'string' => ':Attribute minimal :min karakter.',
     ],
+    'password' => [
+        'letters' => ':Attribute harus berisi huruf.',
+        'mixed' => ':Attribute harus berisi huruf besar dan huruf kecil.',
+        'numbers' => ':Attribute harus berisi angka.',
+        'symbols' => ':Attribute harus berisi simbol, misalnya ! @ # atau ?.',
+        'uncompromised' => ':Attribute ini pernah bocor di internet. Pilih kata sandi lain.',
+    ],
     'regex' => 'Format :attribute tidak valid.',
     'required' => ':Attribute wajib diisi.',
     'string' => ':Attribute harus berupa teks.',

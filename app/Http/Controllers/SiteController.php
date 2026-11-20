@@ -14,6 +14,7 @@ use App\Support\Themes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Throwable;
@@ -64,7 +65,8 @@ class SiteController extends Controller
      */
     public function whatsappClick(): Response
     {
-        if (! $this->isBot()) {
+        // One click per visitor every 10 minutes, so the figure can't be pumped up by repeating it.
+        if (! $this->isBot() && Cache::add('wa-click:'.sha1((string) request()->ip()), true, now()->addMinutes(10))) {
             SiteVisit::bump('whatsapp_clicks');
         }
 
@@ -174,7 +176,8 @@ class SiteController extends Controller
     }
 
     /**
-     * Email the owner about a new message: to the site's contact email, else the admin's.
+     * Email the owner about a new message: to the site's contact email, else the admin's. Sent by
+     * the queue worker, so a slow mail server never holds up the visitor (or a flood of them).
      * A mail failure never stops the visitor's message from being kept.
      */
     private function notifyOwner(Message $message): void
@@ -187,7 +190,7 @@ class SiteController extends Controller
         }
 
         try {
-            Mail::to($to)->send(new NewContactMessage($message, (string) $site->get('site_name')));
+            Mail::to($to)->queue(new NewContactMessage($message, (string) $site->get('site_name')));
         } catch (Throwable $e) {
             report($e);
         }

@@ -15,8 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Easypanel's Traefik terminates HTTPS in front of the container.
-        $middleware->trustProxies(at: '*');
+        // Easypanel's Traefik terminates HTTPS in front of the container. Only the client address
+        // and scheme are taken from it: a forwarded host would let anyone put their own domain in
+        // the links the site emails (a password reset link pointing elsewhere).
+        $middleware->trustProxies(at: '*', headers: Request::HEADER_X_FORWARDED_FOR | Request::HEADER_X_FORWARDED_PROTO);
 
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 

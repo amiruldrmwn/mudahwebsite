@@ -3,10 +3,12 @@
 namespace App\Mail;
 
 use App\Models\Message;
+use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
 
 /**
  * Tells the site owner about a message sent through the contact form. Replying goes
@@ -14,6 +16,8 @@ use Illuminate\Mail\Mailables\Envelope;
  */
 class NewContactMessage extends Mailable
 {
+    use Queueable, SerializesModels;
+
     public function __construct(public Message $contact, public string $siteName) {}
 
     public function envelope(): Envelope
