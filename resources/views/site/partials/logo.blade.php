@@ -211,6 +211,37 @@
                 <circle cx="24" cy="20" r="16" style="fill: var(--brand)"/>
                 <path d="M24 10l2.9 6.2 6.6.7-5 4.5 1.4 6.6L24 24.6l-5.9 3.4 1.4-6.6-5-4.5 6.6-.7z" fill="#fff"/>
             </svg>
+        @elseif ($theme === 'agency')
+            {{-- Code brackets on an ink tile with a lime cursor. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect x=".75" y=".75" width="46.5" height="46.5" rx="11" fill="#0c0c14" stroke="#fff" stroke-opacity=".2" stroke-width="1.5"/>
+                <path d="M18 15l-8 9 8 9M30 15l8 9-8 9" fill="none" style="stroke: var(--brand)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="21.5" y="27" width="5" height="6" rx="1" fill="#d4ff3a"/>
+            </svg>
+        @elseif ($theme === 'pajak')
+            {{-- Ledger sheet with a tick and a percent mark. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect x="6" y="4" width="36" height="40" rx="4" style="fill: var(--brand)"/>
+                <path d="M13 14h22M13 21h22M13 28h12" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+                <circle cx="33" cy="33" r="8" fill="#f6d872"/>
+                <path d="M29.5 33l2.5 2.5 4.5-5" fill="none" stroke="#1f1a17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'tani')
+            {{-- Sprout over a rolling field under the sun. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <circle cx="24" cy="24" r="24" style="fill: var(--brand)"/>
+                <circle cx="33" cy="15" r="5" fill="#f2b632"/>
+                <path d="M4 34c8-5 16-6 24-2s12 3 16 1v4a20 20 0 0 1-38 3z" fill="#f8f3e6" opacity=".9"/>
+                <path d="M22 32c0-8 2-12 8-15-7 0-10 4-8 15zM22 32c-1-5-3-7-7-8 0 4 3 7 7 8z" fill="#f2b632"/>
+            </svg>
+        @elseif ($theme === 'instansi')
+            {{-- Shield with a pillared hall, red-white band and a gold star. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <path d="M24 3l17 6v13c0 11-7.5 19-17 23C14.5 41 7 33 7 22V9z" style="fill: var(--brand)"/>
+                <path d="M15 31h18M17 29v-8M22 29v-8M26 29v-8M31 29v-8M14 21l10-6 10 6z" stroke="#fff" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                <path d="M24 6.5l1.1 2.3 2.5.3-1.8 1.7.5 2.5-2.3-1.2-2.3 1.2.5-2.5-1.8-1.7 2.5-.3z" fill="#f2b705"/>
+                <path d="M14 35h20" stroke="#e11d2e" stroke-width="2.4"/><path d="M15.5 38h17" stroke="#fff" stroke-width="2.4"/>
+            </svg>
         @elseif ($theme === 'pesantren')
             {{-- Mosque dome inside an eight-point star. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
