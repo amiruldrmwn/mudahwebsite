@@ -7,6 +7,7 @@ import {
     Images,
     Inbox,
     LayoutGrid,
+    Newspaper,
     Palette,
     Settings2,
     UserCog,
@@ -28,6 +29,7 @@ import { dashboard, home } from '@/routes';
 import { index as mediaIndex } from '@/routes/media';
 import { index as messagesIndex } from '@/routes/messages';
 import { index as pagesIndex } from '@/routes/pages';
+import { index as postsIndex } from '@/routes/posts';
 import { edit as editSite } from '@/routes/site';
 import { edit as editProfile } from '@/routes/profile';
 import { index as themesIndex } from '@/routes/themes';
@@ -38,6 +40,7 @@ const page = usePage();
 const websiteItems: NavItem[] = [
     { title: 'Dashboard', href: dashboard(), icon: LayoutGrid },
     { title: 'Halaman', href: pagesIndex(), icon: FileText },
+    { title: 'Blog', href: postsIndex(), icon: Newspaper },
     { title: 'Media', href: mediaIndex(), icon: Images },
     { title: 'Template', href: themesIndex(), icon: Palette },
 ];

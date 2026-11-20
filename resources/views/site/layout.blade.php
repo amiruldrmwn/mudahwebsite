@@ -16,14 +16,14 @@
     @if ($site->googleVerification())
         <meta name="google-site-verification" content="{{ $site->googleVerification() }}">
     @endif
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{{ $ogType ?? 'website' }}">
     <meta property="og:title" content="{{ $title }}">
     @if ($description)
         <meta property="og:description" content="{{ $description }}">
     @endif
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="{{ $site->get('site_name') }}">
-    @if ($site->url('logo') && ! isset($sampleLogo))
+    @if ($site->url('logo') && ! isset($sampleLogo) && empty($ogImage))
         <meta property="og:image" content="{{ $site->url('logo') }}">
     @endif
     {{-- The site's favicon, else its own uploaded logo, else the MudahCloud mark (always in template demos). --}}
@@ -51,6 +51,7 @@
     <style>
         body.site { --brand: {{ $brand ?? $site->get('primary_color') }}; --on-brand: {{ $site->onBrand($brand ?? null) }}; }
     </style>
+    @stack('head')
 </head>
 <body class="site theme-{{ $theme }}">
     @include("site.themes.{$theme}.header")

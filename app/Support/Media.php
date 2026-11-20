@@ -4,6 +4,7 @@ namespace App\Support;
 
 use App\Models\MediaMeta;
 use App\Models\Page;
+use App\Models\Post;
 use enshrined\svgSanitize\Sanitizer;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -118,6 +119,11 @@ class Media
             }
         });
 
+        Post::query()->where('cover', $old)->orWhere('body', 'like', '%/storage/'.$old.'%')->get()->each(fn (Post $post) => $post->update([
+            'cover' => $post->cover === $old ? $new : $post->cover,
+            'body' => str_replace('/storage/'.$old.'"', '/storage/'.$new.'"', $post->body),
+        ]));
+
         $site = app(Site::class);
 
         foreach (['logo', 'favicon'] as $key) {
@@ -172,6 +178,12 @@ class Media
                     $used[$value][$page->title] = ['label' => $page->title, 'href' => route('pages.edit', $page->id)];
                 }
             });
+        }
+
+        foreach (Post::query()->get(['id', 'title', 'cover', 'body']) as $post) {
+            foreach ($post->mediaPaths() as $path) {
+                $used[$path]['post:'.$post->id] = ['label' => 'Blog: '.$post->title, 'href' => route('posts.edit', $post->id)];
+            }
         }
 
         $site = app(Site::class);

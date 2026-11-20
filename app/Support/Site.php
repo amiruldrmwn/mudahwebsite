@@ -54,6 +54,9 @@ class Site
         'social_tiktok' => '',
         'social_x' => '',
         'footer_text' => '',
+        // The blog (/blog): its name, and whether the menu links to it once a post is published.
+        'blog_title' => 'Blog',
+        'blog_menu' => 'yes',
         // Brand colour last used with each template group, restored when switching back.
         'color_korporat' => null,
         'color_spa' => null,

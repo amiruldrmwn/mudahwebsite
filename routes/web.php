@@ -6,8 +6,10 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\ThemeController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\MudahCloudController;
 use App\Http\Controllers\SiteController;
 use App\Http\Middleware\MudahCloudKey;
@@ -30,6 +32,14 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])->group(function () 
     Route::post('pages/{page}/home', [PageController::class, 'makeHome'])->name('pages.home');
     Route::post('pages/{page}/assistant', [AssistantController::class, 'page'])->middleware('throttle:20,1')->name('pages.assistant');
     Route::post('pages/{page}/preview', [AssistantController::class, 'preview'])->name('pages.preview');
+
+    Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+    Route::post('posts', [PostController::class, 'store'])->name('posts.store');
+    Route::put('posts/settings', [PostController::class, 'settings'])->name('posts.settings');
+    Route::get('posts/{post}', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('posts/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::post('posts/{post}/autosave', [PostController::class, 'autosave'])->middleware('throttle:60,1')->name('posts.autosave');
+    Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     Route::get('media', [MediaController::class, 'index'])->name('media.index');
     Route::post('media', [MediaController::class, 'store'])->middleware('throttle:60,1')->name('media.store');
@@ -71,5 +81,7 @@ Route::get('sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
 Route::get('robots.txt', [SiteController::class, 'robots']);
 Route::post('kirim-pesan', [SiteController::class, 'contact'])->middleware('throttle:5,10')->name('contact.send');
 Route::post('klik-wa', [SiteController::class, 'whatsappClick'])->middleware('throttle:10,1')->withoutMiddleware(ValidateCsrfToken::class)->name('stats.whatsapp');
+Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('blog.show');
 Route::get('/', [SiteController::class, 'show'])->name('home');
 Route::get('{slug}', [SiteController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('page');

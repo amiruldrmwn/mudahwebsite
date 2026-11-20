@@ -28,4 +28,7 @@ return [
     // Where the owner tops up their MudahCloud AI credit (the AI assistant runs on it).
     'ai_topup_url' => env('MUDAHCLOUD_AI_URL', 'https://mudahcloud.com/ai'),
 
+    // The owner's time zone: blog post dates are shown and scheduled in it.
+    'timezone' => env('SITE_TIMEZONE', 'Asia/Jakarta'),
+
 ];
