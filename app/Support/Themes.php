@@ -292,6 +292,34 @@ class Themes
                 'preset' => 'oleholeh',
                 'color' => '#1f7a4d',
             ],
+            'agency' => [
+                'label' => 'Digital Agency & Software House',
+                'description' => 'Berani dan teknis: biru elektrik dengan aksen hijau limau, judul besar, label kode, studi kasus dengan angka hasil, layanan, teknologi, paket harga, dan alur proyek. Cocok untuk agensi digital, software house, jasa pembuatan website, dan freelancer.',
+                'fonts' => 'bricolage-grotesque:400,600,700,800|jetbrains-mono:400,500,700',
+                'preset' => 'agency',
+                'color' => '#3b3bf5',
+            ],
+            'pajak' => [
+                'label' => 'Konsultan Pajak & Akuntan',
+                'description' => 'Teliti dan tepercaya: merah marun di atas kertas buku besar, angka rapi, kalender pajak, paket bulanan UMKM dan PT/CV, layanan SPT dan Coretax, FAQ, dan booking konsultasi. Cocok untuk konsultan pajak, kantor akuntan, dan jasa pembukuan.',
+                'fonts' => 'ibm-plex-serif:500,600|ibm-plex-sans:400,500,600,700|ibm-plex-mono:500,600',
+                'preset' => 'pajak',
+                'color' => '#8a1c2b',
+            ],
+            'tani' => [
+                'label' => 'Pertanian & Peternakan',
+                'description' => 'Alami dan segar: hijau daun, krem, dan kuning panen, hasil panen musiman dengan harga, kapasitas panen, pasokan restoran, kemitraan petani, dan edu-wisata. Cocok untuk kebun, peternakan, perikanan, dan pemasok hasil tani.',
+                'fonts' => 'bree-serif:400|nunito-sans:400,600,700',
+                'preset' => 'tani',
+                'color' => '#3f6b1f',
+            ],
+            'instansi' => [
+                'label' => 'Kecamatan & Instansi',
+                'description' => 'Resmi dan mudah dibaca: biru pemerintahan dengan aksen kuning, akses cepat, layanan beserta persyaratan, jam pelayanan, pengumuman, pimpinan, data wilayah, dan pengaduan. Cocok untuk kecamatan, kelurahan, dinas, dan puskesmas.',
+                'fonts' => 'public-sans:400,500,600,700,800',
+                'preset' => 'instansi',
+                'color' => '#0b4a8b',
+            ],
             'legal' => [
                 'label' => 'Jasa Legal & Perizinan',
                 'description' => 'Tepercaya dan modern: biru royal dengan aksen oranye, ringkasan syarat dan dokumen, alur 3 langkah, paket harga bertingkat, dan tim konsultan. Cocok untuk jasa pendirian PT/CV, perizinan, notaris, konsultan pajak, dan agensi.',
@@ -493,7 +521,7 @@ class Themes
     public static function categories(): array
     {
         return [
-            'bisnis' => ['label' => 'Bisnis & Perusahaan', 'themes' => ['korporat', 'modern', 'minimalis', 'legal', 'lawfirm', 'tambang']],
+            'bisnis' => ['label' => 'Bisnis & Perusahaan', 'themes' => ['korporat', 'modern', 'minimalis', 'legal', 'lawfirm', 'tambang', 'agency', 'pajak', 'tani']],
             'kuliner' => ['label' => 'Kuliner', 'themes' => ['resto', 'kopi', 'kue', 'catering', 'oleholeh']],
             'toko' => ['label' => 'Toko & Fashion', 'themes' => ['umkm', 'hijab', 'kaos', 'apotek', 'petshop', 'bangunan', 'emas']],
             'kesehatan' => ['label' => 'Kesehatan & Kecantikan', 'themes' => ['klinik', 'bidan', 'optik', 'gigi', 'kecantikan', 'spa', 'barber', 'gym']],
@@ -502,7 +530,7 @@ class Themes
             'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['paud', 'sekolah', 'sma', 'pesantren', 'bimbel', 'lpk']],
             'properti' => ['label' => 'Properti, Wisata & Travel', 'themes' => ['properti', 'kos', 'villa', 'umroh', 'travel']],
             'personal' => ['label' => 'Personal & Kreator', 'themes' => ['biolink', 'biolink2', 'biolink3', 'cv', 'caleg']],
-            'komunitas' => ['label' => 'Organisasi & Desa', 'themes' => ['masjid', 'gereja', 'desa', 'desa2', 'koperasi']],
+            'komunitas' => ['label' => 'Organisasi & Desa', 'themes' => ['masjid', 'gereja', 'desa', 'desa2', 'instansi', 'koperasi']],
         ];
     }
 

@@ -19,7 +19,7 @@ class DefaultContent
     /** The sample logo a site shows until the owner uploads theirs. */
     public const LOGO = 'demo/logo.svg';
 
-    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa', 'hijab', 'kaos', 'mobil', 'biolink', 'laundry', 'catering', 'bengkel', 'foto', 'wedding', 'bimbel', 'apotek', 'petshop', 'biolink2', 'sepatu', 'lawfirm', 'pesantren', 'cleaning', 'satpam', 'biolink3', 'masjid', 'gym', 'klinik', 'bangunan', 'percetakan', 'eo', 'desa', 'cv', 'travel', 'kontraktor', 'umkm', 'lpk', 'ekspedisi', 'desa2', 'servis', 'paud', 'gereja', 'koperasi', 'caleg', 'bidan', 'optik', 'emas', 'oleholeh', 'kos', 'lapangan', 'cucimobil', 'interior'];
+    public const PRESETS = ['korporat', 'spa', 'kue', 'sekolah', 'sma', 'umroh', 'ac', 'legal', 'kopi', 'barber', 'tambang', 'rental', 'motor', 'properti', 'resto', 'gigi', 'kecantikan', 'villa', 'hijab', 'kaos', 'mobil', 'biolink', 'laundry', 'catering', 'bengkel', 'foto', 'wedding', 'bimbel', 'apotek', 'petshop', 'biolink2', 'sepatu', 'lawfirm', 'pesantren', 'cleaning', 'satpam', 'biolink3', 'masjid', 'gym', 'klinik', 'bangunan', 'percetakan', 'eo', 'desa', 'cv', 'travel', 'kontraktor', 'umkm', 'lpk', 'ekspedisi', 'desa2', 'servis', 'paud', 'gereja', 'koperasi', 'caleg', 'bidan', 'optik', 'emas', 'oleholeh', 'kos', 'lapangan', 'cucimobil', 'interior', 'agency', 'pajak', 'tani', 'instansi'];
 
     /** Template groups whose sample logo is an emblem image instead of the drawn mark (LOGO). */
     private const SAMPLE_LOGOS = ['sekolah' => 'demo/logo-sd.png', 'sma' => 'demo/logo-osis.png'];
@@ -153,6 +153,10 @@ class DefaultContent
             'lapangan' => SportsVenueContent::pages($company),
             'cucimobil' => CarWashContent::pages($company),
             'interior' => InteriorContent::pages($company),
+            'agency' => DigitalAgencyContent::pages($company),
+            'pajak' => TaxConsultantContent::pages($company),
+            'tani' => FarmContent::pages($company),
+            'instansi' => AgencyOfficeContent::pages($company),
             default => self::pages($company),
         };
     }
