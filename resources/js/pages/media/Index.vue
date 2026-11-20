@@ -72,7 +72,11 @@ const filters = computed(() => [
         label: 'Dipakai',
         count: props.media.length - unused.value.length,
     },
-    { key: 'unused' as const, label: 'Tidak dipakai', count: unused.value.length },
+    {
+        key: 'unused' as const,
+        label: 'Tidak dipakai',
+        count: unused.value.length,
+    },
 ]);
 const shown = computed(() => {
     const q = query.value.trim().toLowerCase();
@@ -244,7 +248,9 @@ watch(
     () => props.media,
     (list) => {
         const paths = new Set(list.map((m) => m.path));
-        selected.value = new Set([...selected.value].filter((p) => paths.has(p)));
+        selected.value = new Set(
+            [...selected.value].filter((p) => paths.has(p)),
+        );
     },
 );
 
@@ -270,12 +276,16 @@ async function remove(items: MediaItem[]): Promise<void> {
     }
 
     const what =
-        deletable.length === 1 ? deletable[0].name : `${deletable.length} gambar`;
+        deletable.length === 1
+            ? deletable[0].name
+            : `${deletable.length} gambar`;
 
     if (
         !confirm(
             `Hapus ${what}? Gambar yang dihapus tidak bisa dikembalikan.` +
-                (kept ? `\n\n${kept} gambar yang masih dipakai tidak ikut dihapus.` : ''),
+                (kept
+                    ? `\n\n${kept} gambar yang masih dipakai tidak ikut dihapus.`
+                    : ''),
         )
     ) {
         return;
@@ -351,8 +361,8 @@ async function remove(items: MediaItem[]): Promise<void> {
                 >Unggah gambar pertama Anda</span
             >
             <span class="max-w-md text-sm text-muted-foreground">
-                Tarik foto ke sini atau klik untuk memilih. JPG, PNG, WebP,
-                GIF, atau SVG sampai 15 MB. Foto otomatis dikecilkan ke
+                Tarik foto ke sini atau klik untuk memilih. JPG, PNG, WebP, GIF,
+                atau SVG sampai 15 MB. Foto otomatis dikecilkan ke
                 {{ maxSide }} px dan dikompres agar website tetap cepat.
             </span>
         </label>
@@ -443,7 +453,9 @@ async function remove(items: MediaItem[]): Promise<void> {
                     </select>
                     <Button
                         :variant="selecting ? 'secondary' : 'outline'"
-                        @click="selecting ? stopSelecting() : (selecting = true)"
+                        @click="
+                            selecting ? stopSelecting() : (selecting = true)
+                        "
                     >
                         <X v-if="selecting" class="size-4" />
                         <CheckSquare v-else class="size-4" />
@@ -488,7 +500,10 @@ async function remove(items: MediaItem[]): Promise<void> {
                         <span
                             class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-xs font-medium"
                         >
-                            <Check v-if="p.done" class="size-5 text-green-600" />
+                            <Check
+                                v-if="p.done"
+                                class="size-5 text-green-600"
+                            />
                             <Spinner v-else />
                             {{ p.done ? 'Selesai' : 'Mengunggah…' }}
                         </span>
@@ -506,8 +521,12 @@ async function remove(items: MediaItem[]): Promise<void> {
                                     'border-primary ring-2 ring-primary',
                             )
                         "
-                        :aria-pressed="selecting ? selected.has(m.path) : undefined"
-                        :aria-label="selecting ? `Pilih ${m.name}` : `Detail ${m.name}`"
+                        :aria-pressed="
+                            selecting ? selected.has(m.path) : undefined
+                        "
+                        :aria-label="
+                            selecting ? `Pilih ${m.name}` : `Detail ${m.name}`
+                        "
                         @click="activate(m)"
                     >
                         <div
@@ -590,7 +609,7 @@ async function remove(items: MediaItem[]): Promise<void> {
     >
         <div
             v-if="selecting"
-            class="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-xl items-center gap-1 sm:gap-2 rounded-2xl border bg-background/95 p-2 pl-4 shadow-xl backdrop-blur"
+            class="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-xl items-center gap-1 rounded-2xl border bg-background/95 p-2 pl-4 shadow-xl backdrop-blur sm:gap-2"
         >
             <p class="mr-auto text-sm whitespace-nowrap">
                 <span class="font-medium">{{ selected.size }} dipilih</span>
@@ -610,7 +629,8 @@ async function remove(items: MediaItem[]): Promise<void> {
                 size="sm"
                 @click="selectUnused"
             >
-                Pilih<span class="hidden sm:inline">&nbsp;semua yang</span>&nbsp;tidak dipakai
+                Pilih<span class="hidden sm:inline">&nbsp;semua yang</span
+                >&nbsp;tidak dipakai
             </Button>
             <Button
                 variant="destructive"
@@ -632,7 +652,7 @@ async function remove(items: MediaItem[]): Promise<void> {
         >
             <template v-if="current">
                 <div
-                    class="flex h-64 shrink-0 items-center justify-center border-b sm:h-72 bg-muted/50 bg-[conic-gradient(#0000000a_25%,transparent_0_50%,#0000000a_0_75%,transparent_0)] bg-[length:16px_16px] p-4"
+                    class="flex h-64 shrink-0 items-center justify-center border-b bg-muted/50 bg-[conic-gradient(#0000000a_25%,transparent_0_50%,#0000000a_0_75%,transparent_0)] bg-[length:16px_16px] p-4 sm:h-72"
                 >
                     <img
                         :src="current.url"
@@ -742,7 +762,10 @@ async function remove(items: MediaItem[]): Promise<void> {
 
                     <div class="flex flex-wrap gap-2">
                         <Button as-child variant="outline" size="sm">
-                            <a :href="current.url" target="_blank" rel="noopener"
+                            <a
+                                :href="current.url"
+                                target="_blank"
+                                rel="noopener"
                                 ><ExternalLink class="size-4" />Buka</a
                             >
                         </Button>

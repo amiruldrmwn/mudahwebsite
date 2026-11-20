@@ -34,7 +34,9 @@ const inputId = useId();
 const shown = computed(() => {
     const q = query.value.trim().toLowerCase();
 
-    return q ? items.value.filter((m) => m.name.toLowerCase().includes(q)) : items.value;
+    return q
+        ? items.value.filter((m) => m.name.toLowerCase().includes(q))
+        : items.value;
 });
 
 async function load(): Promise<void> {
