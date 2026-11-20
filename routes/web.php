@@ -31,7 +31,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('pages/{page}/assistant', [AssistantController::class, 'page'])->middleware('throttle:20,1')->name('pages.assistant');
     Route::post('pages/{page}/preview', [AssistantController::class, 'preview'])->name('pages.preview');
 
-    Route::post('media', [MediaController::class, 'store'])->name('media.store');
+    Route::get('media', [MediaController::class, 'index'])->name('media.index');
+    Route::post('media', [MediaController::class, 'store'])->middleware('throttle:60,1')->name('media.store');
+    Route::post('media/delete', [MediaController::class, 'destroy'])->name('media.destroy');
 
     Route::middleware('throttle:20,1')->group(function () {
         Route::post('ai/page', [AiWriterController::class, 'page'])->name('ai.page');

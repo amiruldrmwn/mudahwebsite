@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ImagePlus, Trash2 } from '@lucide/vue';
+import { ImagePlus, Images, Trash2 } from '@lucide/vue';
 import { ref, useId } from 'vue';
+import MediaPicker from '@/components/sections/MediaPicker.vue';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { uploadImage } from '@/lib/upload';
@@ -11,6 +12,7 @@ const path = defineModel<string>({ default: '' });
 const id = useId();
 const uploading = ref(false);
 const error = ref('');
+const picking = ref(false);
 
 function src(p: string): string {
     return `${props.storageUrl}/${p}`;
@@ -49,14 +51,14 @@ async function pick(event: Event): Promise<void> {
                 v-else-if="path"
                 :src="src(path)"
                 alt=""
-                class="size-full object-cover"
+                class="size-full object-contain"
             />
             <ImagePlus v-else class="size-5 text-muted-foreground" />
         </label>
         <input
             :id="id"
             type="file"
-            accept="image/*"
+            accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml,image/avif"
             class="sr-only"
             @change="pick"
         />
@@ -68,10 +70,20 @@ async function pick(event: Event): Promise<void> {
                     </label>
                 </Button>
                 <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    @click="picking = true"
+                >
+                    <Images class="size-4" />
+                    Galeri
+                </Button>
+                <Button
                     v-if="path"
                     type="button"
                     variant="ghost"
                     size="sm"
+                    aria-label="Hapus gambar"
                     @click="path = ''"
                 >
                     <Trash2 class="size-4" />
@@ -79,5 +91,10 @@ async function pick(event: Event): Promise<void> {
             </div>
             <p v-if="error" class="text-xs text-destructive">{{ error }}</p>
         </div>
+        <MediaPicker
+            v-model:open="picking"
+            :current="path"
+            @select="(p) => (path = p)"
+        />
     </div>
 </template>

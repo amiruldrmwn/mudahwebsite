@@ -4,6 +4,7 @@ import {
     ExternalLink,
     FileText,
     Globe,
+    Images,
     Inbox,
     LayoutGrid,
     Palette,
@@ -24,6 +25,7 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard, home } from '@/routes';
+import { index as mediaIndex } from '@/routes/media';
 import { index as messagesIndex } from '@/routes/messages';
 import { index as pagesIndex } from '@/routes/pages';
 import { edit as editSite } from '@/routes/site';
@@ -36,6 +38,7 @@ const page = usePage();
 const websiteItems: NavItem[] = [
     { title: 'Dashboard', href: dashboard(), icon: LayoutGrid },
     { title: 'Halaman', href: pagesIndex(), icon: FileText },
+    { title: 'Media', href: mediaIndex(), icon: Images },
     { title: 'Template', href: themesIndex(), icon: Palette },
 ];
 

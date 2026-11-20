@@ -6,6 +6,7 @@ use App\Ai\AiCatalog;
 use App\Ai\AiClient;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SiteSettingsRequest;
+use App\Support\Media;
 use App\Support\Site;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Crypt;
@@ -32,7 +33,7 @@ class SiteSettingsController extends Controller
         ]);
     }
 
-    public function update(SiteSettingsRequest $request, Site $site): RedirectResponse
+    public function update(SiteSettingsRequest $request, Site $site, Media $media): RedirectResponse
     {
         $values = collect($request->validated())
             ->except(['logo', 'favicon', 'remove_logo', 'remove_favicon', 'ai_api_key', 'remove_ai_key'])
@@ -43,7 +44,8 @@ class SiteSettingsController extends Controller
             $old = $site->get($file);
 
             if ($request->hasFile($file)) {
-                $values[$file] = $request->file($file)->store('site', 'public');
+                // A logo is shown at most a few hundred pixels wide; a favicon as a small icon.
+                $values[$file] = $media->store($request->file($file), 'site', $file === 'logo' ? 1024 : 512, $file, webp: false);
             } elseif ($request->boolean("remove_{$file}")) {
                 $values[$file] = null;
             } else {
