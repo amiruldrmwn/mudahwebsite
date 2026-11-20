@@ -85,7 +85,8 @@ class MediaTest extends TestCase
 
         $media = collect($this->getJson(route('media.index'))->assertOk()->json('media'))->keyBy('path');
 
-        $this->assertSame(['Beranda'], $media[$used]['used_in']);
+        $this->assertSame('Beranda', $media[$used]['used_in'][0]['label']);
+        $this->assertStringEndsWith('/admin/pages/'.Page::where('slug', 'beranda')->value('id'), $media[$used]['used_in'][0]['href']);
         $this->assertSame([], $media[$spare]['used_in']);
         $this->assertSame(800, $media[$spare]['width']);
         $this->get(route('media.index'))->assertInertia(fn ($page) => $page->component('media/Index')->has('media', 2));

@@ -10,7 +10,7 @@ export type MediaItem = {
     width: number | null;
     height: number | null;
     modified: number;
-    used_in: string[];
+    used_in: { label: string; href: string }[];
 };
 
 /**

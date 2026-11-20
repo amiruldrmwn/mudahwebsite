@@ -59,7 +59,7 @@ class Media
     /**
      * Every image in the library, newest first, with where it is used.
      *
-     * @return list<array{path: string, url: string, name: string, size: int, width: int|null, height: int|null, modified: int, used_in: list<string>}>
+     * @return list<array{path: string, url: string, name: string, size: int, width: int|null, height: int|null, modified: int, used_in: list<array{label: string, href: string}>}>
      */
     public function all(): array
     {
@@ -87,19 +87,20 @@ class Media
     }
 
     /**
-     * Where each stored image is used: page titles (of every template group) and settings.
+     * Where each stored image is used: pages (of every template group) and settings, each with
+     * the admin page to change it on.
      *
-     * @return array<string, list<string>>
+     * @return array<string, list<array{label: string, href: string}>>
      */
     public function usage(): array
     {
         $used = [];
 
-        foreach (Page::allPresets()->get(['title', 'sections']) as $page) {
+        foreach (Page::allPresets()->get(['id', 'title', 'sections']) as $page) {
             $sections = $page->sections ?? [];
             array_walk_recursive($sections, function ($value) use (&$used, $page) {
                 if (is_string($value) && str_starts_with($value, self::DIR.'/')) {
-                    $used[$value][] = $page->title;
+                    $used[$value][$page->title] = ['label' => $page->title, 'href' => route('pages.edit', $page->id)];
                 }
             });
         }
@@ -110,11 +111,11 @@ class Media
             $path = $site->get($key);
 
             if (is_string($path) && $path !== '') {
-                $used[$path][] = $label;
+                $used[$path][$label] = ['label' => $label, 'href' => route('site.edit')];
             }
         }
 
-        return array_map(fn (array $titles) => array_values(array_unique($titles)), $used);
+        return array_map(array_values(...), $used);
     }
 
     /**

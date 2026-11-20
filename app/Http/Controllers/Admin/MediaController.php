@@ -48,7 +48,7 @@ class MediaController extends Controller
         }
 
         if ($usedIn = $media->usage()[$path] ?? []) {
-            throw ValidationException::withMessages(['path' => 'Gambar masih dipakai di '.implode(', ', $usedIn).'. Ganti dulu gambarnya di sana, lalu hapus.']);
+            throw ValidationException::withMessages(['path' => 'Gambar masih dipakai di '.implode(', ', array_column($usedIn, 'label')).'. Ganti dulu gambarnya di sana, lalu hapus.']);
         }
 
         Storage::disk('public')->delete($path);
