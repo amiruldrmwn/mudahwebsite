@@ -212,7 +212,13 @@ const selectedItems = computed(() =>
 
 function toggleSelect(m: MediaItem): void {
     const next = new Set(selected.value);
-    next.has(m.path) ? next.delete(m.path) : next.add(m.path);
+
+    if (next.has(m.path)) {
+        next.delete(m.path);
+    } else {
+        next.add(m.path);
+    }
+
     selected.value = next;
 }
 
