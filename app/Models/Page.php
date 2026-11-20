@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\PageCache;
 use App\Support\Themes;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
@@ -35,6 +36,8 @@ class Page extends Model
     {
         static::addGlobalScope('preset', fn (Builder $query) => $query->where('pages.preset', Themes::currentPreset()));
         static::creating(fn (Page $page) => $page->preset ??= Themes::currentPreset());
+        static::saved(fn () => PageCache::flush());
+        static::deleted(fn () => PageCache::flush());
     }
 
     /**

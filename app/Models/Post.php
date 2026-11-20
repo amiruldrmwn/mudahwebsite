@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\PageCache;
 use App\Support\RichText;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,6 +34,13 @@ use Illuminate\Support\Str;
 #[Fillable(['title', 'slug', 'excerpt', 'body', 'cover', 'category', 'status', 'published_at', 'meta_title', 'meta_description'])]
 class Post extends Model
 {
+    protected static function booted(): void
+    {
+        // The menu link and the "Berita terbaru" sections show posts.
+        static::saved(fn () => PageCache::flush());
+        static::deleted(fn () => PageCache::flush());
+    }
+
     public const DRAFT = 'draft';
 
     public const PUBLISHED = 'published';

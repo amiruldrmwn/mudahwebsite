@@ -219,8 +219,8 @@ class BlogTest extends TestCase
         $this->assertStringContainsString('<meta property="og:image" content="'.Storage::disk('public')->url('media/sampul-a1b2c3.webp').'">', $html);
         $this->assertStringContainsString('<meta name="description" content="Deskripsi SEO.">', $html);
 
-        preg_match('#<script type="application/ld\+json">(.*?)</script>#s', $html, $m);
-        $schema = json_decode($m[1], true);
+        preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $html, $m);
+        $schema = collect($m[1])->map(fn (string $json) => json_decode($json, true))->firstWhere('@type', 'BlogPosting');
         $this->assertSame('BlogPosting', $schema['@type']);
         $this->assertSame('Judul </script> Aneh', $schema['headline']);
         $this->assertSame($post->published_at?->toAtomString(), $schema['datePublished']);
@@ -311,7 +311,7 @@ class BlogTest extends TestCase
         $this->get('/')->assertSee('>Baru</a>', false)->assertDontSee('>Lama</a>', false);
 
         // With no live post, visitors don't see an empty section.
-        Post::query()->delete();
+        Post::query()->get()->each->delete();
         $this->get('/')->assertDontSee('Kegiatan</h2>', false);
     }
 

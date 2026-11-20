@@ -93,10 +93,10 @@ class SiteSpeedAndSeoTest extends TestCase
         $title = $page->sections[0]['data']['title'];
         $this->get('/')->assertSee($title, false);
 
-        // Changed behind the site's back: visitors still get the kept page.
+        // Changed behind the site's back (no model events): visitors still get the kept page.
         $sections = $page->sections;
         $sections[0]['data']['title'] = 'Judul Baru Sekali';
-        $page->update(['sections' => $sections]);
+        Page::query()->whereKey($page->id)->update(['sections' => json_encode($sections)]);
         $this->get('/')->assertDontSee('Judul Baru Sekali');
 
         // Any save in the admin starts a new version.
