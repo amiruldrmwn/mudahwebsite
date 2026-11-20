@@ -242,6 +242,7 @@
                 <path d="M9 16h30v6H9z" fill="#f2b632"/>
                 <path d="M24 16v21" stroke="#1f2937" stroke-width="2" opacity=".35"/>
                 <path d="M24 16c-1-5 2-8 7-8 0 5-3 8-7 8z" fill="#bbf7d0"/>
+            </svg>
         @elseif ($theme === 'kos')
             {{-- House with a key-hole door. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
@@ -273,6 +274,7 @@
                 <path d="M17 26V18a7 7 0 0 1 14 0v8z" fill="none" stroke="#b08d57" stroke-width="1.8"/>
                 <rect x="13" y="28" width="22" height="7" style="fill: var(--brand)"/>
                 <path d="M24 28v7M15 35v3M33 35v3" style="stroke: var(--brand)" stroke-width="1.8"/>
+            </svg>
         @elseif ($theme === 'agency')
             {{-- Code brackets on an ink tile with a lime cursor. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
