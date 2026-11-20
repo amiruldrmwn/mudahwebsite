@@ -236,6 +236,34 @@ class Themes
                 'preset' => 'caleg',
                 'color' => '#dc2626',
             ],
+            'bidan' => [
+                'label' => 'Bidan & Klinik Bersalin',
+                'description' => 'Lembut dan menenangkan: krem hangat dengan terakota dan hijau sage, foto berbingkai lengkung, layanan ibu dan anak, paket persalinan, kelas hamil, profil bidan, jadwal praktik, dan kontak darurat 24 jam. Cocok untuk praktik mandiri bidan, klinik bersalin, dan klinik ibu & anak.',
+                'fonts' => 'newsreader:500,600,500i|quicksand:400,500,600,700',
+                'preset' => 'bidan',
+                'color' => '#b45f4d',
+            ],
+            'optik' => [
+                'label' => 'Optik',
+                'description' => 'Bersih dan modern: putih dengan biru iris, foto bundar seperti lensa kacamata, huruf uji mata, koleksi frame, harga lensa, paket frame + lensa, dan home service. Cocok untuk toko optik, kacamata, dan lensa kontak.',
+                'fonts' => 'urbanist:400,500,600,700,800',
+                'preset' => 'optik',
+                'color' => '#3a4fd8',
+            ],
+            'emas' => [
+                'label' => 'Toko Emas & Perhiasan',
+                'description' => 'Mewah dan tepercaya: merah marun gelap dengan emas, huruf berukir, papan harga emas hari ini, katalog perhiasan, buyback, pesan custom, dan sertifikat. Cocok untuk toko emas, toko perhiasan, dan penjual logam mulia.',
+                'fonts' => 'cinzel:500,600,700|libre-franklin:400,500,600,700',
+                'preset' => 'emas',
+                'color' => '#7a1f2b',
+            ],
+            'oleholeh' => [
+                'label' => 'Oleh-oleh & Frozen Food',
+                'description' => 'Ramah dan menggugah selera: kertas kraft dengan hijau daun pisang dan kuning kunyit, label stiker, katalog produk, harga reseller, jadwal PO, dan pengiriman frozen ke luar kota. Cocok untuk oleh-oleh khas, frozen food, keripik, dan produk rumahan.',
+                'fonts' => 'bricolage-grotesque:600,700,800|be-vietnam-pro:400,500,600',
+                'preset' => 'oleholeh',
+                'color' => '#1f7a4d',
+            ],
             'legal' => [
                 'label' => 'Jasa Legal & Perizinan',
                 'description' => 'Tepercaya dan modern: biru royal dengan aksen oranye, ringkasan syarat dan dokumen, alur 3 langkah, paket harga bertingkat, dan tim konsultan. Cocok untuk jasa pendirian PT/CV, perizinan, notaris, konsultan pajak, dan agensi.',
@@ -438,9 +466,9 @@ class Themes
     {
         return [
             'bisnis' => ['label' => 'Bisnis & Perusahaan', 'themes' => ['korporat', 'modern', 'minimalis', 'legal', 'lawfirm', 'tambang']],
-            'kuliner' => ['label' => 'Kuliner', 'themes' => ['resto', 'kopi', 'kue', 'catering']],
-            'toko' => ['label' => 'Toko & Fashion', 'themes' => ['umkm', 'hijab', 'kaos', 'apotek', 'petshop', 'bangunan']],
-            'kesehatan' => ['label' => 'Kesehatan & Kecantikan', 'themes' => ['klinik', 'gigi', 'kecantikan', 'spa', 'barber', 'gym']],
+            'kuliner' => ['label' => 'Kuliner', 'themes' => ['resto', 'kopi', 'kue', 'catering', 'oleholeh']],
+            'toko' => ['label' => 'Toko & Fashion', 'themes' => ['umkm', 'hijab', 'kaos', 'apotek', 'petshop', 'bangunan', 'emas']],
+            'kesehatan' => ['label' => 'Kesehatan & Kecantikan', 'themes' => ['klinik', 'bidan', 'optik', 'gigi', 'kecantikan', 'spa', 'barber', 'gym']],
             'otomotif' => ['label' => 'Otomotif & Transportasi', 'themes' => ['mobil', 'rental', 'motor', 'bengkel']],
             'jasa' => ['label' => 'Jasa & Layanan', 'themes' => ['ac', 'laundry', 'sepatu', 'cleaning', 'satpam', 'percetakan', 'eo', 'kontraktor', 'ekspedisi', 'servis', 'foto', 'wedding']],
             'pendidikan' => ['label' => 'Pendidikan', 'themes' => ['paud', 'sekolah', 'sma', 'pesantren', 'bimbel', 'lpk']],

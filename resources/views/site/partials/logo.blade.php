@@ -211,6 +211,38 @@
                 <circle cx="24" cy="20" r="16" style="fill: var(--brand)"/>
                 <path d="M24 10l2.9 6.2 6.6.7-5 4.5 1.4 6.6L24 24.6l-5.9 3.4 1.4-6.6-5-4.5 6.6-.7z" fill="#fff"/>
             </svg>
+        @elseif ($theme === 'bidan')
+            {{-- Mother cradling a baby inside a heart. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <circle cx="24" cy="24" r="24" style="fill: var(--brand)"/>
+                <path d="M24 37s-11-6.6-11-14.2C13 18.6 15.9 16 19.2 16c2.2 0 3.8 1.2 4.8 2.7 1-1.5 2.6-2.7 4.8-2.7 3.3 0 6.2 2.6 6.2 6.8C35 30.4 24 37 24 37z" fill="#fff"/>
+                <circle cx="24" cy="25.5" r="3.6" fill="#8fae94"/>
+            </svg>
+        @elseif ($theme === 'optik')
+            {{-- Round spectacles. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <circle cx="15.5" cy="26" r="7" fill="none" stroke="#fff" stroke-width="2.8"/>
+                <circle cx="32.5" cy="26" r="7" fill="none" stroke="#fff" stroke-width="2.8"/>
+                <path d="M22 24.5c1.4-1.6 2.6-1.6 4 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+                <circle cx="32.5" cy="26" r="3" fill="#7dd3fc"/>
+            </svg>
+        @elseif ($theme === 'emas')
+            {{-- Cut gem in gold. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect x="1" y="1" width="46" height="46" rx="4" fill="#3d0a12" stroke="#d4af5a" stroke-width="2"/>
+                <path d="M14 19l5-7h10l5 7-10 17z" fill="#d4af5a"/>
+                <path d="M14 19h20M19 12l5 7 5-7M24 19v17" fill="none" stroke="#3d0a12" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+        @elseif ($theme === 'oleholeh')
+            {{-- Kraft gift box with a leaf. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="12" style="fill: var(--brand)"/>
+                <path d="M11 21h26v16H11z" fill="#e8cfa2"/>
+                <path d="M9 16h30v6H9z" fill="#f2b632"/>
+                <path d="M24 16v21" stroke="#1f2937" stroke-width="2" opacity=".35"/>
+                <path d="M24 16c-1-5 2-8 7-8 0 5-3 8-7 8z" fill="#bbf7d0"/>
+            </svg>
         @elseif ($theme === 'pesantren')
             {{-- Mosque dome inside an eight-point star. --}}
             <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">

@@ -5796,3 +5796,1037 @@
     background: #e8c96a;
     color: #13233b;
 }
+
+/* ---------- Bidan & Klinik Bersalin: warm cream, terracotta and sage, arches ---------- */
+.theme-bidan {
+    --font-body: 'Quicksand', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Newsreader', ui-serif, Georgia, serif;
+    --radius: 1.25rem;
+    --surface: #fffaf6;
+    --surface-alt: #fbefe7;
+    --line: #efdcd1;
+    --ink: #3b2622;
+    --muted: #6b524c;
+    --bidan-sage: #8fae94;
+    --bidan-sage-dark: #46654c;
+
+    font-weight: 500;
+}
+
+.theme-bidan h1,
+.theme-bidan h2,
+.theme-bidan .sec-title {
+    font-weight: 500;
+    letter-spacing: -0.02em;
+}
+
+.theme-bidan h3 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.theme-bidan .bidan-bar {
+    background: rgb(255 250 246 / 0.96);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.theme-bidan .bidan-alert {
+    background: var(--bidan-sage-dark);
+    color: #fff;
+}
+
+.theme-bidan .bidan-pulse {
+    position: relative;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: #fecaca;
+}
+
+.theme-bidan .bidan-pulse::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 999px;
+    border: 2px solid #fecaca;
+    animation: bidan-ping 1.8s ease-out infinite;
+}
+
+@keyframes bidan-ping {
+    from {
+        transform: scale(0.6);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+.theme-bidan .bidan-hero {
+    background: linear-gradient(180deg, #fdf1e9, var(--surface));
+}
+
+.theme-bidan .bidan-blob {
+    border-radius: 58% 42% 55% 45% / 50% 60% 40% 50%;
+    pointer-events: none;
+}
+
+.theme-bidan .bidan-blob-1 {
+    top: -6rem;
+    right: -6rem;
+    width: 26rem;
+    height: 24rem;
+    background: color-mix(in oklab, var(--brand) 14%, #fdf1e9);
+}
+
+.theme-bidan .bidan-blob-2 {
+    bottom: -7rem;
+    left: -5rem;
+    width: 18rem;
+    height: 16rem;
+    background: color-mix(in oklab, var(--bidan-sage) 28%, #fdf1e9);
+}
+
+.theme-bidan .bidan-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--brand-dark);
+    box-shadow: 0 6px 20px -10px rgb(59 38 34 / 0.35);
+    @apply px-4 py-2 text-sm font-bold;
+}
+
+.theme-bidan .hero-title em {
+    color: var(--brand);
+}
+
+.theme-bidan .bidan-arch {
+    border-radius: 999px 999px 1.5rem 1.5rem;
+}
+
+.theme-bidan .bidan-arch-line {
+    inset: 1.25rem -1.25rem 3.5rem 1.25rem;
+    border: 2px solid var(--bidan-sage);
+    border-radius: 999px 999px 1.5rem 1.5rem;
+}
+
+.theme-bidan .bidan-stamp {
+    display: flex;
+    width: 5.5rem;
+    height: 5.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--bidan-sage-dark);
+    color: #fff;
+    font-weight: 700;
+    line-height: 1;
+    transform: rotate(10deg);
+    box-shadow: 0 0 0 5px #fffaf6;
+}
+
+.theme-bidan .bidan-stamp small {
+    margin-top: 0.25rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+.theme-bidan .bidan-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 20px 40px -18px rgb(59 38 34 / 0.45);
+    @apply px-4 py-3;
+}
+
+.theme-bidan .bidan-card-icon {
+    display: flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--brand) 14%, white);
+    color: var(--brand);
+}
+
+.theme-bidan .bidan-soft {
+    background: #fff;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1.5px var(--line);
+}
+
+.theme-bidan .bidan-soft:hover {
+    background: #fff;
+    box-shadow: inset 0 0 0 1.5px var(--brand);
+}
+
+.theme-bidan .bidan-crumb {
+    color: var(--brand-dark);
+    font-weight: 600;
+}
+
+.theme-bidan .bidan-wave {
+    fill: var(--surface);
+}
+
+.theme-bidan .btn {
+    border-radius: 999px;
+    @apply font-bold;
+}
+
+.theme-bidan .card {
+    border-color: var(--line);
+    box-shadow: 0 10px 30px -22px rgb(59 38 34 / 0.4);
+}
+
+.theme-bidan .card-media img {
+    border-radius: 999px 999px 0 0;
+}
+
+.theme-bidan .svc-num,
+.theme-bidan .step-num {
+    border-radius: 999px !important;
+    background: color-mix(in oklab, var(--bidan-sage) 25%, white) !important;
+    color: var(--bidan-sage-dark) !important;
+}
+
+.theme-bidan .team-photo {
+    border-radius: 999px 999px 1.25rem 1.25rem;
+    font-family: var(--font-head);
+}
+
+.theme-bidan .team-card:nth-child(3n + 2) .team-photo {
+    background: color-mix(in oklab, var(--bidan-sage) 25%, white) !important;
+    color: var(--bidan-sage-dark) !important;
+}
+
+.theme-bidan .price-list {
+    border-radius: var(--radius);
+    background: #fff;
+    border: 1px solid var(--line);
+    @apply px-6 py-2 sm:px-8;
+}
+
+.theme-bidan .price {
+    color: var(--bidan-sage-dark);
+}
+
+.theme-bidan .plan-hot {
+    border-color: var(--brand);
+    box-shadow: 0 25px 50px -25px
+        color-mix(in oklab, var(--brand) 60%, transparent);
+}
+
+.theme-bidan .bidan-sos {
+    border-radius: 2rem;
+    background:
+        radial-gradient(
+            60% 120% at 100% 0%,
+            color-mix(in oklab, var(--brand) 70%, #fde3d6),
+            transparent
+        ),
+        var(--brand-dark);
+    color: #fff;
+}
+
+.theme-bidan .bidan-sos h2 {
+    color: #fff;
+}
+
+.theme-bidan .bidan-sos-icon {
+    display: flex;
+    width: 4.25rem;
+    height: 4.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.15);
+    box-shadow: 0 0 0 8px rgb(255 255 255 / 0.07);
+}
+
+.theme-bidan .bidan-sos-ghost {
+    background: transparent;
+    color: #fff;
+    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.55);
+}
+
+.theme-bidan .bidan-sos-ghost:hover {
+    background: rgb(255 255 255 / 0.12);
+}
+
+/* ---------- Optik: crisp white, iris blue, round lenses and eye-chart letters ---------- */
+.theme-optik {
+    --font-body: 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #f3f5fb;
+    --line: #e1e5f2;
+    --ink: #10142b;
+    --muted: #4a5170;
+    --optik-iris: conic-gradient(
+        from 200deg,
+        #22d3ee,
+        #6366f1,
+        #d946ef,
+        #f59e0b,
+        #22d3ee
+    );
+
+    font-weight: 500;
+}
+
+.theme-optik h1,
+.theme-optik h2,
+.theme-optik .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.035em;
+}
+
+.theme-optik h3 {
+    font-weight: 700;
+}
+
+.theme-optik .optik-bar {
+    position: sticky;
+    background: rgb(255 255 255 / 0.94);
+    backdrop-filter: blur(10px);
+}
+
+.theme-optik .optik-bar::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #22d3ee, var(--brand), #d946ef, #f59e0b);
+}
+
+.theme-optik .optik-hero {
+    background:
+        radial-gradient(
+            40% 60% at 85% 40%,
+            color-mix(in oklab, var(--brand) 9%, white),
+            transparent
+        ),
+        linear-gradient(180deg, #f6f7fc, #fff);
+}
+
+.theme-optik .optik-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    @apply px-4 py-2 text-sm font-bold;
+}
+
+.theme-optik .optik-iris {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 999px;
+    background: var(--optik-iris);
+    box-shadow:
+        inset 0 0 0 3.5px #fff,
+        0 0 0 1px var(--line);
+}
+
+.theme-optik .hero-title em {
+    font-style: normal;
+    background: linear-gradient(100deg, var(--brand), #9333ea);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.theme-optik .optik-specs {
+    aspect-ratio: 5 / 3;
+}
+
+.theme-optik .optik-frame {
+    stroke: var(--ink);
+    z-index: 2;
+}
+
+.theme-optik .optik-lens {
+    top: 12%;
+    overflow: hidden;
+    border: 7px solid var(--ink);
+    border-radius: 999px;
+    z-index: 1;
+}
+
+.theme-optik .optik-lens-photo {
+    left: 1%;
+    width: 49.5%;
+    aspect-ratio: 1;
+}
+
+.theme-optik .optik-lens-chart {
+    left: 57%;
+    width: 42%;
+    top: 19%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgb(255 255 255 / 0.95),
+            rgb(255 255 255 / 0.55) 55%,
+            transparent 70%
+        ),
+        var(--optik-iris);
+}
+
+.theme-optik .optik-snellen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--ink);
+    font-size: clamp(0.9rem, 3vw, 1.35rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: 0.12em;
+}
+
+.theme-optik .optik-tag {
+    right: 4%;
+    bottom: -6%;
+    z-index: 3;
+    border-radius: 0.9rem;
+    background: #fff;
+    box-shadow: 0 20px 40px -18px rgb(16 20 43 / 0.4);
+    @apply px-4 py-3;
+}
+
+.theme-optik .optik-chartmini {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    color: var(--ink);
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    line-height: 1.1;
+    opacity: 0.85;
+}
+
+.theme-optik .optik-outline {
+    background: #fff;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.theme-optik .optik-outline:hover {
+    background: var(--ink);
+    color: #fff;
+}
+
+.theme-optik .btn {
+    border-radius: 999px;
+    @apply font-bold;
+}
+
+.theme-optik .card {
+    border-color: var(--line);
+}
+
+.theme-optik .card-media img {
+    margin: 1rem auto 0;
+    width: calc(100% - 2rem);
+    border-radius: 999px 999px 0.75rem 0.75rem;
+}
+
+.theme-optik .catalog-card img {
+    background: #f3f5fb;
+}
+
+.theme-optik .catalog-spec {
+    background: #eef1fb;
+    color: #2d3561;
+}
+
+.theme-optik .svc-num,
+.theme-optik .step-num {
+    border-radius: 999px !important;
+    background: #fff !important;
+    color: var(--ink) !important;
+    box-shadow: inset 0 0 0 3px var(--ink);
+}
+
+.theme-optik .step:not(:last-child)::after {
+    display: none;
+    content: '';
+    position: absolute;
+    top: 1.75rem;
+    left: 4.25rem;
+    right: 0.5rem;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--ink) 0 22%, transparent 22%);
+    background-size: 14px 3px;
+    opacity: 0.25;
+}
+
+@media (min-width: 1024px) {
+    .theme-optik .step:not(:last-child)::after {
+        display: block;
+    }
+}
+
+.theme-optik .price-list {
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    background: #fff;
+    @apply px-6 py-2 sm:px-8;
+}
+
+.theme-optik .plan-hot {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: #fff;
+}
+
+.theme-optik .plan-hot .muted,
+.theme-optik .plan-hot .price-info {
+    color: #c7d0ff;
+}
+
+.theme-optik .plan-hot .price {
+    color: #fff;
+}
+
+/* ---------- Toko Emas & Perhiasan: deep maroon, gold, engraved capitals ---------- */
+.theme-emas {
+    --font-body: 'Libre Franklin', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Cinzel', ui-serif, Georgia, serif;
+    --radius: 0.25rem;
+    --surface: #fbf7f0;
+    --surface-alt: #f3ebdd;
+    --line: #e6d8c0;
+    --ink: #2a1215;
+    --muted: #66504f;
+    --emas-gold: #d4af5a;
+    --emas-gold-light: #ecd08e;
+    --emas-deep: #2a070c;
+}
+
+.theme-emas h1,
+.theme-emas h2,
+.theme-emas .sec-title {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.theme-emas h3 {
+    font-family: var(--font-body);
+    letter-spacing: 0;
+}
+
+.theme-emas .sec-title::after {
+    content: '';
+    display: block;
+    width: 3.5rem;
+    height: 2px;
+    margin: 1rem auto 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--emas-gold),
+        transparent
+    );
+}
+
+.theme-emas .emas-bar {
+    background: var(--emas-deep);
+    border-bottom: 1px solid rgb(212 175 90 / 0.35);
+}
+
+.theme-emas .emas-bar .nav-link {
+    color: rgb(255 255 255 / 0.72);
+}
+
+.theme-emas .emas-bar .nav-link:hover,
+.theme-emas .emas-bar .nav-link[aria-current='page'] {
+    color: var(--emas-gold-light);
+}
+
+.theme-emas .emas-pricebtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--emas-gold);
+    border-radius: 999px;
+    color: var(--emas-gold-light);
+    @apply px-4 py-2 text-sm font-semibold transition;
+}
+
+.theme-emas .emas-pricebtn:hover {
+    background: var(--emas-gold);
+    color: var(--emas-deep);
+}
+
+.theme-emas .emas-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: #4ade80;
+    box-shadow: 0 0 0 3px rgb(74 222 128 / 0.25);
+}
+
+.theme-emas .emas-hero {
+    background:
+        radial-gradient(
+            55% 70% at 75% 35%,
+            color-mix(in oklab, var(--brand) 85%, #000),
+            transparent
+        ),
+        var(--emas-deep);
+    color: #fff;
+}
+
+.theme-emas .emas-lattice {
+    background-image:
+        linear-gradient(45deg, rgb(212 175 90 / 0.07) 1px, transparent 1px),
+        linear-gradient(-45deg, rgb(212 175 90 / 0.07) 1px, transparent 1px);
+    background-size: 34px 34px;
+}
+
+.theme-emas .emas-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--emas-gold-light);
+    @apply text-xs font-semibold tracking-[0.3em] uppercase;
+}
+
+.theme-emas .emas-eyebrow::before,
+.theme-emas .emas-eyebrow::after {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    background: var(--emas-gold);
+}
+
+.theme-emas .hero-title em {
+    font-style: normal;
+    background: linear-gradient(180deg, #f6e3a8, var(--emas-gold) 60%, #b48a36);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.theme-emas .emas-frame {
+    padding: 0.75rem;
+    border: 1px solid rgb(212 175 90 / 0.7);
+    box-shadow:
+        inset 0 0 0 5px var(--emas-deep),
+        inset 0 0 0 6px rgb(212 175 90 / 0.5);
+}
+
+.theme-emas .emas-corner {
+    position: absolute;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-color: var(--emas-gold);
+    border-style: solid;
+}
+
+.theme-emas .emas-corner-tl {
+    top: -0.6rem;
+    left: -0.6rem;
+    border-width: 2px 0 0 2px;
+}
+
+.theme-emas .emas-corner-br {
+    right: -0.6rem;
+    bottom: -0.6rem;
+    border-width: 0 2px 2px 0;
+}
+
+.theme-emas .emas-seal {
+    display: flex;
+    width: 6rem;
+    height: 6rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: radial-gradient(
+        circle at 35% 30%,
+        #f6e3a8,
+        var(--emas-gold) 55%,
+        #9c7428
+    );
+    color: var(--emas-deep);
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1.15;
+    text-align: center;
+    box-shadow:
+        0 0 0 4px var(--emas-deep),
+        0 0 0 5px rgb(212 175 90 / 0.6);
+}
+
+.theme-emas .emas-seal b {
+    font-family: var(--font-head);
+    font-size: 1rem;
+}
+
+.theme-emas .emas-rule {
+    display: block;
+    width: 6rem;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--emas-gold),
+        transparent
+    );
+}
+
+.theme-emas .emas-gold {
+    background: linear-gradient(
+        180deg,
+        var(--emas-gold-light),
+        var(--emas-gold)
+    );
+    color: var(--emas-deep);
+}
+
+.theme-emas .emas-gold:hover {
+    background: var(--emas-gold-light);
+}
+
+.theme-emas .emas-ghost {
+    background: transparent;
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgb(212 175 90 / 0.7);
+}
+
+.theme-emas .emas-ghost:hover {
+    background: rgb(212 175 90 / 0.12);
+}
+
+.theme-emas .emas-board {
+    overflow: hidden;
+    border: 1px solid var(--emas-gold);
+    border-radius: 0.5rem;
+    background: #fffdf8;
+    box-shadow: 0 30px 60px -30px rgb(42 7 12 / 0.55);
+}
+
+.theme-emas .emas-board-head {
+    background: linear-gradient(
+        120deg,
+        var(--emas-deep),
+        color-mix(in oklab, var(--brand) 80%, #000)
+    );
+    border-bottom: 2px solid var(--emas-gold);
+}
+
+.theme-emas .emas-row + .emas-row {
+    border-top: 1px dashed var(--line);
+}
+
+.theme-emas .emas-row:nth-child(odd) {
+    background: #fbf5ea;
+}
+
+.theme-emas .emas-price {
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+}
+
+.theme-emas .emas-note {
+    background: #f6eedf;
+    color: #5a4330;
+    border-top: 1px solid var(--line);
+}
+
+.theme-emas .btn {
+    letter-spacing: 0.02em;
+}
+
+.theme-emas .card {
+    border-color: var(--line);
+    background: #fffdf8;
+}
+
+.theme-emas .catalog-card {
+    outline: 1px solid transparent;
+    transition: outline-color 0.2s;
+}
+
+.theme-emas .catalog-card:hover {
+    outline-color: var(--emas-gold);
+}
+
+.theme-emas .catalog-badge {
+    background: var(--emas-deep);
+    color: var(--emas-gold-light);
+}
+
+.theme-emas .catalog-spec {
+    background: #f3ebdd;
+    color: #4d3a2c;
+}
+
+.theme-emas .svc-num,
+.theme-emas .step-num {
+    border-radius: 999px !important;
+    background: var(--emas-deep) !important;
+    color: var(--emas-gold-light) !important;
+    font-family: var(--font-head);
+}
+
+.theme-emas .price-dots {
+    border-bottom-color: var(--emas-gold);
+}
+
+/* ---------- Oleh-oleh & Frozen Food: kraft paper, banana-leaf green, turmeric stickers ---------- */
+.theme-oleholeh {
+    --font-body: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #fffdf8;
+    --surface-alt: #f6ecda;
+    --line: #e7d6b8;
+    --ink: #1f2a1f;
+    --muted: #5a5646;
+    --oleh-kraft: #efdfc2;
+    --oleh-yellow: #f2b632;
+    --oleh-chili: #c2410c;
+}
+
+.theme-oleholeh h1,
+.theme-oleholeh h2,
+.theme-oleholeh .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.theme-oleholeh .oleh-strip {
+    background: var(--oleh-yellow);
+    color: #2a2109;
+}
+
+.theme-oleholeh .oleh-bar {
+    background: var(--surface);
+    border-bottom: 2px dashed var(--line);
+}
+
+.theme-oleholeh .oleh-hero {
+    background-color: var(--oleh-kraft);
+    background-image: radial-gradient(
+        rgb(120 90 40 / 0.12) 1px,
+        transparent 1.2px
+    );
+    background-size: 7px 7px;
+}
+
+.theme-oleholeh .oleh-label {
+    display: inline-block;
+    border: 2px solid var(--ink);
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 3px 3px 0 var(--ink);
+    @apply px-3.5 py-1.5 text-sm font-bold;
+}
+
+.theme-oleholeh .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+    background: linear-gradient(
+        transparent 62%,
+        color-mix(in oklab, var(--oleh-yellow) 75%, transparent) 62% 92%,
+        transparent 92%
+    );
+}
+
+.theme-oleholeh .oleh-photo {
+    overflow: hidden;
+    border: 3px solid var(--ink);
+    border-radius: 1.5rem;
+    background: #fff;
+    box-shadow: 10px 10px 0 var(--brand);
+}
+
+.theme-oleholeh .oleh-seal {
+    display: flex;
+    width: 6rem;
+    height: 6rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px dashed #fff;
+    border-radius: 999px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.1;
+    transform: rotate(-12deg);
+    box-shadow: 0 0 0 4px var(--brand);
+}
+
+.theme-oleholeh .oleh-seal b {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+}
+
+.theme-oleholeh .oleh-pricetag {
+    border: 2px solid var(--ink);
+    border-radius: 0.4rem 1.6rem 1.6rem 0.4rem;
+    background: var(--oleh-yellow);
+    color: var(--ink);
+    transform: rotate(-6deg);
+    box-shadow: 3px 3px 0 var(--ink);
+    @apply px-4 py-2 text-sm font-semibold;
+}
+
+.theme-oleholeh .oleh-pricetag b {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+}
+
+.theme-oleholeh .oleh-ticket {
+    display: flex;
+    border: 2px solid var(--ink);
+    border-radius: 0.75rem;
+    background: #fff;
+    box-shadow: 4px 4px 0 var(--ink);
+    transform: rotate(2deg);
+}
+
+.theme-oleholeh .oleh-ticket-main {
+    @apply px-4 py-2.5;
+}
+
+.theme-oleholeh .oleh-ticket-stub {
+    display: flex;
+    align-items: center;
+    border-left: 2px dashed var(--ink);
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 1.4rem;
+    border-radius: 0 0.6rem 0.6rem 0;
+    @apply px-3.5;
+}
+
+.theme-oleholeh .oleh-outline {
+    background: #fff;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.theme-oleholeh .oleh-outline:hover {
+    background: var(--oleh-yellow);
+}
+
+.theme-oleholeh .oleh-cut {
+    height: 14px;
+    background: radial-gradient(
+            circle at 7px -2px,
+            transparent 8px,
+            var(--surface) 8.5px
+        )
+        repeat-x;
+    background-size: 14px 14px;
+}
+
+.theme-oleholeh .btn {
+    border: 2px solid var(--ink);
+    border-radius: 0.75rem;
+    box-shadow: 3px 3px 0 var(--ink);
+    @apply font-bold;
+}
+
+.theme-oleholeh .btn:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
+.theme-oleholeh .btn-light {
+    background: var(--oleh-yellow);
+}
+
+.theme-oleholeh .card {
+    border: 2px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--line);
+}
+
+.theme-oleholeh .product-card .price {
+    display: inline-block;
+    border-radius: 0.5rem;
+    background: var(--oleh-yellow);
+    color: var(--ink);
+    @apply px-2.5 py-0.5;
+}
+
+.theme-oleholeh .price-info {
+    color: var(--oleh-chili);
+    font-weight: 700;
+}
+
+.theme-oleholeh .price-list {
+    border: 2px dashed var(--ink);
+    border-radius: 1.25rem;
+    background: #fff;
+    @apply px-6 py-2 sm:px-8;
+}
+
+.theme-oleholeh .price-list .price {
+    color: var(--brand);
+    font-weight: 800;
+}
+
+.theme-oleholeh .svc-num,
+.theme-oleholeh .step-num {
+    border: 2px solid var(--ink);
+    border-radius: 0.75rem !important;
+    background: var(--oleh-yellow) !important;
+    color: var(--ink) !important;
+}
+
+.theme-oleholeh .plan-badge {
+    background: var(--oleh-chili);
+    color: #fff;
+}
+
+/* Price rows wrap on phones instead of pushing the price past the edge. */
+@media (max-width: 639px) {
+    .theme-bidan .price-row > div:first-child,
+    .theme-optik .price-row > div:first-child,
+    .theme-oleholeh .price-row > div:first-child {
+        flex-wrap: wrap;
+        column-gap: 0.75rem;
+        row-gap: 0.15rem;
+    }
+
+    .theme-bidan .price-row h3,
+    .theme-optik .price-row h3,
+    .theme-oleholeh .price-row h3 {
+        flex-basis: 100%;
+    }
+
+    .theme-bidan .price-row .price-dots,
+    .theme-optik .price-row .price-dots,
+    .theme-oleholeh .price-row .price-dots {
+        display: none;
+    }
+}
