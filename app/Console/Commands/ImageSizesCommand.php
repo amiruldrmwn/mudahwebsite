@@ -6,6 +6,7 @@ use App\Models\Page;
 use App\Sections\DefaultContent;
 use App\Support\ImageSizes;
 use App\Support\Media;
+use App\Support\PageCache;
 use App\Support\Themes;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
@@ -42,6 +43,12 @@ class ImageSizesCommand extends Command
         }
 
         $made = $paths->unique()->sum(fn (string $path) => ImageSizes::ensure($path));
+
+        // Kept pages were made without the new copies.
+        if ($made > 0) {
+            PageCache::flush();
+        }
+
         $this->components->info("{$made} smaller copies made.");
 
         return self::SUCCESS;
