@@ -242,6 +242,37 @@
                 <path d="M9 16h30v6H9z" fill="#f2b632"/>
                 <path d="M24 16v21" stroke="#1f2937" stroke-width="2" opacity=".35"/>
                 <path d="M24 16c-1-5 2-8 7-8 0 5-3 8-7 8z" fill="#bbf7d0"/>
+        @elseif ($theme === 'kos')
+            {{-- House with a key-hole door. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="14" style="fill: var(--brand)"/>
+                <path d="M11 23L24 12l13 11v13H11z" fill="#fff"/>
+                <path d="M20 36v-8a4 4 0 0 1 8 0v8z" fill="#f4b740"/>
+                <circle cx="24" cy="29" r="1.6" style="fill: var(--brand)"/>
+            </svg>
+        @elseif ($theme === 'lapangan')
+            {{-- Court with a centre circle. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="10" fill="#0b3d27"/>
+                <rect x="7" y="11" width="34" height="26" rx="1.5" fill="none" stroke="#fff" stroke-width="2"/>
+                <path d="M24 11v26M7 19h5v10H7M41 19h-5v10h5" fill="none" stroke="#fff" stroke-width="2"/>
+                <circle cx="24" cy="24" r="5" style="fill: var(--brand)"/>
+            </svg>
+        @elseif ($theme === 'cucimobil')
+            {{-- Water drop with a shine. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <rect width="48" height="48" rx="12" fill="#11161d"/>
+                <path d="M24 8c6 8 11 14 11 20a11 11 0 0 1-22 0c0-6 5-12 11-20z" style="fill: var(--brand)"/>
+                <path d="M18.5 29a6 6 0 0 0 4 5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M37 9l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z" fill="#fff"/>
+            </svg>
+        @elseif ($theme === 'interior')
+            {{-- Arched window over a low cabinet. --}}
+            <svg viewBox="0 0 48 48" class="size-10 shrink-0" aria-hidden="true">
+                <circle cx="24" cy="24" r="23" fill="none" style="stroke: var(--brand)" stroke-width="1.5"/>
+                <path d="M17 26V18a7 7 0 0 1 14 0v8z" fill="none" stroke="#b08d57" stroke-width="1.8"/>
+                <rect x="13" y="28" width="22" height="7" style="fill: var(--brand)"/>
+                <path d="M24 28v7M15 35v3M33 35v3" style="stroke: var(--brand)" stroke-width="1.8"/>
             </svg>
         @elseif ($theme === 'pesantren')
             {{-- Mosque dome inside an eight-point star. --}}

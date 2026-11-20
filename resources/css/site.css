@@ -6830,3 +6830,955 @@
         display: none;
     }
 }
+
+/* ---------- Kos-kosan & Kontrakan: cream, plum and marigold, room board ---------- */
+.theme-kos {
+    --font-body: 'Albert Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+    --radius: 1rem;
+    --surface: #ffffff;
+    --surface-alt: #fbf5ec;
+    --line: #eee2d3;
+    --ink: #2a1f2d;
+    --muted: #5f5462;
+    --kos-sun: #f4b740;
+}
+
+.theme-kos h1,
+.theme-kos h2,
+.theme-kos .sec-title {
+    font-weight: 800;
+    letter-spacing: -0.035em;
+}
+
+.theme-kos .kos-bar {
+    background: rgb(255 255 255 / 0.96);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.theme-kos .kos-strip {
+    background: var(--kos-sun);
+    color: #2a1f2d;
+}
+
+.theme-kos .kos-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--brand);
+    box-shadow: 0 0 0 3px rgb(255 255 255 / 0.6);
+}
+
+.theme-kos .kos-hero {
+    background:
+        radial-gradient(
+            42% 60% at 88% 18%,
+            color-mix(in oklab, var(--brand) 14%, transparent),
+            transparent
+        ),
+        var(--surface-alt);
+}
+
+.theme-kos .kos-tag {
+    display: inline-flex;
+    border: 1.5px dashed color-mix(in oklab, var(--brand) 55%, transparent);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--brand);
+    @apply px-3.5 py-1.5 text-sm font-bold;
+}
+
+.theme-kos .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+    text-decoration: underline wavy var(--kos-sun);
+    text-decoration-thickness: 0.07em;
+    text-underline-offset: 0.2em;
+}
+
+.theme-kos .kos-perks li {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    @apply px-3 py-1.5;
+}
+
+.theme-kos .kos-perks li::before {
+    content: '✓ ';
+    color: var(--brand);
+}
+
+.theme-kos .kos-arch {
+    overflow: hidden;
+    border: 10px solid #fff;
+    border-radius: 999px 999px 1.75rem 1.75rem;
+    box-shadow: 0 40px 70px -35px rgb(42 31 45 / 0.5);
+}
+
+.theme-kos .kos-board {
+    width: 17rem;
+    border-radius: 1.25rem;
+    background: #fff;
+    box-shadow: 0 24px 50px -20px rgb(42 31 45 / 0.4);
+    @apply p-4;
+}
+
+.theme-kos .kos-free-label {
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--kos-sun) 30%, white);
+    color: #6b4a00;
+    @apply px-2 py-0.5;
+}
+
+.theme-kos .kos-room {
+    aspect-ratio: 1;
+    border-radius: 0.3rem;
+    background: color-mix(in oklab, var(--brand) 22%, white);
+}
+
+.theme-kos .kos-room-free {
+    background: var(--kos-sun);
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--kos-sun) 40%, white);
+}
+
+.theme-kos .kos-price {
+    display: flex;
+    width: 6.5rem;
+    height: 6.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #fff;
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--on-brand);
+    font-family: var(--font-head);
+    transform: rotate(8deg);
+    box-shadow: 0 18px 30px -12px rgb(42 31 45 / 0.45);
+}
+
+.theme-kos .kos-plate {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 0.6rem;
+    background: var(--brand);
+    color: var(--on-brand);
+    font-family: var(--font-head);
+    box-shadow:
+        inset 0 0 0 3px rgb(255 255 255 / 0.25),
+        0 10px 20px -12px rgb(42 31 45 / 0.6);
+    @apply px-4 py-2 text-sm font-bold tracking-wide;
+}
+
+.theme-kos .kos-plate::before,
+.theme-kos .kos-plate::after {
+    content: '';
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: var(--kos-sun);
+}
+
+.theme-kos .btn {
+    border-radius: 0.9rem;
+    @apply font-bold;
+}
+
+.theme-kos .card {
+    border-color: var(--line);
+    border-radius: 1.25rem;
+}
+
+.theme-kos .catalog-card {
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.theme-kos .catalog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 40px -24px rgb(42 31 45 / 0.35);
+}
+
+.theme-kos .catalog-badge {
+    background: var(--kos-sun);
+    color: #2a1f2d;
+}
+
+.theme-kos .catalog-spec {
+    background: var(--surface-alt);
+    color: var(--ink);
+}
+
+.theme-kos .svc-num {
+    border-radius: 999px 999px 999px 0.3rem !important;
+    background: color-mix(in oklab, var(--kos-sun) 35%, white) !important;
+    color: var(--brand) !important;
+}
+
+.theme-kos .step-num {
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--on-brand);
+}
+
+.theme-kos .price {
+    color: var(--brand);
+}
+
+/* ---------- Lapangan Olahraga: turf stripes, court lines, volt green ---------- */
+.theme-lapangan {
+    --font-body: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Big Shoulders Display', Impact, sans-serif;
+    --radius: 0.45rem;
+    --surface: #ffffff;
+    --surface-alt: #f1f6ee;
+    --line: #dce6d6;
+    --ink: #0b1f14;
+    --muted: #485a4e;
+    --lap-pitch: #06281a;
+    --lap-green: #0f6b3a;
+}
+
+.theme-lapangan h1,
+.theme-lapangan h2,
+.theme-lapangan .sec-title {
+    font-weight: 900;
+    letter-spacing: 0.005em;
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
+.theme-lapangan .sec-title {
+    @apply text-4xl sm:text-6xl;
+}
+
+.theme-lapangan h3 {
+    font-weight: 700;
+}
+
+.theme-lapangan .lapangan-bar {
+    background: var(--lap-pitch);
+}
+
+.theme-lapangan .lapangan-bar nav .nav-link {
+    color: rgb(255 255 255 / 0.75);
+}
+
+.theme-lapangan .lapangan-bar nav .nav-link[aria-current='page'],
+.theme-lapangan .lapangan-bar nav .nav-link:hover {
+    color: var(--brand);
+}
+
+.theme-lapangan .nav-link[aria-current='page'],
+.theme-lapangan .nav-link:hover {
+    color: var(--lap-green);
+}
+
+.theme-lapangan .lapangan-ticker {
+    background: var(--brand);
+    color: var(--on-brand);
+}
+
+.theme-lapangan .lapangan-hero {
+    background:
+        linear-gradient(180deg, rgb(4 23 15 / 0.5), rgb(4 23 15 / 0.82)),
+        repeating-linear-gradient(90deg, #0d5232 0 90px, #0a4429 90px 180px);
+}
+
+.theme-lapangan .lapangan-lines {
+    opacity: 0.13;
+}
+
+.theme-lapangan .lapangan-chip {
+    display: inline-block;
+    background: var(--brand);
+    color: var(--on-brand);
+    clip-path: polygon(0.5rem 0, 100% 0, calc(100% - 0.5rem) 100%, 0 100%);
+    @apply px-5 py-1.5 text-xs font-extrabold tracking-wider uppercase;
+}
+
+.theme-lapangan .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-lapangan .lapangan-photo {
+    clip-path: polygon(7% 0, 100% 0, 93% 100%, 0 100%);
+}
+
+.theme-lapangan .lapangan-board {
+    border-top: 4px solid var(--brand);
+    border-radius: 0.6rem;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 25px 50px -20px rgb(0 0 0 / 0.6);
+    @apply p-4;
+}
+
+.theme-lapangan .lapangan-live {
+    border-radius: 0.25rem;
+    background: #dc2626;
+    color: #fff;
+    @apply px-2 py-0.5;
+}
+
+.theme-lapangan .lapangan-slot {
+    border-radius: 0.3rem;
+    background: #eef1ec;
+    color: #7c8a80;
+    text-align: center;
+    text-decoration: line-through;
+    @apply py-1.5 text-[11px] font-bold;
+}
+
+.theme-lapangan .lapangan-slot-free {
+    background: var(--brand);
+    color: var(--on-brand);
+    text-decoration: none;
+}
+
+.theme-lapangan .lapangan-ghost {
+    background: transparent;
+    color: #fff;
+    box-shadow: inset 0 0 0 2px rgb(255 255 255 / 0.55);
+}
+
+.theme-lapangan .lapangan-ghost:hover {
+    background: rgb(255 255 255 / 0.1);
+}
+
+.theme-lapangan .btn {
+    @apply font-extrabold tracking-wide uppercase;
+}
+
+.theme-lapangan .btn:not(.btn-light, .btn-outline, .lapangan-ghost):hover {
+    background: color-mix(in oklab, var(--brand) 82%, white);
+}
+
+.theme-lapangan .lapangan-score {
+    background:
+        linear-gradient(rgb(6 40 26 / 0.94), rgb(6 40 26 / 0.94)),
+        repeating-linear-gradient(90deg, #0d5232 0 90px, #0a4429 90px 180px);
+}
+
+.theme-lapangan .lapangan-panel {
+    border: 1px solid rgb(255 255 255 / 0.08);
+    border-radius: 0.5rem;
+    background: #03130b;
+    box-shadow: inset 0 2px 10px rgb(0 0 0 / 0.6);
+    @apply px-3 py-5;
+}
+
+.theme-lapangan .lapangan-digits {
+    color: var(--brand);
+    font-family: var(--font-head);
+    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 0 18px color-mix(in oklab, var(--brand) 55%, transparent);
+    @apply text-5xl sm:text-6xl;
+}
+
+.theme-lapangan .card {
+    border-color: var(--line);
+}
+
+.theme-lapangan .catalog-card {
+    border-bottom: 4px solid var(--brand);
+}
+
+.theme-lapangan .catalog-badge,
+.theme-lapangan .plan-badge {
+    background: var(--lap-pitch);
+    color: var(--brand);
+}
+
+.theme-lapangan .catalog-cat,
+.theme-lapangan .eyebrow {
+    color: var(--lap-green);
+}
+
+.theme-lapangan .price {
+    color: var(--ink);
+    font-family: var(--font-head);
+    font-weight: 900;
+}
+
+.theme-lapangan .step-num,
+.theme-lapangan .svc-num,
+.theme-lapangan .plan-check {
+    background: var(--lap-pitch) !important;
+    color: var(--brand) !important;
+}
+
+.theme-lapangan .step-num {
+    clip-path: polygon(0.6rem 0, 100% 0, calc(100% - 0.6rem) 100%, 0 100%);
+    @apply w-20;
+}
+
+.theme-lapangan .plan-hot {
+    border-color: var(--lap-pitch) !important;
+    box-shadow: 0 24px 40px -24px var(--lap-pitch);
+}
+
+.theme-lapangan figure > svg,
+.theme-lapangan details summary span,
+.theme-lapangan .card-check {
+    color: var(--lap-green) !important;
+}
+
+/* ---------- Cuci Mobil & Detailing: graphite gloss, aqua, before/after ---------- */
+.theme-cucimobil {
+    --font-body: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Exo 2', ui-sans-serif, system-ui, sans-serif;
+    --radius: 0.75rem;
+    --surface: #ffffff;
+    --surface-alt: #f0f4f7;
+    --line: #dfe6ec;
+    --ink: #0e1116;
+    --muted: #4b5563;
+    --cuci-deep: color-mix(in oklab, var(--brand) 50%, #0e1116);
+}
+
+.theme-cucimobil h1,
+.theme-cucimobil h2,
+.theme-cucimobil .sec-title {
+    font-style: italic;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+}
+
+.theme-cucimobil .cuci-bar {
+    background: rgb(10 13 17 / 0.94);
+    box-shadow: 0 1px 0 color-mix(in oklab, var(--brand) 45%, transparent);
+    backdrop-filter: blur(10px);
+}
+
+.theme-cucimobil .cuci-bar nav .nav-link {
+    color: rgb(255 255 255 / 0.72);
+}
+
+.theme-cucimobil .cuci-bar nav .nav-link[aria-current='page'],
+.theme-cucimobil .cuci-bar nav .nav-link:hover {
+    color: var(--brand);
+}
+
+.theme-cucimobil .nav-link[aria-current='page'],
+.theme-cucimobil .nav-link:hover {
+    color: var(--cuci-deep);
+}
+
+.theme-cucimobil .cuci-hero {
+    background:
+        radial-gradient(
+            50% 70% at 75% 40%,
+            color-mix(in oklab, var(--brand) 20%, #0e1116),
+            transparent
+        ),
+        linear-gradient(160deg, #171c24, #07090c);
+}
+
+.theme-cucimobil .cuci-streaks {
+    background:
+        linear-gradient(
+            115deg,
+            transparent 38%,
+            rgb(255 255 255 / 0.06) 44%,
+            transparent 50%
+        ),
+        linear-gradient(
+            115deg,
+            transparent 56%,
+            rgb(255 255 255 / 0.04) 59%,
+            transparent 62%
+        );
+}
+
+.theme-cucimobil .cuci-bubble {
+    position: absolute;
+    border: 1.5px solid rgb(255 255 255 / 0.22);
+    border-radius: 999px;
+    background:
+        radial-gradient(
+            circle at 30% 28%,
+            rgb(255 255 255 / 0.35),
+            transparent 38%
+        ),
+        color-mix(in oklab, var(--brand) 8%, transparent);
+}
+
+.theme-cucimobil .cuci-bubble-1 {
+    display: none;
+    top: 10%;
+    left: 44%;
+    width: 4.5rem;
+    height: 4.5rem;
+}
+
+@media (min-width: 1024px) {
+    .theme-cucimobil .cuci-bubble-1 {
+        display: block;
+    }
+}
+
+.theme-cucimobil .cuci-bubble-2 {
+    bottom: 12%;
+    left: 4%;
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.theme-cucimobil .cuci-bubble-3 {
+    top: -2.5rem;
+    right: -2rem;
+    width: 9rem;
+    height: 9rem;
+}
+
+.theme-cucimobil .cuci-chip {
+    display: inline-flex;
+    border: 1px solid color-mix(in oklab, var(--brand) 50%, transparent);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--brand) 12%, transparent);
+    color: var(--brand);
+    @apply px-3.5 py-1.5 text-xs font-bold tracking-widest uppercase;
+}
+
+.theme-cucimobil .hero-title em {
+    padding-right: 0.08em;
+    color: var(--brand);
+    background: linear-gradient(
+        90deg,
+        var(--brand),
+        color-mix(in oklab, var(--brand) 45%, white)
+    );
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.theme-cucimobil .cuci-ghost {
+    background: transparent;
+    color: #fff;
+    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.35);
+}
+
+.theme-cucimobil .cuci-ghost:hover {
+    background: rgb(255 255 255 / 0.08);
+}
+
+.theme-cucimobil .cuci-size {
+    border: 1px solid rgb(255 255 255 / 0.18);
+    border-radius: 999px;
+    @apply px-3 py-1;
+}
+
+.theme-cucimobil .cuci-compare {
+    overflow: hidden;
+    border-radius: 1.25rem;
+    box-shadow:
+        0 0 0 1px rgb(255 255 255 / 0.1),
+        0 40px 80px -30px color-mix(in oklab, var(--brand) 55%, transparent);
+}
+
+.theme-cucimobil .cuci-before {
+    clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.theme-cucimobil .cuci-before img {
+    filter: grayscale(0.5) sepia(0.55) brightness(0.68) contrast(0.82);
+}
+
+.theme-cucimobil .cuci-before::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(rgb(160 130 90 / 0.45) 1.3px, transparent 1.8px),
+        radial-gradient(rgb(160 130 90 / 0.3) 2.2px, transparent 2.8px);
+    background-position:
+        0 0,
+        11px 7px;
+    background-size:
+        23px 19px,
+        41px 37px;
+}
+
+.theme-cucimobil .cuci-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 3px;
+    background: #fff;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.theme-cucimobil .cuci-handle::after {
+    content: '‹ ›';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #fff;
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--on-brand);
+    font-weight: 800;
+    transform: translate(-50%, -50%);
+}
+
+.theme-cucimobil
+    .cuci-compare:has(.cuci-range:focus-visible)
+    .cuci-handle::after {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+.theme-cucimobil .cuci-label {
+    position: absolute;
+    top: 0.75rem;
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.6);
+    color: #fff;
+    pointer-events: none;
+    @apply px-3 py-1 text-xs font-bold tracking-wider uppercase;
+}
+
+.theme-cucimobil .cuci-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: ew-resize;
+    opacity: 0;
+}
+
+.theme-cucimobil .btn {
+    @apply font-bold;
+}
+
+.theme-cucimobil .btn:not(.btn-light, .btn-outline, .cuci-ghost):hover {
+    background: color-mix(in oklab, var(--brand) 82%, white);
+}
+
+.theme-cucimobil .card {
+    border-color: var(--line);
+}
+
+.theme-cucimobil .card-media {
+    transition: box-shadow 0.25s;
+}
+
+.theme-cucimobil .card-media:hover {
+    box-shadow: 0 24px 40px -24px color-mix(in oklab, var(--brand) 70%, black);
+}
+
+.theme-cucimobil .price,
+.theme-cucimobil .eyebrow,
+.theme-cucimobil .catalog-cat {
+    color: var(--cuci-deep);
+}
+
+.theme-cucimobil .price {
+    font-family: var(--font-head);
+    font-style: italic;
+}
+
+.theme-cucimobil .catalog-badge,
+.theme-cucimobil .plan-badge,
+.theme-cucimobil .plan-check,
+.theme-cucimobil .step-num,
+.theme-cucimobil .svc-num {
+    background: #0e1116 !important;
+    color: var(--brand) !important;
+}
+
+.theme-cucimobil .step-num {
+    border-radius: 999px;
+    font-style: italic;
+}
+
+.theme-cucimobil .plan-card .price-info {
+    background: var(--surface-alt);
+    color: var(--ink);
+}
+
+.theme-cucimobil .plan-hot {
+    border-color: #0e1116 !important;
+    background: #0e1116;
+    color: #fff;
+}
+
+.theme-cucimobil .plan-hot .muted {
+    color: rgb(255 255 255 / 0.6);
+}
+
+.theme-cucimobil .plan-hot .price {
+    color: var(--brand);
+}
+
+.theme-cucimobil .plan-hot .price-info {
+    background: rgb(255 255 255 / 0.08);
+    color: #fff;
+}
+
+.theme-cucimobil .plan-hot .plan-badge,
+.theme-cucimobil .plan-hot .plan-check {
+    background: var(--brand) !important;
+    color: var(--on-brand) !important;
+}
+
+.theme-cucimobil figure > svg,
+.theme-cucimobil details summary span,
+.theme-cucimobil .card-check {
+    color: var(--cuci-deep) !important;
+}
+
+.theme-cucimobil .cuci-card {
+    border-radius: 1.5rem;
+    background:
+        radial-gradient(
+            60% 90% at 90% 10%,
+            color-mix(in oklab, var(--brand) 26%, #0e1116),
+            transparent
+        ),
+        #0e1116;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+
+.theme-cucimobil .cuci-stamp {
+    display: flex;
+    aspect-ratio: 1;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed rgb(255 255 255 / 0.28);
+    border-radius: 999px;
+    color: rgb(255 255 255 / 0.45);
+    font-family: var(--font-head);
+    @apply text-sm font-bold;
+}
+
+.theme-cucimobil .cuci-stamp-on {
+    border: 2px solid var(--brand);
+    background: var(--brand);
+    color: var(--on-brand);
+    transform: rotate(-10deg);
+    @apply text-xl;
+}
+
+.theme-cucimobil .cuci-stamp-free {
+    border: 2px solid #facc15;
+    color: #facc15;
+    @apply text-[10px] tracking-wider;
+}
+
+/* ---------- Interior & Furniture: linen, olive and brass, serif ---------- */
+.theme-interior {
+    --font-body: 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --font-head: 'Marcellus', Georgia, serif;
+    --radius: 0;
+    --surface: #faf8f4;
+    --surface-alt: #f1ece3;
+    --line: #e2dacb;
+    --ink: #2b2a24;
+    --muted: #625d52;
+    --int-brass: #b08d57;
+}
+
+.theme-interior h1,
+.theme-interior h2,
+.theme-interior .sec-title {
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.theme-interior .sec-title {
+    @apply text-3xl sm:text-5xl;
+}
+
+.theme-interior .sec-head .sec-title::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 1px;
+    margin: 1.25rem auto 0;
+    background: var(--int-brass);
+}
+
+.theme-interior .interior-bar {
+    background: rgb(250 248 244 / 0.94);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.theme-interior .interior-nav {
+    color: color-mix(in oklab, var(--ink) 72%, transparent);
+    @apply text-xs font-semibold tracking-[0.16em] uppercase;
+}
+
+.theme-interior .nav-link[aria-current='page'],
+.theme-interior .nav-link:hover {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--int-brass);
+    text-underline-offset: 0.5rem;
+}
+
+.theme-interior .interior-hero {
+    background: linear-gradient(180deg, var(--surface-alt), var(--surface));
+}
+
+.theme-interior .interior-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--brand);
+    @apply text-xs font-semibold tracking-[0.22em] uppercase;
+}
+
+.theme-interior .interior-kicker::before {
+    content: '';
+    width: 2.5rem;
+    height: 1px;
+    flex-shrink: 0;
+    background: var(--int-brass);
+}
+
+.theme-interior .hero-title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.theme-interior .interior-frame {
+    position: absolute;
+    top: 1.5rem;
+    right: -0.75rem;
+    bottom: 3.5rem;
+    left: 1.5rem;
+    border: 1px solid var(--int-brass);
+}
+
+@media (min-width: 640px) {
+    .theme-interior .interior-frame {
+        top: 2rem;
+        right: -2rem;
+        left: 2rem;
+    }
+}
+
+.theme-interior .interior-note {
+    width: 15rem;
+    background: var(--brand);
+    color: var(--on-brand);
+    box-shadow: 0 25px 45px -25px rgb(43 42 36 / 0.6);
+    @apply p-5;
+}
+
+.theme-interior .interior-swatch {
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 999px;
+    box-shadow:
+        inset 0 0 0 1px rgb(0 0 0 / 0.12),
+        0 0 0 3px #fff;
+}
+
+.theme-interior .btn {
+    @apply text-sm font-semibold tracking-[0.12em] uppercase;
+}
+
+.theme-interior .btn-outline {
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ink) 40%, transparent);
+}
+
+.theme-interior .btn-outline:hover {
+    background: var(--ink);
+    color: var(--surface);
+    box-shadow: none;
+}
+
+.theme-interior .card {
+    border-color: var(--line);
+    background: #fff;
+}
+
+.theme-interior .card h3 {
+    font-family: var(--font-head);
+    font-weight: 400;
+}
+
+.theme-interior .svc-num {
+    border: 1px solid var(--int-brass);
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: #7d6136 !important;
+    font-family: var(--font-head);
+    font-weight: 400 !important;
+}
+
+.theme-interior .step {
+    border-top: 1px solid color-mix(in oklab, var(--ink) 25%, transparent);
+    @apply pt-6;
+}
+
+.theme-interior .step-num {
+    width: auto;
+    height: auto;
+    justify-content: flex-start;
+    background: none;
+    color: var(--int-brass);
+    font-weight: 400 !important;
+    @apply mb-3 text-5xl;
+}
+
+.theme-interior .step-num::before {
+    content: '0';
+}
+
+.theme-interior .price {
+    color: var(--brand);
+    font-family: var(--font-head);
+    font-weight: 400 !important;
+}
+
+.theme-interior .price-dots {
+    border-bottom-color: var(--int-brass);
+    opacity: 0.6;
+}
+
+.theme-interior blockquote {
+    font-family: var(--font-head);
+    @apply text-xl;
+}
+
+.theme-interior .interior-caption {
+    color: var(--muted);
+    @apply text-xs font-semibold tracking-[0.14em] uppercase;
+}
+
+.theme-interior .interior-count {
+    color: var(--muted);
+    font-family: var(--font-head);
+}
+
+.theme-interior figure > svg {
+    color: var(--int-brass) !important;
+}
+
+.theme-lapangan .price-row h3,
+.theme-lapangan .card h3 {
+    font-size: 1.4rem;
+    letter-spacing: 0.01em;
+}
